@@ -1,8 +1,10 @@
 <div id="menuDiv">
     <a routerLink="/">
-        <img src="assets/home-icon.svg" alt="Home button">
+        <img *ngIf="!router.isActive('/', false)" src="assets/unselected-home-icon.svg" alt="Home button">
+        <img *ngIf="router.isActive('/', false)" src="assets/selected-home-icon.svg" alt="Home button">
     </a>
-    <a routerLink="chart1">
-        <img src="assets/chart-icon.png" alt="Chart 1 button">
+    <a routerLink="/chart1">
+        <img *ngIf="!router.isActive('/chart1', false)" src="assets/unselected-chart-icon.png" alt="Chart 1 button">
+        <img *ngIf="router.isActive('/chart1', false)" src="assets/selected-chart-icon.png" alt="Chart 1 button">
     </a>
 </div>
