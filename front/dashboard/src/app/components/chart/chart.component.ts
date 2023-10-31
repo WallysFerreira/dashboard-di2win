@@ -6,11 +6,12 @@ import { Chart } from 'chart.js';
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.css']
 })
+
 export class ChartComponent {
   public chart: any
 
   createChart(): void {
-    new Chart('chartDiv', {
+    this.chart = new Chart('chartDiv', {
       type: 'bar',
       data: {
         labels: ['Red', 'Blue'],
@@ -28,5 +29,9 @@ export class ChartComponent {
         }
       }
     })
+  }
+
+  ngOnInit(): void {
+    this.createChart()
   }
 }
