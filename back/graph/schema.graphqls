@@ -2,27 +2,17 @@
 #
 # https://gqlgen.com/getting-started/
 
-type Todo {
-  id: ID!
-  text: String!
-  done: Boolean!
-  user: User!
+type Contagem {
+  count: Int!
 }
 
 type User {
   id: ID!
-  name: String!
+  name: String
+  segment: String
 }
 
 type Query {
-  todos: [Todo!]!
-}
-
-input NewTodo {
-  text: String!
-  userId: String!
-}
-
-type Mutation {
-  createTodo(input: NewTodo!): Todo!
+  extract(user_id: Int, tipo_documento: Int, data_comeco: String, data_final: String): Contagem!
+  user(id: Int, segment: String): [User!]! 
 }
