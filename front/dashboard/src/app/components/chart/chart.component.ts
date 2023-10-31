@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Chart } from 'chart.js';
+import { Chart, registerables } from 'chart.js';
 
 @Component({
   selector: 'app-chart',
@@ -35,3 +35,5 @@ export class ChartComponent {
     this.createChart()
   }
 }
+
+Chart.register(...registerables)
