@@ -6,6 +6,13 @@ type Contagem {
   count: Int!
 }
 
+type User {
+  id: ID!
+  name: String
+  segment: String
+}
+
 type Query {
   extract(user_id: Int, tipo_documento: Int, data_comeco: String, data_final: String): Contagem!
+  user(id: Int, segment: String): [User!]! 
 }

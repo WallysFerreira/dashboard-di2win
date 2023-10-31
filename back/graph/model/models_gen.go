@@ -5,3 +5,9 @@ package model
 type Contagem struct {
 	Count int `json:"count"`
 }
+
+type User struct {
+	ID      string  `json:"id"`
+	Name    *string `json:"name,omitempty"`
+	Segment *string `json:"segment,omitempty"`
+}

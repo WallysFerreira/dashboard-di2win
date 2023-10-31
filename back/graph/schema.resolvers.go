@@ -15,6 +15,11 @@ func (r *queryResolver) Extract(ctx context.Context, userID *int, tipoDocumento 
 	panic(fmt.Errorf("not implemented: Extract - extract"))
 }
 
+// User is the resolver for the user field.
+func (r *queryResolver) User(ctx context.Context, id *int, segment *string) ([]*model.User, error) {
+	panic(fmt.Errorf("not implemented: User - user"))
+}
+
 // Query returns QueryResolver implementation.
 func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
 
