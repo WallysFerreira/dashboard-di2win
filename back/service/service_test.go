@@ -27,4 +27,39 @@ func TestUser(t *testing.T) {
 			t.Error("Should've failed but didn't")
 		}
 	})
+
+	t.Run("find all users", func(t *testing.T) {
+		expected := []User{
+			{
+				id:      1,
+				name:    "Rômulo",
+				segment: "construtora",
+			},
+			{
+				id:      2,
+				name:    "Madeira",
+				segment: "banco",
+			},
+			{
+				id:      3,
+				name:    "Caio",
+				segment: "imobiliaria",
+			},
+			{
+				id:      4,
+				name:    "Augusto",
+				segment: "banco",
+			},
+			{
+				id:      5,
+				name:    "Inoa",
+				segment: "financeira",
+			},
+		}
+		got := rep.findUsers()
+
+		if expected != got {
+			t.Errorf("Expected %v, got %v", expected, got)
+		}
+	})
 }
