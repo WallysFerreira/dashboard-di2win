@@ -3,7 +3,9 @@ package service
 import "testing"
 
 func TestUser(t *testing.T) {
-	rep := RepositorioPostgre{}
+	rep := RepositorioPostgre{
+		connStr: "user=postgres dbname=database sslmode=disable",
+	}
 
 	t.Run("find one user", func(t *testing.T) {
 		expected := User{id: 3, name: "Caio", segment: "imobiliaria"}
