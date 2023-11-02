@@ -2,6 +2,7 @@ package service
 
 import (
 	"database/sql"
+	"errors"
 	"log"
 
 	_ "github.com/lib/pq"
@@ -29,6 +30,10 @@ func (rp *RepositorioPostgre) findUser(id int) (User, error) {
 
 	for rows.Next() {
 		rows.Scan(&user.id, &user.name, &user.segment)
+	}
+
+	if user.id == 0 {
+		return User{}, errors.New("could not find user")
 	}
 
 	return user, nil
