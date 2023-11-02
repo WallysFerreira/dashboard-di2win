@@ -6,4 +6,5 @@ type Repositorio interface {
 }
 
 type RepositorioPostgre struct {
+	connStr string
 }
