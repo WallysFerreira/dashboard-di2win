@@ -9,7 +9,11 @@ func TestUser(t *testing.T) {
 
 	t.Run("find one user", func(t *testing.T) {
 		expected := User{id: 3, name: "Caio", segment: "imobiliaria"}
-		got := rep.findUser(3)
+		got, err := rep.findUser(3)
+
+		if err != nil {
+			t.Errorf(err.Error())
+		}
 
 		if expected != got {
 			t.Errorf("Expected %v, got %v", expected, got)
@@ -19,7 +23,7 @@ func TestUser(t *testing.T) {
 	t.Run("could not find one user", func(t *testing.T) {
 		_, err := rep.findUser(10)
 
-		if err != nil {
+		if err == nil {
 			t.Error("Should've failed but didn't")
 		}
 	})
