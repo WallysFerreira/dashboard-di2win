@@ -65,4 +65,25 @@ func TestUser(t *testing.T) {
 			t.Errorf("Expected %v, got %v", expected, got)
 		}
 	})
+
+	t.Run("find all users using filter", func(t *testing.T) {
+		expected := []User{
+			{
+				id:      4,
+				name:    "Augusto",
+				segment: "banco",
+			},
+			{
+				id:      2,
+				name:    "Madeira",
+				segment: "banco",
+			},
+		}
+
+		got := rep.findUsers("banco")
+
+		if !reflect.DeepEqual(expected, got) {
+			t.Errorf("Expected %v, got %v", expected, got)
+		}
+	})
 }
