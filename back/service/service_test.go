@@ -15,4 +15,12 @@ func TestUser(t *testing.T) {
 			t.Errorf("Expected %v, got %v", expected, got)
 		}
 	})
+
+	t.Run("could not find one user", func(t *testing.T) {
+		_, err := rep.findUser(10)
+
+		if err != nil {
+			t.Error("Should've failed but didn't")
+		}
+	})
 }
