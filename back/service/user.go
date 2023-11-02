@@ -5,3 +5,7 @@ type User struct {
 	name    string
 	segment string
 }
+
+func (rp *RepositorioPostgre) findUser(id int) User {
+	return User{}
+}
