@@ -1,6 +1,9 @@
 package service
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 func TestUser(t *testing.T) {
 	rep := RepositorioPostgre{
@@ -56,9 +59,9 @@ func TestUser(t *testing.T) {
 				segment: "financeira",
 			},
 		}
-		got := rep.findUsers()
+		got := rep.findUsers("")
 
-		if expected != got {
+		if !reflect.DeepEqual(expected, got) {
 			t.Errorf("Expected %v, got %v", expected, got)
 		}
 	})
