@@ -3,6 +3,7 @@ package service
 import (
 	"database/sql"
 	"errors"
+	"fmt"
 	"log"
 
 	_ "github.com/lib/pq"
@@ -37,4 +38,34 @@ func (rp *RepositorioPostgre) findUser(id int) (User, error) {
 	}
 
 	return user, nil
+}
+
+func (rp *RepositorioPostgre) findUsers(segment string) []User {
+	filter := ""
+	var result []User
+
+	db, err := sql.Open("postgres", rp.connStr)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	if segment != "" {
+		filter = fmt.Sprintf("WHERE segment = %s", segment)
+	}
+
+	rows, err := db.Query(fmt.Sprintf("SELECT * FROM users %s", filter))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for rows.Next() {
+		user := User{}
+
+		rows.Scan(&user.id, &user.name, &user.segment)
+
+		result = append(result, user)
+	}
+
+	return result
 }
