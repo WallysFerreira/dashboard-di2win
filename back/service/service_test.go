@@ -8,7 +8,7 @@ import (
 
 func TestUser(t *testing.T) {
 	rep := RepositorioPostgre{
-		connStr: "user=postgres dbname=database sslmode=disable",
+		ConnStr: "user=postgres dbname=database sslmode=disable",
 	}
 
 	t.Run("find one user", func(t *testing.T) {
@@ -91,7 +91,7 @@ func TestUser(t *testing.T) {
 
 func TestExtracts(t *testing.T) {
 	rep := RepositorioPostgre{
-		connStr: "user=postgres dbname=database sslmode=disable",
+		ConnStr: "user=postgres dbname=database sslmode=disable",
 	}
 
 	t.Run("find one extract", func(t *testing.T) {

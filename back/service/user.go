@@ -18,7 +18,7 @@ type User struct {
 func (rp *RepositorioPostgre) findUser(id int) (User, error) {
 	user := User{}
 
-	db, err := sql.Open("postgres", rp.connStr)
+	db, err := sql.Open("postgres", rp.ConnStr)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -44,7 +44,7 @@ func (rp *RepositorioPostgre) findUsers(segment string) []User {
 	filter := ""
 	var result []User
 
-	db, err := sql.Open("postgres", rp.connStr)
+	db, err := sql.Open("postgres", rp.ConnStr)
 	if err != nil {
 		log.Fatal(err)
 	}

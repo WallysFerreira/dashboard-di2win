@@ -20,7 +20,7 @@ func (rp *RepositorioPostgre) findExtract(id int) (Extract, error) {
 	found := Extract{}
 	var unparsed_date string
 
-	db, err := sql.Open("postgres", rp.connStr)
+	db, err := sql.Open("postgres", rp.ConnStr)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -53,7 +53,7 @@ func (rp *RepositorioPostgre) findExtracts(date_start time.Time, date_end time.T
 	year_start, month_start, day_start := date_start.Date()
 	year_end, month_end, day_end := date_end.Date()
 
-	db, err := sql.Open("postgres", rp.connStr)
+	db, err := sql.Open("postgres", rp.ConnStr)
 	if err != nil {
 		log.Fatal(err)
 	}
