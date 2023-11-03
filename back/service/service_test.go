@@ -120,4 +120,16 @@ func TestExtracts(t *testing.T) {
 			t.Error("Expected an error and didn't get one")
 		}
 	})
+
+	t.Run("find extracts using doc_type as filter", func(t *testing.T) {
+		filter := "COMPROVANTE_RESIDENCIA"
+
+		got := rep.findExtracts("", 0, filter, 0)
+
+		for _, value := range got {
+			if value.doc_type != filter {
+				t.Errorf("Expected all extracts to have %s as doc_type", filter)
+			}
+		}
+	})
 }
