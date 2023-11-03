@@ -126,6 +126,10 @@ func TestExtracts(t *testing.T) {
 
 		got := rep.findExtracts("", 0, filter, 0)
 
+		if len(got) == 0 {
+			t.Errorf("Did not expect an empty slice")
+		}
+
 		for _, value := range got {
 			if value.doc_type != filter {
 				t.Errorf("Expected all extracts to have %s as doc_type", filter)
