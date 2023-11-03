@@ -112,4 +112,12 @@ func TestExtracts(t *testing.T) {
 			t.Errorf("Expected %v, got %v", expected, got)
 		}
 	})
+
+	t.Run("could not find one extract", func(t *testing.T) {
+		_, err := rep.findExtract(2)
+
+		if err == nil {
+			t.Error("Expected an error and didn't get one")
+		}
+	})
 }
