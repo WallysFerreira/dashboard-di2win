@@ -49,6 +49,7 @@ func (rp *RepositorioPostgre) findExtract(id int) (Extract, error) {
 
 func (rp *RepositorioPostgre) findExtracts(created_at string, pages_processed int, doc_type string, user_id int) []Extract {
 	found_extracts := []Extract{}
+	filter := ""
 
 	db, err := sql.Open("postgres", rp.connStr)
 	if err != nil {
@@ -56,7 +57,17 @@ func (rp *RepositorioPostgre) findExtracts(created_at string, pages_processed in
 	}
 	defer db.Close()
 
-	rows, err := db.Query(fmt.Sprintf("SELECT * FROM extracts WHERE doc_type LIKE '%s'", doc_type))
+	if created_at != "" {
+		filter = fmt.Sprintf("WHERE created_at LIKE '%s'", created_at)
+	} else if pages_processed > 0 {
+		filter = fmt.Sprintf("WHERE pages_processed = %d", pages_processed)
+	} else if doc_type != "" {
+		filter = fmt.Sprintf("WHERE doc_type LIKE '%s'", doc_type)
+	} else if user_id > 0 {
+		filter = fmt.Sprintf("WHERE user_id =  %d", user_id)
+	}
+
+	rows, err := db.Query(fmt.Sprintf("SELECT * FROM extracts %s", filter))
 	if err != nil {
 		log.Fatal(err)
 	}
