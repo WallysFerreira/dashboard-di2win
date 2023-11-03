@@ -2,6 +2,7 @@ package service
 
 import (
 	"database/sql"
+	"errors"
 	"log"
 	"time"
 )
@@ -33,9 +34,13 @@ func (rp *RepositorioPostgre) findExtract(id int) (Extract, error) {
 		rows.Scan(&found.id, &unparsed_date, &found.pages_processed, &found.doc_type, &found.user_id)
 	}
 
-	found.created_at, err = time.Parse(time.RFC3339, unparsed_date)
-	if err != nil {
-		log.Fatal(err)
+	if found.id == 0 {
+		return found, errors.New("could not find extract")
+	} else {
+		found.created_at, err = time.Parse(time.RFC3339, unparsed_date)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	return found, nil
