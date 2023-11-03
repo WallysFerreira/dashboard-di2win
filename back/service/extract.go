@@ -3,6 +3,7 @@ package service
 import (
 	"database/sql"
 	"errors"
+	"fmt"
 	"log"
 	"time"
 )
@@ -44,4 +45,29 @@ func (rp *RepositorioPostgre) findExtract(id int) (Extract, error) {
 	}
 
 	return found, nil
+}
+
+func (rp *RepositorioPostgre) findExtracts(created_at string, pages_processed int, doc_type string, user_id int) []Extract {
+	found_extracts := []Extract{}
+
+	db, err := sql.Open("postgres", rp.connStr)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	rows, err := db.Query(fmt.Sprintf("SELECT * FROM extracts WHERE doc_type LIKE '%s'", doc_type))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for rows.Next() {
+		found_extract := Extract{}
+
+		rows.Scan(&found_extract.id, &found_extract.created_at, &found_extract.pages_processed, &found_extract.doc_type, &found_extract.user_id)
+
+		found_extracts = append(found_extracts, found_extract)
+	}
+
+	return found_extracts
 }
