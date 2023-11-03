@@ -103,7 +103,11 @@ func TestExtracts(t *testing.T) {
 			user_id:         2,
 		}
 
-		got := rep.findExtract(2)
+		got, err := rep.findExtract(2)
+
+		if err != nil {
+			t.Error("Got an error when it wasn't expected")
+		}
 
 		if expected != got {
 			t.Errorf("Expected %v, got %v", expected, got)
