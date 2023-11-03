@@ -3,6 +3,7 @@ package service
 import (
 	"reflect"
 	"testing"
+	"time"
 )
 
 func TestUser(t *testing.T) {
@@ -83,6 +84,28 @@ func TestUser(t *testing.T) {
 		got := rep.findUsers("banco")
 
 		if !reflect.DeepEqual(expected, got) {
+			t.Errorf("Expected %v, got %v", expected, got)
+		}
+	})
+}
+
+func TestExtracts(t *testing.T) {
+	rep := RepositorioPostgre{
+		connStr: "user=postgres dbname=database sslmode=disable",
+	}
+
+	t.Run("find one extract", func(t *testing.T) {
+		expected := Extract{
+			id:              4012,
+			created_at:      time.Date(2023, 7, 17, 17, 50, 52, 0, time.Local),
+			pages_processed: 1,
+			doc_type:        "CNH",
+			user_id:         2,
+		}
+
+		got := rep.findExtract(2)
+
+		if expected != got {
 			t.Errorf("Expected %v, got %v", expected, got)
 		}
 	})
