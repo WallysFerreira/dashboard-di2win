@@ -97,7 +97,7 @@ func TestExtracts(t *testing.T) {
 	t.Run("find one extract", func(t *testing.T) {
 		expected := Extract{
 			id:              4012,
-			created_at:      time.Date(2023, 7, 17, 17, 50, 52, 0, time.Local),
+			created_at:      time.Date(2023, 7, 17, 17, 50, 52, 363000000, time.UTC),
 			pages_processed: 1,
 			doc_type:        "CNH",
 			user_id:         2,
