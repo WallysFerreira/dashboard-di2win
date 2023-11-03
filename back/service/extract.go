@@ -16,7 +16,7 @@ type Extract struct {
 	user_id         int
 }
 
-func (rp *RepositorioPostgre) findExtract(id int) (Extract, error) {
+func (rp RepositorioPostgre) findExtract(id int) (Extract, error) {
 	found := Extract{}
 	var unparsed_date string
 
@@ -47,7 +47,7 @@ func (rp *RepositorioPostgre) findExtract(id int) (Extract, error) {
 	return found, nil
 }
 
-func (rp *RepositorioPostgre) findExtracts(date_start time.Time, date_end time.Time, pages_processed int, doc_type string, user_id int) []Extract {
+func (rp RepositorioPostgre) findExtracts(date_start time.Time, date_end time.Time, pages_processed int, doc_type string, user_id int) []Extract {
 	found_extracts := []Extract{}
 	filter := ""
 	year_start, month_start, day_start := date_start.Date()
