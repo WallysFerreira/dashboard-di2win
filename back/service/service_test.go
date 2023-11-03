@@ -184,4 +184,17 @@ func TestExtracts(t *testing.T) {
 			}
 		}
 	})
+
+	t.Run("find extracts using only end date", func(t *testing.T) {
+		date_end := time.Date(2023, 7, 17, 10, 0, 0, 0, time.UTC)
+
+		got := rep.findExtracts(time.Time{}, date_end, 0, "", 0)
+
+		for _, value := range got {
+			if value.created_at.Compare(date_end) == 1 {
+				t.Errorf("Expected all extracts to be created before %v", date_end)
+				break
+			}
+		}
+	})
 }
