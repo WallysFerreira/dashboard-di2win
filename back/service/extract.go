@@ -47,9 +47,11 @@ func (rp *RepositorioPostgre) findExtract(id int) (Extract, error) {
 	return found, nil
 }
 
-func (rp *RepositorioPostgre) findExtracts(created_at string, pages_processed int, doc_type string, user_id int) []Extract {
+func (rp *RepositorioPostgre) findExtracts(date_start time.Time, date_end time.Time, pages_processed int, doc_type string, user_id int) []Extract {
 	found_extracts := []Extract{}
 	filter := ""
+	year_start, month_start, day_start := date_start.Date()
+	year_end, month_end, day_end := date_end.Date()
 
 	db, err := sql.Open("postgres", rp.connStr)
 	if err != nil {
@@ -57,8 +59,11 @@ func (rp *RepositorioPostgre) findExtracts(created_at string, pages_processed in
 	}
 	defer db.Close()
 
-	if created_at != "" {
-		filter = fmt.Sprintf("WHERE created_at LIKE '%s'", created_at)
+	if !date_start.IsZero() && !date_end.IsZero() {
+		start_filter := fmt.Sprintf("%d-%d-%d", year_start, month_start, day_start)
+		end_filter := fmt.Sprintf("%d-%d-%d", year_end, month_end, day_end)
+
+		filter = fmt.Sprintf("WHERE created_at > '%s' AND created_at < '%s'", start_filter, end_filter)
 	} else if pages_processed > 0 {
 		filter = fmt.Sprintf("WHERE pages_processed = %d", pages_processed)
 	} else if doc_type != "" {
