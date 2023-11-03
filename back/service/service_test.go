@@ -124,7 +124,7 @@ func TestExtracts(t *testing.T) {
 	t.Run("find extracts using doc_type as filter", func(t *testing.T) {
 		filter := "COMPROVANTE_RESIDENCIA"
 
-		got := rep.findExtracts("", 0, filter, 0)
+		got := rep.findExtracts(time.Time{}, time.Time{}, 0, filter, 0)
 
 		if len(got) == 0 {
 			t.Errorf("Did not expect an empty slice")
@@ -140,7 +140,7 @@ func TestExtracts(t *testing.T) {
 	t.Run("find extracts using user_id as filter", func(t *testing.T) {
 		filter := 1
 
-		got := rep.findExtracts("", 0, "", filter)
+		got := rep.findExtracts(time.Time{}, time.Time{}, 0, "", filter)
 
 		if len(got) == 0 {
 			t.Errorf("Did not expect an empty slice")
@@ -148,7 +148,26 @@ func TestExtracts(t *testing.T) {
 
 		for _, value := range got {
 			if value.user_id != filter {
-				t.Errorf("Expected all extracts to have %d as doc_type", filter)
+				t.Errorf("Expected all extracts to have %d as user_id", filter)
+			}
+		}
+	})
+
+	t.Run("find extracts using dates as filter", func(t *testing.T) {
+		date_start := time.Date(2023, 3, 1, 10, 0, 0, 0, time.UTC)
+		date_end := time.Date(2023, 7, 17, 10, 0, 0, 0, time.UTC)
+
+		got := rep.findExtracts(date_start, date_end, 0, "", 0)
+
+		for _, value := range got {
+			if value.created_at.Compare(date_start) == -1 {
+				t.Errorf("Expected all extracts to be created after %v", date_start)
+				break
+			}
+
+			if value.created_at.Compare(date_end) == 1 {
+				t.Errorf("Expected all extracts to be created before %v", date_end)
+				break
 			}
 		}
 	})
