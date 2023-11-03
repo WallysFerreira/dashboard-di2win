@@ -7,5 +7,5 @@ type Extract struct {
 	created_at      time.Time
 	pages_processed int
 	doc_type        string
-	user            User
+	user_id         int
 }
