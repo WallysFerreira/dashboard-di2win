@@ -64,6 +64,10 @@ func (rp *RepositorioPostgre) findExtracts(date_start time.Time, date_end time.T
 		end_filter := fmt.Sprintf("%d-%d-%d", year_end, month_end, day_end)
 
 		filter = fmt.Sprintf("WHERE created_at > '%s' AND created_at < '%s'", start_filter, end_filter)
+	} else if !date_start.IsZero() {
+		start_filter := fmt.Sprintf("%d-%d-%d", year_start, month_start, day_start)
+
+		filter = fmt.Sprintf("WHERE created_at > '%s'", start_filter)
 	} else if pages_processed > 0 {
 		filter = fmt.Sprintf("WHERE pages_processed = %d", pages_processed)
 	} else if doc_type != "" {
