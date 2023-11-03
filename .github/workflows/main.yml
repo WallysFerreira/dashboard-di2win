@@ -9,7 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.1
-      - run: cd back
-      - run: go test ./service
-      - run: go test ./graph
+      - run: |
+          cd back
+          go test ./service
+          go test ./graph
     
