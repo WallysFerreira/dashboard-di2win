@@ -171,4 +171,17 @@ func TestExtracts(t *testing.T) {
 			}
 		}
 	})
+
+	t.Run("find extracts using only start date", func(t *testing.T) {
+		date_start := time.Date(2023, 10, 1, 10, 0, 0, 0, time.UTC)
+
+		got := rep.findExtracts(date_start, time.Time{}, 0, "", 0)
+
+		for _, value := range got {
+			if value.created_at.Compare(date_start) == -1 {
+				t.Errorf("Expected all extracts to be created after %v", date_start)
+				break
+			}
+		}
+	})
 }
