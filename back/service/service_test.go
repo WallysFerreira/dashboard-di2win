@@ -136,4 +136,20 @@ func TestExtracts(t *testing.T) {
 			}
 		}
 	})
+
+	t.Run("find extracts using user_id as filter", func(t *testing.T) {
+		filter := 1
+
+		got := rep.findExtracts("", 0, "", filter)
+
+		if len(got) == 0 {
+			t.Errorf("Did not expect an empty slice")
+		}
+
+		for _, value := range got {
+			if value.user_id != filter {
+				t.Errorf("Expected all extracts to have %d as doc_type", filter)
+			}
+		}
+	})
 }
