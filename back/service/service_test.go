@@ -213,7 +213,7 @@ func TestFilter(t *testing.T) {
 		}
 	})
 
-	t.Run("generate filter with date", func(t *testing.T) {
+	t.Run("generate filter with 2 dates", func(t *testing.T) {
 		filtro := FiltroExtract{}
 		filtro.DataStart = time.Date(2023, 10, 1, 0, 0, 0, 0, time.UTC)
 		filtro.DataEnd = time.Date(2023, 10, 23, 0, 0, 0, 0, time.UTC)
