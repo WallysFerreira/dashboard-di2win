@@ -47,11 +47,9 @@ func (rp RepositorioPostgre) findExtract(id int) (Extract, error) {
 	return found, nil
 }
 
-func (rp RepositorioPostgre) findExtracts(date_start time.Time, date_end time.Time, pages_processed int, doc_type string, user_id int) []Extract {
+func (rp RepositorioPostgre) findExtracts(filter Filtro) []Extract {
 	found_extracts := []Extract{}
-	filter := ""
-	year_start, month_start, day_start := date_start.Date()
-	year_end, month_end, day_end := date_end.Date()
+	filter_string := filter.gerarFiltro()
 
 	db, err := sql.Open("postgres", rp.ConnStr)
 	if err != nil {
@@ -59,28 +57,7 @@ func (rp RepositorioPostgre) findExtracts(date_start time.Time, date_end time.Ti
 	}
 	defer db.Close()
 
-	if !date_start.IsZero() && !date_end.IsZero() {
-		start_filter := fmt.Sprintf("%d-%d-%d", year_start, month_start, day_start)
-		end_filter := fmt.Sprintf("%d-%d-%d", year_end, month_end, day_end)
-
-		filter = fmt.Sprintf("WHERE created_at > '%s' AND created_at < '%s'", start_filter, end_filter)
-	} else if !date_start.IsZero() {
-		start_filter := fmt.Sprintf("%d-%d-%d", year_start, month_start, day_start)
-
-		filter = fmt.Sprintf("WHERE created_at > '%s'", start_filter)
-	} else if !date_end.IsZero() {
-		end_filter := fmt.Sprintf("%d-%d-%d", year_end, month_end, day_end)
-
-		filter = fmt.Sprintf("WHERE created_at < '%s'", end_filter)
-	} else if pages_processed > 0 {
-		filter = fmt.Sprintf("WHERE pages_processed = %d", pages_processed)
-	} else if doc_type != "" {
-		filter = fmt.Sprintf("WHERE doc_type LIKE '%s'", doc_type)
-	} else if user_id > 0 {
-		filter = fmt.Sprintf("WHERE user_id =  %d", user_id)
-	}
-
-	rows, err := db.Query(fmt.Sprintf("SELECT * FROM extracts %s", filter))
+	rows, err := db.Query(fmt.Sprintf("SELECT * FROM extracts %s", filter_string))
 	if err != nil {
 		log.Fatal(err)
 	}
