@@ -210,7 +210,7 @@ func TestFilter(t *testing.T) {
 		got := filtro.gerarFiltro()
 
 		if expected != got {
-			t.Errorf("Expected %s, got %s", expected, got)
+			t.Errorf("Expected '%s', got '%s'", expected, got)
 		}
 	})
 }
