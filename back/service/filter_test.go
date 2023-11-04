@@ -6,6 +6,17 @@ import (
 )
 
 func TestFilter(t *testing.T) {
+	t.Run("generate empty filter", func(t *testing.T) {
+		filtro := FiltroExtract{}
+
+		expected := ""
+
+		got := filtro.gerarFiltro()
+
+		if expected != got {
+			t.Errorf("Expected '%s', got '%s'", expected, got)
+		}
+	})
 	t.Run("generate filter with int", func(t *testing.T) {
 		filtro := FiltroExtract{}
 		filtro.UserId = 8
