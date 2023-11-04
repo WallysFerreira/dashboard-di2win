@@ -198,3 +198,19 @@ func TestExtracts(t *testing.T) {
 		}
 	})
 }
+
+func TestFilter(t *testing.T) {
+	filtro := FiltroExtract{}
+
+	t.Run("generate filter with 1 option", func(t *testing.T) {
+		filtro.UserId = 8
+
+		expected := "WHERE user_id = 8"
+
+		got := filtro.gerarFiltro()
+
+		if expected != got {
+			t.Errorf("Expected %s, got %s", expected, got)
+		}
+	})
+}
