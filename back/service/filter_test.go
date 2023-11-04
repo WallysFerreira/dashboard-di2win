@@ -45,4 +45,17 @@ func TestFilter(t *testing.T) {
 			t.Errorf("Expected '%s', got '%s'", expected, got)
 		}
 	})
+
+	t.Run("generate filter with string", func(t *testing.T) {
+		filtro := FiltroExtract{}
+		filtro.DocType = "CNH"
+
+		expected := "WHERE doc_type = 'CNH'"
+
+		got := filtro.gerarFiltro()
+
+		if expected != got {
+			t.Errorf("Expected '%s', got '%s'", expected, got)
+		}
+	})
 }
