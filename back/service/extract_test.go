@@ -38,33 +38,39 @@ func TestExtracts(t *testing.T) {
 	})
 
 	t.Run("find extracts using doc_type as filter", func(t *testing.T) {
-		filter := "COMPROVANTE_RESIDENCIA"
+		doc_type := "COMPROVANTE_RESIDENCIA"
+		filter := FiltroExtract{
+			DocType: doc_type,
+		}
 
-		got := rep.findExtracts(time.Time{}, time.Time{}, 0, filter, 0)
+		got := rep.findExtracts(filter)
 
 		if len(got) == 0 {
 			t.Errorf("Did not expect an empty slice")
 		}
 
 		for _, value := range got {
-			if value.doc_type != filter {
-				t.Errorf("Expected all extracts to have %s as doc_type", filter)
+			if value.doc_type != doc_type {
+				t.Errorf("Expected all extracts to have %s as doc_type", doc_type)
 			}
 		}
 	})
 
 	t.Run("find extracts using user_id as filter", func(t *testing.T) {
-		filter := 1
+		user_id := 1
+		filter := FiltroExtract{
+			UserId: user_id,
+		}
 
-		got := rep.findExtracts(time.Time{}, time.Time{}, 0, "", filter)
+		got := rep.findExtracts(filter)
 
 		if len(got) == 0 {
 			t.Errorf("Did not expect an empty slice")
 		}
 
 		for _, value := range got {
-			if value.user_id != filter {
-				t.Errorf("Expected all extracts to have %d as user_id", filter)
+			if value.user_id != user_id {
+				t.Errorf("Expected all extracts to have %d as user_id", user_id)
 			}
 		}
 	})
@@ -72,8 +78,12 @@ func TestExtracts(t *testing.T) {
 	t.Run("find extracts using dates as filter", func(t *testing.T) {
 		date_start := time.Date(2023, 3, 1, 10, 0, 0, 0, time.UTC)
 		date_end := time.Date(2023, 7, 17, 10, 0, 0, 0, time.UTC)
+		filter := FiltroExtract{
+			DataStart: date_start,
+			DataEnd:   date_end,
+		}
 
-		got := rep.findExtracts(date_start, date_end, 0, "", 0)
+		got := rep.findExtracts(filter)
 
 		for _, value := range got {
 			if value.created_at.Compare(date_start) == -1 {
@@ -90,8 +100,11 @@ func TestExtracts(t *testing.T) {
 
 	t.Run("find extracts using only start date", func(t *testing.T) {
 		date_start := time.Date(2023, 10, 1, 10, 0, 0, 0, time.UTC)
+		filter := FiltroExtract{
+			DataStart: date_start,
+		}
 
-		got := rep.findExtracts(date_start, time.Time{}, 0, "", 0)
+		got := rep.findExtracts(filter)
 
 		for _, value := range got {
 			if value.created_at.Compare(date_start) == -1 {
@@ -103,8 +116,11 @@ func TestExtracts(t *testing.T) {
 
 	t.Run("find extracts using only end date", func(t *testing.T) {
 		date_end := time.Date(2023, 7, 17, 10, 0, 0, 0, time.UTC)
+		filter := FiltroExtract{
+			DataEnd: date_end,
+		}
 
-		got := rep.findExtracts(time.Time{}, date_end, 0, "", 0)
+		got := rep.findExtracts(filter)
 
 		for _, value := range got {
 			if value.created_at.Compare(date_end) == 1 {
