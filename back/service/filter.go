@@ -63,6 +63,11 @@ func (fe FiltroExtract) gerarFiltro() string {
 		if field_type.Name() == "string" && field.String() != "" {
 			filter = checarContagem(filter_count, filter)
 
+			switch field_name {
+			case "DocType":
+				filter = fmt.Sprintf("%s doc_type = '%s'", filter, field.String())
+			}
+
 			filter_count++
 			filtered = true
 		}
