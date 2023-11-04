@@ -33,15 +33,12 @@ func (fe FiltroExtract) gerarFiltro() string {
 		}
 
 		if field_type.Name() == "Time" && !field.IsZero() {
-			fmt.Println("this field is setted")
 		}
 
 		if field_type.Name() == "int" && field.Int() > 0 {
-			fmt.Println("this field is setted")
 		}
 
 		if field_type.Name() == "string" && field.String() != "" {
-			fmt.Println("this field is setted")
 		}
 	}
 
