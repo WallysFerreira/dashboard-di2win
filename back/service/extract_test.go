@@ -129,4 +129,31 @@ func TestExtracts(t *testing.T) {
 			}
 		}
 	})
+
+	t.Run("find extracts with multiple filters", func(t *testing.T) {
+		data_start := time.Date(2023, 7, 17, 0, 0, 0, 0, time.UTC)
+		doc_type := "CAPA_SERASA"
+		pages_processed := 3
+		filter := FiltroExtract{
+			DataStart:      data_start,
+			DocType:        doc_type,
+			PagesProcessed: pages_processed,
+		}
+
+		got := rep.findExtracts(filter)
+
+		for _, value := range got {
+			if value.created_at.Compare(data_start) == -1 {
+				t.Errorf("Expected all extracts to be created after %v", data_start)
+			}
+
+			if value.doc_type != doc_type {
+				t.Errorf("Expected all extracts to have %s as doc_type", doc_type)
+			}
+
+			if value.pages_processed != pages_processed {
+				t.Errorf("Expected all extracts to have %d as pages_process", pages_processed)
+			}
+		}
+	})
 }
