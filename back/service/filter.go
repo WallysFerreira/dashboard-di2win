@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"reflect"
 	"time"
 )
@@ -18,21 +19,31 @@ type FiltroExtract struct {
 }
 
 func (fe FiltroExtract) gerarFiltro() string {
+	filter := ""
+	filter_count := 0
 	fe_reflected := reflect.ValueOf(fe)
 	fe_length := fe_reflected.NumField()
 
 	for i := 0; i < fe_length; i++ {
-		field_type := fe_reflected.Field(i).Type()
+		field := fe_reflected.Field(i)
+		field_type := field.Type()
 
-		if field_type.Name() == "Time" {
+		if filter_count > 0 {
+			filter = fmt.Sprintf("%s AND ", filter)
 		}
 
-		if field_type.Name() == "int" {
+		if field_type.Name() == "Time" && !field.IsZero() {
+			fmt.Println("this field is setted")
 		}
 
-		if field_type.Name() == "string" {
+		if field_type.Name() == "int" && field.Int() > 0 {
+			fmt.Println("this field is setted")
+		}
+
+		if field_type.Name() == "string" && field.String() != "" {
+			fmt.Println("this field is setted")
 		}
 	}
 
-	return ""
+	return filter
 }
