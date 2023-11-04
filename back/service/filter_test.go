@@ -17,6 +17,7 @@ func TestFilter(t *testing.T) {
 			t.Errorf("Expected '%s', got '%s'", expected, got)
 		}
 	})
+
 	t.Run("generate filter with int", func(t *testing.T) {
 		filtro := FiltroExtract{}
 		filtro.UserId = 8
@@ -64,6 +65,22 @@ func TestFilter(t *testing.T) {
 		expected := "WHERE doc_type = 'CNH'"
 
 		got := filtro.gerarFiltro()
+
+		if expected != got {
+			t.Errorf("Expected '%s', got '%s'", expected, got)
+		}
+	})
+
+	t.Run("generate filter with multiple fields", func(t *testing.T) {
+		filter := FiltroExtract{
+			DataStart: time.Date(2023, 7, 12, 0, 0, 0, 0, time.UTC),
+			UserId:    2,
+			DocType:   "FATURA_ENERGIA",
+		}
+
+		expected := "WHERE created_at > '2023-7-12' AND doc_type = 'FATURA_ENERGIA' AND user_id = 2"
+
+		got := filter.gerarFiltro()
 
 		if expected != got {
 			t.Errorf("Expected '%s', got '%s'", expected, got)
