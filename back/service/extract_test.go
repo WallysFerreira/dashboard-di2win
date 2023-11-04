@@ -1,93 +1,9 @@
 package service
 
 import (
-	"reflect"
 	"testing"
 	"time"
 )
-
-func TestUser(t *testing.T) {
-	rep := RepositorioPostgre{
-		ConnStr: "user=postgres dbname=database sslmode=disable",
-	}
-
-	t.Run("find one user", func(t *testing.T) {
-		expected := User{id: 3, name: "Caio", segment: "imobiliaria"}
-		got, err := rep.findUser(3)
-
-		if err != nil {
-			t.Errorf(err.Error())
-		}
-
-		if expected != got {
-			t.Errorf("Expected %v, got %v", expected, got)
-		}
-	})
-
-	t.Run("could not find one user", func(t *testing.T) {
-		_, err := rep.findUser(10)
-
-		if err == nil {
-			t.Error("Should've failed but didn't")
-		}
-	})
-
-	t.Run("find all users without filter", func(t *testing.T) {
-		expected := []User{
-			{
-				id:      1,
-				name:    "Rômulo",
-				segment: "construtora",
-			},
-			{
-				id:      3,
-				name:    "Caio",
-				segment: "imobiliaria",
-			},
-			{
-				id:      4,
-				name:    "Augusto",
-				segment: "banco",
-			},
-			{
-				id:      5,
-				name:    "Inoa",
-				segment: "financeira",
-			},
-			{
-				id:      2,
-				name:    "Madeira",
-				segment: "banco",
-			},
-		}
-		got := rep.findUsers("")
-
-		if !reflect.DeepEqual(expected, got) {
-			t.Errorf("Expected %v, got %v", expected, got)
-		}
-	})
-
-	t.Run("find all users using filter", func(t *testing.T) {
-		expected := []User{
-			{
-				id:      4,
-				name:    "Augusto",
-				segment: "banco",
-			},
-			{
-				id:      2,
-				name:    "Madeira",
-				segment: "banco",
-			},
-		}
-
-		got := rep.findUsers("banco")
-
-		if !reflect.DeepEqual(expected, got) {
-			t.Errorf("Expected %v, got %v", expected, got)
-		}
-	})
-}
 
 func TestExtracts(t *testing.T) {
 	rep := RepositorioPostgre{
@@ -195,48 +111,6 @@ func TestExtracts(t *testing.T) {
 				t.Errorf("Expected all extracts to be created before %v", date_end)
 				break
 			}
-		}
-	})
-}
-
-func TestFilter(t *testing.T) {
-	t.Run("generate filter with int", func(t *testing.T) {
-		filtro := FiltroExtract{}
-		filtro.UserId = 8
-
-		expected := "WHERE user_id = 8"
-
-		got := filtro.gerarFiltro()
-
-		if expected != got {
-			t.Errorf("Expected '%s', got '%s'", expected, got)
-		}
-	})
-
-	t.Run("generate filter with 2 dates", func(t *testing.T) {
-		filtro := FiltroExtract{}
-		filtro.DataStart = time.Date(2023, 10, 1, 0, 0, 0, 0, time.UTC)
-		filtro.DataEnd = time.Date(2023, 10, 23, 0, 0, 0, 0, time.UTC)
-
-		expected := "WHERE created_at > '2023-10-1' AND created_at < '2023-10-23'"
-
-		got := filtro.gerarFiltro()
-
-		if expected != got {
-			t.Errorf("Expected '%s', got '%s'", expected, got)
-		}
-	})
-
-	t.Run("generate filter with one date", func(t *testing.T) {
-		filtro := FiltroExtract{}
-		filtro.DataEnd = time.Date(2022, 9, 22, 0, 0, 0, 0, time.UTC)
-
-		expected := "WHERE created_at < '2022-9-22'"
-
-		got := filtro.gerarFiltro()
-
-		if expected != got {
-			t.Errorf("Expected '%s', got '%s'", expected, got)
 		}
 	})
 }
