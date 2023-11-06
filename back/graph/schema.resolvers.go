@@ -6,8 +6,10 @@ package graph
 
 import (
 	"api/graph/model"
+	"api/service"
 	"context"
 	"fmt"
+	"log"
 )
 
 // Extract is the resolver for the extract field.
@@ -17,7 +19,56 @@ func (r *queryResolver) Extract(ctx context.Context, userID *int, tipoDocumento 
 
 // User is the resolver for the user field.
 func (r *queryResolver) User(ctx context.Context, id *int, segment *string) ([]*model.User, error) {
-	panic(fmt.Errorf("not implemented: User - user"))
+	rep := service.RepositorioPostgre{
+		ConnStr: "user=postgres dbname=database sslmode=disable",
+	}
+
+	if id != nil {
+		user_found, err := rep.FindUser(*id)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		user_return := model.User{
+			ID:      fmt.Sprintf("%d", user_found.Id),
+			Name:    user_found.Name,
+			Segment: user_found.Segment,
+		}
+
+		return []*model.User{&user_return}, nil
+	}
+
+	if segment != nil {
+		user_found := rep.FindUsers(*segment)
+		users_return := []*model.User{}
+
+		for _, value := range user_found {
+			user_return := model.User{
+				ID:      fmt.Sprintf("%d", value.Id),
+				Name:    value.Name,
+				Segment: value.Segment,
+			}
+
+			users_return = append(users_return, &user_return)
+		}
+
+		return users_return, nil
+	}
+
+	users_found := rep.FindUsers("")
+	users_return := []*model.User{}
+
+	for _, value := range users_found {
+		user_return := model.User{
+			ID:      fmt.Sprintf("%d", value.Id),
+			Name:    value.Name,
+			Segment: value.Segment,
+		}
+
+		users_return = append(users_return, &user_return)
+	}
+
+	return users_return, nil
 }
 
 // Query returns QueryResolver implementation.
