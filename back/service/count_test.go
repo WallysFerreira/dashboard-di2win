@@ -13,7 +13,7 @@ func TestCount(t *testing.T) {
 
 	t.Run("count grouping by user_id", func(t *testing.T) {
 		group_by := "user_id"
-		expected := []model.Count{
+		expected := []*model.Count{
 			{
 				Name:  "1",
 				Value: 1058,
@@ -49,7 +49,7 @@ func TestCount(t *testing.T) {
 			UserId: 5,
 		}
 
-		expected := []model.Count{
+		expected := []*model.Count{
 			{Name: "FATURAMENTO", Value: 52},
 			{Name: "CNH", Value: 62},
 			{Name: "POSICAO_CONSOLIDADA", Value: 138},
