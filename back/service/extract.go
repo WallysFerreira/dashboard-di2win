@@ -47,7 +47,7 @@ func (rp RepositorioPostgre) FindExtract(id int) (Extract, error) {
 	return found, nil
 }
 
-func (rp RepositorioPostgre) FindExtracts(filter Filtro) []Extract {
+func (rp RepositorioPostgre) FindExtracts(filter Filtro) ([]Extract, int) {
 	found_extracts := []Extract{}
 	filter_string := filter.gerarFiltro()
 
@@ -70,5 +70,15 @@ func (rp RepositorioPostgre) FindExtracts(filter Filtro) []Extract {
 		found_extracts = append(found_extracts, found_extract)
 	}
 
-	return found_extracts
+	rows, err = db.Query(fmt.Sprintf("SELECT count(*) FROM extracts %s", filter_string))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var count int
+	for rows.Next() {
+		rows.Scan(&count)
+	}
+
+	return found_extracts, count
 }
