@@ -2,8 +2,9 @@
 
 package model
 
-type Contagem struct {
-	Count int `json:"count"`
+type Count struct {
+	Name  string `json:"name"`
+	Value int    `json:"value"`
 }
 
 type User struct {

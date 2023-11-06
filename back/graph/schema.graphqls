@@ -2,8 +2,9 @@
 #
 # https://gqlgen.com/getting-started/
 
-type Contagem {
-  count: Int!
+type Count {
+  name: String!
+  value: Int!
 }
 
 type User {
@@ -13,6 +14,9 @@ type User {
 }
 
 type Query {
+  count(group_by: String!): Count!
+  """
   extract(user_id: Int, tipo_documento: String, data_comeco: String, data_final: String): Contagem!
+  """
   user(id: Int, segment: String): [User!]! 
 }
