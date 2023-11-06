@@ -7,8 +7,8 @@ import (
 	"log"
 )
 
-func (rp RepositorioPostgre) CountExtracts(group_by string, filter Filtro) []model.Count {
-	result := []model.Count{}
+func (rp RepositorioPostgre) CountExtracts(group_by string, filter Filtro) []*model.Count {
+	result := []*model.Count{}
 
 	db, err := sql.Open("postgres", rp.ConnStr)
 	if err != nil {
@@ -28,7 +28,7 @@ func (rp RepositorioPostgre) CountExtracts(group_by string, filter Filtro) []mod
 
 		rows.Scan(&count.Name, &count.Value)
 
-		result = append(result, count)
+		result = append(result, &count)
 	}
 
 	return result
