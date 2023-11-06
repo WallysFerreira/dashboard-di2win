@@ -78,7 +78,7 @@ func (r *queryResolver) Extract(ctx context.Context, id *int, userID *int, tipoD
 	filter := service.FiltroExtract{}
 
 	if dataComeco != nil {
-		parsed_data_start, err := time.Parse(time.RFC3339, *dataComeco)
+		parsed_data_start, err := time.Parse(time.DateOnly, *dataComeco)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -87,7 +87,7 @@ func (r *queryResolver) Extract(ctx context.Context, id *int, userID *int, tipoD
 	}
 
 	if dataFinal != nil {
-		parsed_data_final, err := time.Parse(time.RFC3339, *dataFinal)
+		parsed_data_final, err := time.Parse(time.DateOnly, *dataFinal)
 		if err != nil {
 			log.Fatal(err)
 		}
