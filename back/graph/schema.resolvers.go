@@ -10,11 +10,46 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"time"
 )
 
 // Count is the resolver for the count field.
 func (r *queryResolver) Count(ctx context.Context, groupBy string, userID *int, tipoDocumento *string, dataComeco *string, dataFinal *string) ([]*model.Count, error) {
-	panic(fmt.Errorf("not implemented: Count - count"))
+	rep := service.RepositorioPostgre{
+		ConnStr: "user=postgres dbname=database sslmode=disable",
+	}
+
+	filter := service.FiltroExtract{}
+
+	if dataComeco != nil {
+		parsed_data_start, err := time.Parse(time.DateOnly, *dataComeco)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		filter.DataStart = parsed_data_start
+	}
+
+	if dataFinal != nil {
+		parsed_data_final, err := time.Parse(time.DateOnly, *dataFinal)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		filter.DataEnd = parsed_data_final
+	}
+
+	if tipoDocumento != nil {
+		filter.DocType = *tipoDocumento
+	}
+
+	if userID != nil {
+		filter.UserId = *userID
+	}
+
+	count := rep.CountExtracts(groupBy, filter)
+
+	return count, nil
 }
 
 // User is the resolver for the user field.
