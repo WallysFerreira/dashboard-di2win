@@ -15,7 +15,7 @@ type User struct {
 	segment string
 }
 
-func (rp RepositorioPostgre) findUser(id int) (User, error) {
+func (rp RepositorioPostgre) FindUser(id int) (User, error) {
 	user := User{}
 
 	db, err := sql.Open("postgres", rp.ConnStr)
@@ -40,7 +40,7 @@ func (rp RepositorioPostgre) findUser(id int) (User, error) {
 	return user, nil
 }
 
-func (rp RepositorioPostgre) findUsers(segment string) []User {
+func (rp RepositorioPostgre) FindUsers(segment string) []User {
 	filter := ""
 	var result []User
 
