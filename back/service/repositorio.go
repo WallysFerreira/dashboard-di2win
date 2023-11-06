@@ -7,7 +7,7 @@ type Repositorio interface {
 	FindUsers(segment string) []User
 	FindExtract(id int) (Extract, error)
 	FindExtracts(filter Filtro) ([]Extract, int)
-	CountExtracts(group_by string) []model.Count
+	CountExtracts(group_by string, filter Filtro) []model.Count
 }
 
 type RepositorioPostgre struct {

@@ -7,7 +7,7 @@ import (
 	"log"
 )
 
-func (rp RepositorioPostgre) CountExtracts(group_by string) []model.Count {
+func (rp RepositorioPostgre) CountExtracts(group_by string, filter Filtro) []model.Count {
 	result := []model.Count{}
 
 	db, err := sql.Open("postgres", rp.ConnStr)
@@ -16,7 +16,9 @@ func (rp RepositorioPostgre) CountExtracts(group_by string) []model.Count {
 	}
 	defer db.Close()
 
-	rows, err := db.Query(fmt.Sprintf("SELECT %s, count(*) FROM extracts GROUP BY %s", group_by, group_by))
+	filter_string := filter.gerarFiltro()
+
+	rows, err := db.Query(fmt.Sprintf("SELECT %s, count(*) FROM extracts %s GROUP BY %s", group_by, filter_string, group_by))
 	if err != nil {
 		log.Fatal(err)
 	}
