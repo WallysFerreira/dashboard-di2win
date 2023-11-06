@@ -13,7 +13,7 @@ import (
 )
 
 // Count is the resolver for the count field.
-func (r *queryResolver) Count(ctx context.Context, groupBy string) ([]*model.Count, error) {
+func (r *queryResolver) Count(ctx context.Context, groupBy string, userID *int, tipoDocumento *string, dataComeco *string, dataFinal *string) ([]*model.Count, error) {
 	panic(fmt.Errorf("not implemented: Count - count"))
 }
 
