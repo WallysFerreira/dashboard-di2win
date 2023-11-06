@@ -7,7 +7,7 @@ type Contagem struct {
 }
 
 type User struct {
-	ID      string  `json:"id"`
-	Name    *string `json:"name,omitempty"`
-	Segment *string `json:"segment,omitempty"`
+	ID      string `json:"id"`
+	Name    string `json:"name"`
+	Segment string `json:"segment"`
 }
