@@ -13,8 +13,8 @@ import (
 	"time"
 )
 
-// Extract is the resolver for the extract field.
-func (r *queryResolver) Extract(ctx context.Context, userID *int, tipoDocumento *string, dataComeco *string, dataFinal *string) (*model.Contagem, error) {
+// Count is the resolver for the count field.
+func (r *queryResolver) Count(ctx context.Context, groupBy string, userID *int, tipoDocumento *string, dataComeco *string, dataFinal *string) ([]*model.Count, error) {
 	rep := service.RepositorioPostgre{
 		ConnStr: "user=postgres dbname=database sslmode=disable",
 	}
@@ -22,7 +22,7 @@ func (r *queryResolver) Extract(ctx context.Context, userID *int, tipoDocumento 
 	filter := service.FiltroExtract{}
 
 	if dataComeco != nil {
-		parsed_data_start, err := time.Parse(time.RFC3339, *dataComeco)
+		parsed_data_start, err := time.Parse(time.DateOnly, *dataComeco)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -31,7 +31,7 @@ func (r *queryResolver) Extract(ctx context.Context, userID *int, tipoDocumento 
 	}
 
 	if dataFinal != nil {
-		parsed_data_final, err := time.Parse(time.RFC3339, *dataFinal)
+		parsed_data_final, err := time.Parse(time.DateOnly, *dataFinal)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -47,9 +47,9 @@ func (r *queryResolver) Extract(ctx context.Context, userID *int, tipoDocumento 
 		filter.UserId = *userID
 	}
 
-	_, count := rep.FindExtracts(filter)
+	count := rep.CountExtracts(groupBy, filter)
 
-	return &model.Contagem{Count: count}, nil
+	return count, nil
 }
 
 // User is the resolver for the user field.
