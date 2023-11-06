@@ -28,5 +28,5 @@ export async function getCount(group_by: string, user_id: number, tipo_documento
     })
   }).then(res => res.json())
 
-  console.log(result)
+  return result
 }
