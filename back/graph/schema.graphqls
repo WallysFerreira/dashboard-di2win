@@ -8,8 +8,8 @@ type Contagem {
 
 type User {
   id: ID!
-  name: String
-  segment: String
+  name: String!
+  segment: String!
 }
 
 type Query {

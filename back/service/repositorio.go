@@ -1,10 +1,10 @@
 package service
 
 type Repositorio interface {
-	findUser(id int) (User, error)
-	findUsers(segment string) []User
-	findExtract(id int) (Extract, error)
-	findExtracts(filter Filtro) []Extract
+	FindUser(id int) (User, error)
+	FindUsers(segment string) []User
+	FindExtract(id int) (Extract, error)
+	FindExtracts(filter Filtro) []Extract
 }
 
 type RepositorioPostgre struct {

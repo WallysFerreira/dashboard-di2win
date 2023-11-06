@@ -19,7 +19,7 @@ func TestExtracts(t *testing.T) {
 			user_id:         2,
 		}
 
-		got, err := rep.findExtract(4012)
+		got, err := rep.FindExtract(4012)
 		if err != nil {
 			t.Error("Got an error when it wasn't expected")
 		}
@@ -30,7 +30,7 @@ func TestExtracts(t *testing.T) {
 	})
 
 	t.Run("could not find one extract", func(t *testing.T) {
-		_, err := rep.findExtract(2)
+		_, err := rep.FindExtract(2)
 
 		if err == nil {
 			t.Error("Expected an error and didn't get one")
@@ -43,7 +43,7 @@ func TestExtracts(t *testing.T) {
 			DocType: doc_type,
 		}
 
-		got := rep.findExtracts(filter)
+		got := rep.FindExtracts(filter)
 
 		if len(got) == 0 {
 			t.Errorf("Did not expect an empty slice")
@@ -62,7 +62,7 @@ func TestExtracts(t *testing.T) {
 			UserId: user_id,
 		}
 
-		got := rep.findExtracts(filter)
+		got := rep.FindExtracts(filter)
 
 		if len(got) == 0 {
 			t.Errorf("Did not expect an empty slice")
@@ -83,7 +83,7 @@ func TestExtracts(t *testing.T) {
 			DataEnd:   date_end,
 		}
 
-		got := rep.findExtracts(filter)
+		got := rep.FindExtracts(filter)
 
 		for _, value := range got {
 			if value.created_at.Compare(date_start) == -1 {
@@ -104,7 +104,7 @@ func TestExtracts(t *testing.T) {
 			DataStart: date_start,
 		}
 
-		got := rep.findExtracts(filter)
+		got := rep.FindExtracts(filter)
 
 		for _, value := range got {
 			if value.created_at.Compare(date_start) == -1 {
@@ -120,7 +120,7 @@ func TestExtracts(t *testing.T) {
 			DataEnd: date_end,
 		}
 
-		got := rep.findExtracts(filter)
+		got := rep.FindExtracts(filter)
 
 		for _, value := range got {
 			if value.created_at.Compare(date_end) == 1 {
@@ -140,7 +140,7 @@ func TestExtracts(t *testing.T) {
 			PagesProcessed: pages_processed,
 		}
 
-		got := rep.findExtracts(filter)
+		got := rep.FindExtracts(filter)
 
 		for _, value := range got {
 			if value.created_at.Compare(data_start) == -1 {

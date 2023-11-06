@@ -16,7 +16,7 @@ type Extract struct {
 	user_id         int
 }
 
-func (rp RepositorioPostgre) findExtract(id int) (Extract, error) {
+func (rp RepositorioPostgre) FindExtract(id int) (Extract, error) {
 	found := Extract{}
 	var unparsed_date string
 
@@ -47,7 +47,7 @@ func (rp RepositorioPostgre) findExtract(id int) (Extract, error) {
 	return found, nil
 }
 
-func (rp RepositorioPostgre) findExtracts(filter Filtro) []Extract {
+func (rp RepositorioPostgre) FindExtracts(filter Filtro) []Extract {
 	found_extracts := []Extract{}
 	filter_string := filter.gerarFiltro()
 
