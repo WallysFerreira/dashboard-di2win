@@ -12,11 +12,11 @@ func TestExtracts(t *testing.T) {
 
 	t.Run("find one extract", func(t *testing.T) {
 		expected := Extract{
-			id:              4012,
-			created_at:      time.Date(2023, 7, 17, 17, 50, 52, 363000000, time.UTC),
-			pages_processed: 1,
-			doc_type:        "CNH",
-			user_id:         2,
+			Id:             4012,
+			CreatedAt:      time.Date(2023, 7, 17, 17, 50, 52, 363000000, time.UTC),
+			PagesProcessed: 1,
+			DocType:        "CNH",
+			UserId:         2,
 		}
 
 		got, err := rep.FindExtract(4012)
@@ -43,14 +43,14 @@ func TestExtracts(t *testing.T) {
 			DocType: doc_type,
 		}
 
-		got, _ := rep.FindExtracts(filter)
+		got := rep.FindExtracts(filter)
 
 		if len(got) == 0 {
 			t.Errorf("Did not expect an empty slice")
 		}
 
 		for _, value := range got {
-			if value.doc_type != doc_type {
+			if value.DocType != doc_type {
 				t.Errorf("Expected all extracts to have %s as doc_type", doc_type)
 			}
 		}
@@ -62,14 +62,14 @@ func TestExtracts(t *testing.T) {
 			UserId: user_id,
 		}
 
-		got, _ := rep.FindExtracts(filter)
+		got := rep.FindExtracts(filter)
 
 		if len(got) == 0 {
 			t.Errorf("Did not expect an empty slice")
 		}
 
 		for _, value := range got {
-			if value.user_id != user_id {
+			if value.UserId != user_id {
 				t.Errorf("Expected all extracts to have %d as user_id", user_id)
 			}
 		}
@@ -83,15 +83,15 @@ func TestExtracts(t *testing.T) {
 			DataEnd:   date_end,
 		}
 
-		got, _ := rep.FindExtracts(filter)
+		got := rep.FindExtracts(filter)
 
 		for _, value := range got {
-			if value.created_at.Compare(date_start) == -1 {
+			if value.CreatedAt.Compare(date_start) == -1 {
 				t.Errorf("Expected all extracts to be created after %v", date_start)
 				break
 			}
 
-			if value.created_at.Compare(date_end) == 1 {
+			if value.CreatedAt.Compare(date_end) == 1 {
 				t.Errorf("Expected all extracts to be created before %v", date_end)
 				break
 			}
@@ -104,10 +104,10 @@ func TestExtracts(t *testing.T) {
 			DataStart: date_start,
 		}
 
-		got, _ := rep.FindExtracts(filter)
+		got := rep.FindExtracts(filter)
 
 		for _, value := range got {
-			if value.created_at.Compare(date_start) == -1 {
+			if value.CreatedAt.Compare(date_start) == -1 {
 				t.Errorf("Expected all extracts to be created after %v", date_start)
 				break
 			}
@@ -120,10 +120,10 @@ func TestExtracts(t *testing.T) {
 			DataEnd: date_end,
 		}
 
-		got, _ := rep.FindExtracts(filter)
+		got := rep.FindExtracts(filter)
 
 		for _, value := range got {
-			if value.created_at.Compare(date_end) == 1 {
+			if value.CreatedAt.Compare(date_end) == 1 {
 				t.Errorf("Expected all extracts to be created before %v", date_end)
 				break
 			}
@@ -140,34 +140,20 @@ func TestExtracts(t *testing.T) {
 			PagesProcessed: pages_processed,
 		}
 
-		got, _ := rep.FindExtracts(filter)
+		got := rep.FindExtracts(filter)
 
 		for _, value := range got {
-			if value.created_at.Compare(data_start) == -1 {
+			if value.CreatedAt.Compare(data_start) == -1 {
 				t.Errorf("Expected all extracts to be created after %v", data_start)
 			}
 
-			if value.doc_type != doc_type {
+			if value.DocType != doc_type {
 				t.Errorf("Expected all extracts to have %s as doc_type", doc_type)
 			}
 
-			if value.pages_processed != pages_processed {
+			if value.PagesProcessed != pages_processed {
 				t.Errorf("Expected all extracts to have %d as pages_process", pages_processed)
 			}
-		}
-	})
-
-	t.Run("get count of doc_type CNH", func(t *testing.T) {
-		filter := FiltroExtract{
-			DocType: "CNH",
-		}
-
-		expected := 258
-
-		_, got := rep.FindExtracts(filter)
-
-		if expected != got {
-			t.Errorf("Expected %d, got %d", expected, got)
 		}
 	})
 }

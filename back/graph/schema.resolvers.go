@@ -52,6 +52,75 @@ func (r *queryResolver) Count(ctx context.Context, groupBy string, userID *int, 
 	return count, nil
 }
 
+// Extract is the resolver for the extract field.
+func (r *queryResolver) Extract(ctx context.Context, id *int, userID *int, tipoDocumento *string, dataComeco *string, dataFinal *string) ([]*model.Extract, error) {
+	rep := service.RepositorioPostgre{
+		ConnStr: "user=postgres dbname=database sslmode=disable",
+	}
+
+	if id != nil {
+		extract, err := rep.FindExtract(*id)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		extract_parsed := model.Extract{
+			ID:             fmt.Sprintf("%d", extract.Id),
+			CreatedAt:      extract.CreatedAt.String(),
+			PagesProcessed: extract.PagesProcessed,
+			DocType:        extract.DocType,
+			UserID:         extract.UserId,
+		}
+
+		return []*model.Extract{&extract_parsed}, nil
+	}
+
+	filter := service.FiltroExtract{}
+
+	if dataComeco != nil {
+		parsed_data_start, err := time.Parse(time.RFC3339, *dataComeco)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		filter.DataStart = parsed_data_start
+	}
+
+	if dataFinal != nil {
+		parsed_data_final, err := time.Parse(time.RFC3339, *dataFinal)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		filter.DataEnd = parsed_data_final
+	}
+
+	if tipoDocumento != nil {
+		filter.DocType = *tipoDocumento
+	}
+
+	if userID != nil {
+		filter.UserId = *userID
+	}
+
+	extracts_return := []*model.Extract{}
+	extracts_found := rep.FindExtracts(filter)
+
+	for _, value := range extracts_found {
+		extract := model.Extract{
+			ID:             fmt.Sprintf("%d", value.Id),
+			CreatedAt:      value.CreatedAt.String(),
+			PagesProcessed: value.PagesProcessed,
+			DocType:        value.DocType,
+			UserID:         value.UserId,
+		}
+
+		extracts_return = append(extracts_return, &extract)
+	}
+
+	return extracts_return, nil
+}
+
 // User is the resolver for the user field.
 func (r *queryResolver) User(ctx context.Context, id *int, segment *string) ([]*model.User, error) {
 	rep := service.RepositorioPostgre{

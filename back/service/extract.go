@@ -9,11 +9,11 @@ import (
 )
 
 type Extract struct {
-	id              int
-	created_at      time.Time
-	pages_processed int
-	doc_type        string
-	user_id         int
+	Id             int
+	CreatedAt      time.Time
+	PagesProcessed int
+	DocType        string
+	UserId         int
 }
 
 func (rp RepositorioPostgre) FindExtract(id int) (Extract, error) {
@@ -32,13 +32,13 @@ func (rp RepositorioPostgre) FindExtract(id int) (Extract, error) {
 	}
 
 	for rows.Next() {
-		rows.Scan(&found.id, &unparsed_date, &found.pages_processed, &found.doc_type, &found.user_id)
+		rows.Scan(&found.Id, &unparsed_date, &found.PagesProcessed, &found.DocType, &found.UserId)
 	}
 
-	if found.id == 0 {
+	if found.Id == 0 {
 		return found, errors.New("could not find extract")
 	} else {
-		found.created_at, err = time.Parse(time.RFC3339, unparsed_date)
+		found.CreatedAt, err = time.Parse(time.RFC3339, unparsed_date)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -47,7 +47,7 @@ func (rp RepositorioPostgre) FindExtract(id int) (Extract, error) {
 	return found, nil
 }
 
-func (rp RepositorioPostgre) FindExtracts(filter Filtro) ([]Extract, int) {
+func (rp RepositorioPostgre) FindExtracts(filter Filtro) []Extract {
 	found_extracts := []Extract{}
 	filter_string := filter.gerarFiltro()
 
@@ -65,20 +65,10 @@ func (rp RepositorioPostgre) FindExtracts(filter Filtro) ([]Extract, int) {
 	for rows.Next() {
 		found_extract := Extract{}
 
-		rows.Scan(&found_extract.id, &found_extract.created_at, &found_extract.pages_processed, &found_extract.doc_type, &found_extract.user_id)
+		rows.Scan(&found_extract.Id, &found_extract.CreatedAt, &found_extract.PagesProcessed, &found_extract.DocType, &found_extract.UserId)
 
 		found_extracts = append(found_extracts, found_extract)
 	}
 
-	rows, err = db.Query(fmt.Sprintf("SELECT count(*) FROM extracts %s", filter_string))
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	var count int
-	for rows.Next() {
-		rows.Scan(&count)
-	}
-
-	return found_extracts, count
+	return found_extracts
 }

@@ -7,6 +7,14 @@ type Count struct {
 	Value int    `json:"value"`
 }
 
+type Extract struct {
+	ID             string `json:"id"`
+	CreatedAt      string `json:"created_at"`
+	PagesProcessed int    `json:"pages_processed"`
+	DocType        string `json:"doc_type"`
+	UserID         int    `json:"user_id"`
+}
+
 type User struct {
 	ID      string `json:"id"`
 	Name    string `json:"name"`
