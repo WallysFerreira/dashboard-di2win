@@ -36,7 +36,7 @@ func TestCount(t *testing.T) {
 			},
 		}
 
-		got := rep.CountExtracts(group_by)
+		got := rep.CountExtracts(group_by, FiltroExtract{})
 
 		if !reflect.DeepEqual(expected, got) {
 			t.Errorf("Expected %v, got %v", expected, got)
