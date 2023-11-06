@@ -43,7 +43,7 @@ func TestExtracts(t *testing.T) {
 			DocType: doc_type,
 		}
 
-		got := rep.FindExtracts(filter)
+		got, _ := rep.FindExtracts(filter)
 
 		if len(got) == 0 {
 			t.Errorf("Did not expect an empty slice")
@@ -62,7 +62,7 @@ func TestExtracts(t *testing.T) {
 			UserId: user_id,
 		}
 
-		got := rep.FindExtracts(filter)
+		got, _ := rep.FindExtracts(filter)
 
 		if len(got) == 0 {
 			t.Errorf("Did not expect an empty slice")
@@ -83,7 +83,7 @@ func TestExtracts(t *testing.T) {
 			DataEnd:   date_end,
 		}
 
-		got := rep.FindExtracts(filter)
+		got, _ := rep.FindExtracts(filter)
 
 		for _, value := range got {
 			if value.created_at.Compare(date_start) == -1 {
@@ -104,7 +104,7 @@ func TestExtracts(t *testing.T) {
 			DataStart: date_start,
 		}
 
-		got := rep.FindExtracts(filter)
+		got, _ := rep.FindExtracts(filter)
 
 		for _, value := range got {
 			if value.created_at.Compare(date_start) == -1 {
@@ -120,7 +120,7 @@ func TestExtracts(t *testing.T) {
 			DataEnd: date_end,
 		}
 
-		got := rep.FindExtracts(filter)
+		got, _ := rep.FindExtracts(filter)
 
 		for _, value := range got {
 			if value.created_at.Compare(date_end) == 1 {
@@ -140,7 +140,7 @@ func TestExtracts(t *testing.T) {
 			PagesProcessed: pages_processed,
 		}
 
-		got := rep.FindExtracts(filter)
+		got, _ := rep.FindExtracts(filter)
 
 		for _, value := range got {
 			if value.created_at.Compare(data_start) == -1 {
@@ -154,6 +154,20 @@ func TestExtracts(t *testing.T) {
 			if value.pages_processed != pages_processed {
 				t.Errorf("Expected all extracts to have %d as pages_process", pages_processed)
 			}
+		}
+	})
+
+	t.Run("get count of doc_type CNH", func(t *testing.T) {
+		filter := FiltroExtract{
+			DocType: "CNH",
+		}
+
+		expected := 258
+
+		_, got := rep.FindExtracts(filter)
+
+		if expected != got {
+			t.Errorf("Expected %d, got %d", expected, got)
 		}
 	})
 }
