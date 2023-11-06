@@ -10,9 +10,9 @@ import (
 )
 
 type User struct {
-	id      int
-	name    string
-	segment string
+	Id      int
+	Name    string
+	Segment string
 }
 
 func (rp RepositorioPostgre) FindUser(id int) (User, error) {
@@ -30,10 +30,10 @@ func (rp RepositorioPostgre) FindUser(id int) (User, error) {
 	}
 
 	for rows.Next() {
-		rows.Scan(&user.id, &user.name, &user.segment)
+		rows.Scan(&user.Id, &user.Name, &user.Segment)
 	}
 
-	if user.id == 0 {
+	if user.Id == 0 {
 		return User{}, errors.New("could not find user")
 	}
 
@@ -62,7 +62,7 @@ func (rp RepositorioPostgre) FindUsers(segment string) []User {
 	for rows.Next() {
 		user := User{}
 
-		rows.Scan(&user.id, &user.name, &user.segment)
+		rows.Scan(&user.Id, &user.Name, &user.Segment)
 
 		result = append(result, user)
 	}
