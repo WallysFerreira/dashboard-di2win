@@ -50,8 +50,6 @@ func (r *queryResolver) Extract(ctx context.Context, userID *int, tipoDocumento 
 	_, count := rep.FindExtracts(filter)
 
 	return &model.Contagem{Count: count}, nil
-
-	panic(fmt.Errorf("not implemented: Extract - extract"))
 }
 
 // User is the resolver for the user field.
