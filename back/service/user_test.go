@@ -11,7 +11,7 @@ func TestUser(t *testing.T) {
 	}
 
 	t.Run("find one user", func(t *testing.T) {
-		expected := User{id: 3, name: "Caio", segment: "imobiliaria"}
+		expected := User{Id: 3, Name: "Caio", Segment: "imobiliaria"}
 		got, err := rep.FindUser(3)
 
 		if err != nil {
@@ -34,29 +34,29 @@ func TestUser(t *testing.T) {
 	t.Run("find all users without filter", func(t *testing.T) {
 		expected := []User{
 			{
-				id:      1,
-				name:    "Rômulo",
-				segment: "construtora",
+				Id:      1,
+				Name:    "Rômulo",
+				Segment: "construtora",
 			},
 			{
-				id:      3,
-				name:    "Caio",
-				segment: "imobiliaria",
+				Id:      3,
+				Name:    "Caio",
+				Segment: "imobiliaria",
 			},
 			{
-				id:      4,
-				name:    "Augusto",
-				segment: "banco",
+				Id:      4,
+				Name:    "Augusto",
+				Segment: "banco",
 			},
 			{
-				id:      5,
-				name:    "Inoa",
-				segment: "financeira",
+				Id:      5,
+				Name:    "Inoa",
+				Segment: "financeira",
 			},
 			{
-				id:      2,
-				name:    "Madeira",
-				segment: "banco",
+				Id:      2,
+				Name:    "Madeira",
+				Segment: "banco",
 			},
 		}
 		got := rep.FindUsers("")
@@ -69,14 +69,14 @@ func TestUser(t *testing.T) {
 	t.Run("find all users using filter", func(t *testing.T) {
 		expected := []User{
 			{
-				id:      4,
-				name:    "Augusto",
-				segment: "banco",
+				Id:      4,
+				Name:    "Augusto",
+				Segment: "banco",
 			},
 			{
-				id:      2,
-				name:    "Madeira",
-				segment: "banco",
+				Id:      2,
+				Name:    "Madeira",
+				Segment: "banco",
 			},
 		}
 
