@@ -13,6 +13,6 @@ type User {
 }
 
 type Query {
-  extract(user_id: Int, tipo_documento: Int, data_comeco: String, data_final: String): Contagem!
+  extract(user_id: Int, tipo_documento: String, data_comeco: String, data_final: String): Contagem!
   user(id: Int, segment: String): [User!]! 
 }
