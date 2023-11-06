@@ -4,7 +4,7 @@ type Repositorio interface {
 	FindUser(id int) (User, error)
 	FindUsers(segment string) []User
 	FindExtract(id int) (Extract, error)
-	FindExtracts(filter Filtro) []Extract
+	FindExtracts(filter Filtro) ([]Extract, int)
 }
 
 type RepositorioPostgre struct {

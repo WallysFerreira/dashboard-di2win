@@ -51,7 +51,7 @@ type ComplexityRoot struct {
 	}
 
 	Query struct {
-		Extract func(childComplexity int, userID *int, tipoDocumento *int, dataComeco *string, dataFinal *string) int
+		Extract func(childComplexity int, userID *int, tipoDocumento *string, dataComeco *string, dataFinal *string) int
 		User    func(childComplexity int, id *int, segment *string) int
 	}
 
@@ -63,7 +63,7 @@ type ComplexityRoot struct {
 }
 
 type QueryResolver interface {
-	Extract(ctx context.Context, userID *int, tipoDocumento *int, dataComeco *string, dataFinal *string) (*model.Contagem, error)
+	Extract(ctx context.Context, userID *int, tipoDocumento *string, dataComeco *string, dataFinal *string) (*model.Contagem, error)
 	User(ctx context.Context, id *int, segment *string) ([]*model.User, error)
 }
 
@@ -103,7 +103,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Query.Extract(childComplexity, args["user_id"].(*int), args["tipo_documento"].(*int), args["data_comeco"].(*string), args["data_final"].(*string)), true
+		return e.complexity.Query.Extract(childComplexity, args["user_id"].(*int), args["tipo_documento"].(*string), args["data_comeco"].(*string), args["data_final"].(*string)), true
 
 	case "Query.user":
 		if e.complexity.Query.User == nil {
@@ -273,10 +273,10 @@ func (ec *executionContext) field_Query_extract_args(ctx context.Context, rawArg
 		}
 	}
 	args["user_id"] = arg0
-	var arg1 *int
+	var arg1 *string
 	if tmp, ok := rawArgs["tipo_documento"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("tipo_documento"))
-		arg1, err = ec.unmarshalOInt2ᚖint(ctx, tmp)
+		arg1, err = ec.unmarshalOString2ᚖstring(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -423,7 +423,7 @@ func (ec *executionContext) _Query_extract(ctx context.Context, field graphql.Co
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Extract(rctx, fc.Args["user_id"].(*int), fc.Args["tipo_documento"].(*int), fc.Args["data_comeco"].(*string), fc.Args["data_final"].(*string))
+		return ec.resolvers.Query().Extract(rctx, fc.Args["user_id"].(*int), fc.Args["tipo_documento"].(*string), fc.Args["data_comeco"].(*string), fc.Args["data_final"].(*string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)

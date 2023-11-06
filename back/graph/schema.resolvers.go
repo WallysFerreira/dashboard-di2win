@@ -10,11 +10,46 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"time"
 )
 
 // Extract is the resolver for the extract field.
-func (r *queryResolver) Extract(ctx context.Context, userID *int, tipoDocumento *int, dataComeco *string, dataFinal *string) (*model.Contagem, error) {
-	panic(fmt.Errorf("not implemented: Extract - extract"))
+func (r *queryResolver) Extract(ctx context.Context, userID *int, tipoDocumento *string, dataComeco *string, dataFinal *string) (*model.Contagem, error) {
+	rep := service.RepositorioPostgre{
+		ConnStr: "user=postgres dbname=database sslmode=disable",
+	}
+
+	filter := service.FiltroExtract{}
+
+	if dataComeco != nil {
+		parsed_data_start, err := time.Parse(time.RFC3339, *dataComeco)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		filter.DataStart = parsed_data_start
+	}
+
+	if dataFinal != nil {
+		parsed_data_final, err := time.Parse(time.RFC3339, *dataFinal)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		filter.DataEnd = parsed_data_final
+	}
+
+	if tipoDocumento != nil {
+		filter.DocType = *tipoDocumento
+	}
+
+	if userID != nil {
+		filter.UserId = *userID
+	}
+
+	_, count := rep.FindExtracts(filter)
+
+	return &model.Contagem{Count: count}, nil
 }
 
 // User is the resolver for the user field.
