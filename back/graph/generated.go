@@ -51,9 +51,18 @@ type ComplexityRoot struct {
 		Value func(childComplexity int) int
 	}
 
+	Extract struct {
+		CreatedAt      func(childComplexity int) int
+		DocType        func(childComplexity int) int
+		ID             func(childComplexity int) int
+		PagesProcessed func(childComplexity int) int
+		UserID         func(childComplexity int) int
+	}
+
 	Query struct {
-		Count func(childComplexity int, groupBy string, userID *int, tipoDocumento *string, dataComeco *string, dataFinal *string) int
-		User  func(childComplexity int, id *int, segment *string) int
+		Count   func(childComplexity int, groupBy string, userID *int, tipoDocumento *string, dataComeco *string, dataFinal *string) int
+		Extract func(childComplexity int, id *int, userID *int, tipoDocumento *string, dataComeco *string, dataFinal *string) int
+		User    func(childComplexity int, id *int, segment *string) int
 	}
 
 	User struct {
@@ -65,6 +74,7 @@ type ComplexityRoot struct {
 
 type QueryResolver interface {
 	Count(ctx context.Context, groupBy string, userID *int, tipoDocumento *string, dataComeco *string, dataFinal *string) ([]*model.Count, error)
+	Extract(ctx context.Context, id *int, userID *int, tipoDocumento *string, dataComeco *string, dataFinal *string) ([]*model.Extract, error)
 	User(ctx context.Context, id *int, segment *string) ([]*model.User, error)
 }
 
@@ -101,6 +111,41 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Count.Value(childComplexity), true
 
+	case "Extract.created_at":
+		if e.complexity.Extract.CreatedAt == nil {
+			break
+		}
+
+		return e.complexity.Extract.CreatedAt(childComplexity), true
+
+	case "Extract.doc_type":
+		if e.complexity.Extract.DocType == nil {
+			break
+		}
+
+		return e.complexity.Extract.DocType(childComplexity), true
+
+	case "Extract.id":
+		if e.complexity.Extract.ID == nil {
+			break
+		}
+
+		return e.complexity.Extract.ID(childComplexity), true
+
+	case "Extract.pages_processed":
+		if e.complexity.Extract.PagesProcessed == nil {
+			break
+		}
+
+		return e.complexity.Extract.PagesProcessed(childComplexity), true
+
+	case "Extract.user_id":
+		if e.complexity.Extract.UserID == nil {
+			break
+		}
+
+		return e.complexity.Extract.UserID(childComplexity), true
+
 	case "Query.count":
 		if e.complexity.Query.Count == nil {
 			break
@@ -112,6 +157,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Query.Count(childComplexity, args["group_by"].(string), args["user_id"].(*int), args["tipo_documento"].(*string), args["data_comeco"].(*string), args["data_final"].(*string)), true
+
+	case "Query.extract":
+		if e.complexity.Query.Extract == nil {
+			break
+		}
+
+		args, err := ec.field_Query_extract_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.Extract(childComplexity, args["id"].(*int), args["user_id"].(*int), args["tipo_documento"].(*string), args["data_comeco"].(*string), args["data_final"].(*string)), true
 
 	case "Query.user":
 		if e.complexity.Query.User == nil {
@@ -320,6 +377,57 @@ func (ec *executionContext) field_Query_count_args(ctx context.Context, rawArgs 
 	return args, nil
 }
 
+func (ec *executionContext) field_Query_extract_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 *int
+	if tmp, ok := rawArgs["id"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
+		arg0, err = ec.unmarshalOInt2ᚖint(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["id"] = arg0
+	var arg1 *int
+	if tmp, ok := rawArgs["user_id"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("user_id"))
+		arg1, err = ec.unmarshalOInt2ᚖint(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["user_id"] = arg1
+	var arg2 *string
+	if tmp, ok := rawArgs["tipo_documento"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("tipo_documento"))
+		arg2, err = ec.unmarshalOString2ᚖstring(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["tipo_documento"] = arg2
+	var arg3 *string
+	if tmp, ok := rawArgs["data_comeco"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("data_comeco"))
+		arg3, err = ec.unmarshalOString2ᚖstring(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["data_comeco"] = arg3
+	var arg4 *string
+	if tmp, ok := rawArgs["data_final"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("data_final"))
+		arg4, err = ec.unmarshalOString2ᚖstring(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["data_final"] = arg4
+	return args, nil
+}
+
 func (ec *executionContext) field_Query_user_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
@@ -470,6 +578,226 @@ func (ec *executionContext) fieldContext_Count_value(ctx context.Context, field 
 	return fc, nil
 }
 
+func (ec *executionContext) _Extract_id(ctx context.Context, field graphql.CollectedField, obj *model.Extract) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Extract_id(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.ID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNID2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Extract_id(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Extract",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type ID does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Extract_created_at(ctx context.Context, field graphql.CollectedField, obj *model.Extract) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Extract_created_at(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.CreatedAt, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Extract_created_at(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Extract",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Extract_pages_processed(ctx context.Context, field graphql.CollectedField, obj *model.Extract) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Extract_pages_processed(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.PagesProcessed, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(int)
+	fc.Result = res
+	return ec.marshalNInt2int(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Extract_pages_processed(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Extract",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Int does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Extract_doc_type(ctx context.Context, field graphql.CollectedField, obj *model.Extract) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Extract_doc_type(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.DocType, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Extract_doc_type(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Extract",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Extract_user_id(ctx context.Context, field graphql.CollectedField, obj *model.Extract) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Extract_user_id(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.UserID, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(int)
+	fc.Result = res
+	return ec.marshalNInt2int(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Extract_user_id(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Extract",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Int does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _Query_count(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_Query_count(ctx, field)
 	if err != nil {
@@ -522,6 +850,70 @@ func (ec *executionContext) fieldContext_Query_count(ctx context.Context, field 
 	}()
 	ctx = graphql.WithFieldContext(ctx, fc)
 	if fc.Args, err = ec.field_Query_count_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return fc, err
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Query_extract(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Query_extract(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().Extract(rctx, fc.Args["id"].(*int), fc.Args["user_id"].(*int), fc.Args["tipo_documento"].(*string), fc.Args["data_comeco"].(*string), fc.Args["data_final"].(*string))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.([]*model.Extract)
+	fc.Result = res
+	return ec.marshalOExtract2ᚕᚖapiᚋgraphᚋmodelᚐExtractᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Query_extract(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "id":
+				return ec.fieldContext_Extract_id(ctx, field)
+			case "created_at":
+				return ec.fieldContext_Extract_created_at(ctx, field)
+			case "pages_processed":
+				return ec.fieldContext_Extract_pages_processed(ctx, field)
+			case "doc_type":
+				return ec.fieldContext_Extract_doc_type(ctx, field)
+			case "user_id":
+				return ec.fieldContext_Extract_user_id(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type Extract", field.Name)
+		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Query_extract_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
 		ec.Error(ctx, err)
 		return fc, err
 	}
@@ -2677,6 +3069,65 @@ func (ec *executionContext) _Count(ctx context.Context, sel ast.SelectionSet, ob
 	return out
 }
 
+var extractImplementors = []string{"Extract"}
+
+func (ec *executionContext) _Extract(ctx context.Context, sel ast.SelectionSet, obj *model.Extract) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, extractImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	deferred := make(map[string]*graphql.FieldSet)
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("Extract")
+		case "id":
+			out.Values[i] = ec._Extract_id(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "created_at":
+			out.Values[i] = ec._Extract_created_at(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "pages_processed":
+			out.Values[i] = ec._Extract_pages_processed(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "doc_type":
+			out.Values[i] = ec._Extract_doc_type(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		case "user_id":
+			out.Values[i] = ec._Extract_user_id(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				out.Invalids++
+			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch(ctx)
+	if out.Invalids > 0 {
+		return graphql.Null
+	}
+
+	atomic.AddInt32(&ec.deferred, int32(len(deferred)))
+
+	for label, dfs := range deferred {
+		ec.processDeferredGroup(graphql.DeferredGroup{
+			Label:    label,
+			Path:     graphql.GetPath(ctx),
+			FieldSet: dfs,
+			Context:  ctx,
+		})
+	}
+
+	return out
+}
+
 var queryImplementors = []string{"Query"}
 
 func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) graphql.Marshaler {
@@ -2706,6 +3157,25 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 					}
 				}()
 				res = ec._Query_count(ctx, field)
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx,
+					func(ctx context.Context) graphql.Marshaler { return innerFunc(ctx, out) })
+			}
+
+			out.Concurrently(i, func(ctx context.Context) graphql.Marshaler { return rrm(innerCtx) })
+		case "extract":
+			field := field
+
+			innerFunc := func(ctx context.Context, fs *graphql.FieldSet) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_extract(ctx, field)
 				return res
 			}
 
@@ -3168,6 +3638,16 @@ func (ec *executionContext) marshalNCount2ᚖapiᚋgraphᚋmodelᚐCount(ctx con
 	return ec._Count(ctx, sel, v)
 }
 
+func (ec *executionContext) marshalNExtract2ᚖapiᚋgraphᚋmodelᚐExtract(ctx context.Context, sel ast.SelectionSet, v *model.Extract) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
+		}
+		return graphql.Null
+	}
+	return ec._Extract(ctx, sel, v)
+}
+
 func (ec *executionContext) unmarshalNID2string(ctx context.Context, v interface{}) (string, error) {
 	res, err := graphql.UnmarshalID(v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -3574,6 +4054,53 @@ func (ec *executionContext) marshalOCount2ᚕᚖapiᚋgraphᚋmodelᚐCountᚄ(c
 				defer wg.Done()
 			}
 			ret[i] = ec.marshalNCount2ᚖapiᚋgraphᚋmodelᚐCount(ctx, sel, v[i])
+		}
+		if isLen1 {
+			f(i)
+		} else {
+			go f(i)
+		}
+
+	}
+	wg.Wait()
+
+	for _, e := range ret {
+		if e == graphql.Null {
+			return graphql.Null
+		}
+	}
+
+	return ret
+}
+
+func (ec *executionContext) marshalOExtract2ᚕᚖapiᚋgraphᚋmodelᚐExtractᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Extract) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	ret := make(graphql.Array, len(v))
+	var wg sync.WaitGroup
+	isLen1 := len(v) == 1
+	if !isLen1 {
+		wg.Add(len(v))
+	}
+	for i := range v {
+		i := i
+		fc := &graphql.FieldContext{
+			Index:  &i,
+			Result: &v[i],
+		}
+		ctx := graphql.WithFieldContext(ctx, fc)
+		f := func(i int) {
+			defer func() {
+				if r := recover(); r != nil {
+					ec.Error(ctx, ec.Recover(ctx, r))
+					ret = nil
+				}
+			}()
+			if !isLen1 {
+				defer wg.Done()
+			}
+			ret[i] = ec.marshalNExtract2ᚖapiᚋgraphᚋmodelᚐExtract(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)

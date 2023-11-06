@@ -7,6 +7,14 @@ type Count {
   value: Int!
 }
 
+type Extract {
+  id: ID!
+  created_at: String!
+  pages_processed: Int!
+  doc_type: String!
+  user_id: Int!
+}
+
 type User {
   id: ID!
   name: String!
@@ -15,8 +23,6 @@ type User {
 
 type Query {
   count(group_by: String!, user_id: Int, tipo_documento: String, data_comeco: String, data_final: String): [Count!]
-  """
-  extract(user_id: Int, tipo_documento: String, data_comeco: String, data_final: String): Contagem!
-  """
+  extract(id: Int, user_id: Int, tipo_documento: String, data_comeco: String, data_final: String): [Extract!]
   user(id: Int, segment: String): [User!]! 
 }
