@@ -14,7 +14,6 @@ jobs:
         image: postgres
         options: >-
           --name postgres
-          --user 1001
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
@@ -24,7 +23,7 @@ jobs:
         ports:
           - 5432:5432
         volumes:
-          - "./db/dashboard.sql:/dashboard.sql"
+          - "./db/dashboard.sql:/db/dashboard.sql"
     steps:
       - uses: actions/checkout@v4
       - name: setup go
