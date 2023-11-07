@@ -43,7 +43,7 @@ jobs:
           sudo chmod og+rX /home /home/runner
           sudo service postgresql restart
           sudo psql -h localhost -U postgres -c "CREATE DATABASE database"
-          pg_restore -U postgres -d database dashboard.sql
+          pg_restore -U postgres -d database db/dashboard.sql
       - run: echo ${{ vars.POSTGRE_URL }}
       - run: |
           cd back
