@@ -17,13 +17,11 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
         env:
           POSTGRES_HOST_AUTH_METHOD: trust
         ports:
           - 5432:5432
         volumes:
-          - "./db/init.sh:/docker-entrypoint-initdb.d/init-database.sh"
           - "./db/dashboard.sql:/dashboard.sql"
     steps:
       - uses: actions/checkout@v4
@@ -31,6 +29,9 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version: ${{ matrix.go-version }}
+      - name: test if docker is runnable
+        run: |
+          docker ps
       - run: echo ${{ vars.POSTGRE_URL }}
       - run: |
           cd back
