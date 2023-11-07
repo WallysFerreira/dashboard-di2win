@@ -2,13 +2,24 @@ package service
 
 import (
 	"api/graph/model"
+	"log"
+	"os"
 	"reflect"
 	"testing"
+
+	"github.com/joho/godotenv"
 )
 
 func TestCount(t *testing.T) {
+	err := godotenv.Load("../.env")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	conn_str := os.Getenv("TEST_POSTGRE_URL")
+
 	rep := RepositorioPostgre{
-		ConnStr: "user=postgres dbname=database sslmode=disable",
+		ConnStr: conn_str,
 	}
 
 	t.Run("count grouping by user_id", func(t *testing.T) {
