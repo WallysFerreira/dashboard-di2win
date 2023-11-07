@@ -35,8 +35,8 @@ jobs:
           docker run --name postgres -d -v ./db/dashboard.sql:/dashboard.sql -p 5432:5432 -e POSTGRES_HOST_AUTH_METHOD=trust postgres
       - name: install psql
         run: |
-          apt-get update
-          apt-get install --yes postgresql-client
+          sudo apt-get update
+          sudo apt-get install --yes postgresql-client
       - run: echo ${{ vars.POSTGRE_URL }}
       - run: |
           cd back
