@@ -22,6 +22,8 @@ jobs:
           POSTGRES_HOST_AUTH_METHOD: trust
         ports:
           - 5432:5432
+        volumes:
+          - "/db/dashboard.sql:/dashboard.sql"
     steps:
       - uses: actions/checkout@v4
       - name: setup go
@@ -30,8 +32,6 @@ jobs:
           go-version: ${{ matrix.go-version }}
       - name: test if docker is runnable
         run: |
-          ls
-          cd db
           docker exec postgres createdb -U postgres -T template0 database
           docker exec postgres pg_restore -U postgres -d database dashboard.sql
       - run: echo ${{ vars.POSTGRE_URL }}
