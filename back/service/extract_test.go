@@ -10,12 +10,16 @@ import (
 )
 
 func TestExtracts(t *testing.T) {
-	err := godotenv.Load("../.env")
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	conn_str := os.Getenv("TEST_POSTGRE_URL")
+
+	if conn_str == "" {
+		err := godotenv.Load("../.env")
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		conn_str = os.Getenv("TEST_POSTGRE_URL")
+	}
 
 	rep := RepositorioPostgre{
 		ConnStr: conn_str,
