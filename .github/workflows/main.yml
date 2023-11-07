@@ -32,9 +32,10 @@ jobs:
           go-version: ${{ matrix.go-version }}
       - name: run docker commands
         run: |
+          docker ps
           docker run --name postgres -d -v "./db/dashboard.sql:/dashboard.sql" -p 5432:5432 -e POSTGRES_HOST_AUTH_METHOD=trust postgres
-          ls
           docker container start postgres
+          docker exec postgres ls
           docker exec postgres createdb -U postgres -T template0 database
           docker exec postgres pg_restore -U postgres -d database dashboard.sql
           docker exec postgres psql -U postgres -d database -c "SELECT * FROM users;"
