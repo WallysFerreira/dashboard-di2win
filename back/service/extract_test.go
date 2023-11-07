@@ -1,13 +1,24 @@
 package service
 
 import (
+	"log"
+	"os"
 	"testing"
 	"time"
+
+	"github.com/joho/godotenv"
 )
 
 func TestExtracts(t *testing.T) {
+	err := godotenv.Load("../.env")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	conn_str := os.Getenv("TEST_POSTGRE_URL")
+
 	rep := RepositorioPostgre{
-		ConnStr: "user=postgres dbname=database sslmode=disable",
+		ConnStr: conn_str,
 	}
 
 	t.Run("find one extract", func(t *testing.T) {
