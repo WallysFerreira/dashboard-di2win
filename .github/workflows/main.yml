@@ -14,7 +14,7 @@ jobs:
         image: postgres
         options: >-
           --name postgres
-          --user root
+          --user 1001
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
