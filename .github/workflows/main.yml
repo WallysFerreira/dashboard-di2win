@@ -42,8 +42,9 @@ jobs:
         run: |
           sudo chmod og+rX /home /home/runner
           sudo service postgresql restart
+          sudo psql -h localhost -U postgres -c "CREATE ROLE admin"
           sudo psql -h localhost -U postgres -c "CREATE DATABASE database"
-          sudo pg_restore --no-acl --no-comments -h localhost -U postgres -d database db/dashboard.sql
+          sudo pg_restore -h localhost -U postgres -d database db/dashboard.sql
       - run: echo ${{ vars.POSTGRE_URL }}
       - run: |
           cd back
