@@ -30,9 +30,10 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version: ${{ matrix.go-version }}
-      - name: test if docker is runnable
+      - name: run docker commands
         run: |
-          docker help
+          docker run --name postgres -d -v ./db/init.sh:/docker-entrypoint-initdb.d/init.sh -v "./db/dashboard.sql:/dashboard.sql" -p 5432:5432 -e POSTGRES_HOST_AUTH_METHOD=trust postgres
+          docker container start postgres
       - run: echo ${{ vars.POSTGRE_URL }}
       - run: |
           cd back
