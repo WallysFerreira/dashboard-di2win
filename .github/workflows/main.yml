@@ -41,9 +41,8 @@ jobs:
       - name: restore database
         run: |
           sudo chmod og+rX /home /home/runner
-          sudo -u postgres psql
           sudo service postgresql restart
-          createdb -U postgres -T template0 database
+          sudo psql -h localhost -U postgres -c "CREATE DATABASE database"
           pg_restore -U postgres -d database dashboard.sql
       - run: echo ${{ vars.POSTGRE_URL }}
       - run: |
