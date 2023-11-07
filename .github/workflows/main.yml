@@ -15,7 +15,7 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version: ${{ matrix.go-version }}
-      - run: echo ${{ env.TESTE }}
+      - run: echo ${{ vars.TESTE }}
       - run: |
           cd back
           go test ./service
