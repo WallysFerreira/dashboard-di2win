@@ -36,9 +36,7 @@ jobs:
           docker run --name postgres -d -v "./db/dashboard.sql:/dashboard.sql" -p 5432:5432 -e POSTGRES_HOST_AUTH_METHOD=trust postgres
           docker container start postgres
           docker exec postgres ls
-          docker exec postgres createdb -U postgres -T template0 database
-          docker exec postgres pg_restore -U postgres -d database dashboard.sql
-          docker exec postgres psql -U postgres -d database -c "SELECT * FROM users;"
+          psql
       - run: echo ${{ vars.POSTGRE_URL }}
       - run: |
           cd back
