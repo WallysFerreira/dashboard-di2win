@@ -22,6 +22,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install --yes postgresql-client
+          sudo service postgresql start
       - name: Restore database
         run: |
           sudo chmod og+rX /home /home/runner
