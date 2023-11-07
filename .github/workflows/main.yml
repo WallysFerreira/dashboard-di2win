@@ -40,6 +40,7 @@ jobs:
           sudo service postgresql start
       - name: restore database
         run: |
+          chmod og+rX /home /home/runner
           sudo -u postgres psql
           sudo service postgresql restart
           createdb -U postgres -T template0 database
