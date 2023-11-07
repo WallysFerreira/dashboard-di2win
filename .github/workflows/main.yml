@@ -9,21 +9,6 @@ jobs:
     strategy:
       matrix:
         go-version: ['1.21.x']
-    #services:
-    #  postgres:
-    #    image: postgres
-    #    options: >-
-    #      --name postgres
-    #      --health-cmd pg_isready
-    #      --health-interval 10s
-    #      --health-timeout 5s
-    #      --health-retries 5
-    #    env:
-    #      POSTGRES_HOST_AUTH_METHOD: trust
-    #    ports:
-    #      - 5432:5432
-    #    volumes:
-    #     - "./db/dashboard.sql:/db/dashboard.sql"
     steps:
       - uses: actions/checkout@v4
       - name: setup go
@@ -33,11 +18,11 @@ jobs:
       - name: start postgres container
         run: |
           docker run --name postgres -d -v ./db/dashboard.sql:/dashboard.sql -p 5432:5432 -e POSTGRES_HOST_AUTH_METHOD=trust postgres
-      - name: install psql
-        run: |
-          sudo apt-get update
-          sudo apt-get install --yes postgresql-client
-          sudo service postgresql start
+      #- name: install psql
+      #  run: |
+      #    sudo apt-get update
+      #    sudo apt-get install --yes postgresql-client
+      #    sudo service postgresql start
       - name: restore database
         run: |
           sudo chmod og+rX /home /home/runner
