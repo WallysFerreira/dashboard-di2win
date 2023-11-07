@@ -15,9 +15,11 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version: ${{ matrix.go-version }}
-      - run: echo ${{ vars.TESTE }}
+      - run: echo ${{ vars.POSTGRE_URL }}
       - run: |
           cd back
           go test ./service
+        env:
+          TEST_POSTGRE_URL: ${{ vars.POSTGRE_URL }}
 
     
