@@ -38,6 +38,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install --yes postgresql-client
           sudo service postgresql start
+          locate pg_hba.conf
       - name: restore database
         run: |
           createdb -U postgres -T template0 database
