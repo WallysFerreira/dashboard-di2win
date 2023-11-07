@@ -21,8 +21,6 @@ jobs:
           POSTGRES_HOST_AUTH_METHOD: trust
         ports:
           - 5432:5432
-        volumes:
-          - "./db/dashboard.sql:/dashboard.sql"
     steps:
       - uses: actions/checkout@v4
       - name: setup go
