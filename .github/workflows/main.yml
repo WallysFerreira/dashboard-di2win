@@ -9,21 +9,21 @@ jobs:
     strategy:
       matrix:
         go-version: ['1.21.x']
-    services:
-      postgres:
-        image: postgres
-        options: >-
-          --name postgres
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        env:
-          POSTGRES_HOST_AUTH_METHOD: trust
-        ports:
-          - 5432:5432
-        volumes:
-          - "./db/dashboard.sql:/db/dashboard.sql"
+    #services:
+    #  postgres:
+    #    image: postgres
+    #    options: >-
+    #      --name postgres
+    #      --health-cmd pg_isready
+    #      --health-interval 10s
+    #      --health-timeout 5s
+    #      --health-retries 5
+    #    env:
+    #      POSTGRES_HOST_AUTH_METHOD: trust
+    #    ports:
+    #      - 5432:5432
+    #    volumes:
+    #     - "./db/dashboard.sql:/db/dashboard.sql"
     steps:
       - uses: actions/checkout@v4
       - name: setup go
@@ -32,9 +32,7 @@ jobs:
           go-version: ${{ matrix.go-version }}
       - name: test if docker is runnable
         run: |
-          docker exec postgres cat dashboard.sql
-          docker exec postgres createdb -U postgres -T template0 database
-          docker exec postgres pg_restore -U postgres -d database dashboard.sql
+          docker help
       - run: echo ${{ vars.POSTGRE_URL }}
       - run: |
           cd back
