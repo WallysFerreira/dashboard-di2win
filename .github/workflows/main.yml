@@ -5,7 +5,7 @@ on:
 jobs:
   unit-tests:
     runs-on: ubuntu-latest
-    environment: teste
+    environment: tests
     strategy:
       matrix:
         go-version: ['1.21.x']
