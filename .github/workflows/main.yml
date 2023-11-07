@@ -11,13 +11,13 @@ jobs:
         go-version: ['1.21.x']
     steps:
       - uses: actions/checkout@v4
-      - name: setup go
+      - name: Setup go
         uses: actions/setup-go@v4
         with:
           go-version: ${{ matrix.go-version }}
-      - name: Start postgres container
-        run: |
-          docker run --name postgres -d -v ./db/dashboard.sql:/dashboard.sql -p 5432:5432 -e POSTGRES_HOST_AUTH_METHOD=trust postgres
+      #- name: Start postgres container
+      #  run: |
+      #    docker run --name postgres -d -v ./db/dashboard.sql:/dashboard.sql -p 5432:5432 -e POSTGRES_HOST_AUTH_METHOD=trust postgres
       - name: Install PSQL
         run: |
           sudo apt-get update
