@@ -30,6 +30,7 @@ jobs:
           go-version: ${{ matrix.go-version }}
       - name: test if docker is runnable
         run: |
+          ls
           cd db
           docker exec postgres createdb -U postgres -T template0 database
           docker exec postgres pg_restore -U postgres -d database dashboard.sql
