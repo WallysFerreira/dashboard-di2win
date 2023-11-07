@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
-set -x
 
-echo 'teste'
+createdb -U postgres -T template0 database
+pg_restore -U postgres -d database dashboard.sql
