@@ -37,6 +37,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install --yes postgresql-client
+      - name: restore database
+        run: |
+          createdb -U postgres -T template0 database
+          pg_restore -U postgres -d database dashboard.sql
       - run: echo ${{ vars.POSTGRE_URL }}
       - run: |
           cd back
