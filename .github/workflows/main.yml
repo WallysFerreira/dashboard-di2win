@@ -3,7 +3,7 @@ on:
   pull_request:
 
 jobs:
-  unit-tests:
+  back-unit-tests:
     runs-on: ubuntu-latest
     environment: tests
     strategy:
@@ -15,23 +15,18 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version: ${{ matrix.go-version }}
-      - name: start postgres container
+      - name: Start postgres container
         run: |
           docker run --name postgres -d -v ./db/dashboard.sql:/dashboard.sql -p 5432:5432 -e POSTGRES_HOST_AUTH_METHOD=trust postgres
-      #- name: install psql
-      #  run: |
-      #    sudo apt-get update
-      #    sudo apt-get install --yes postgresql-client
-      #    sudo service postgresql start
-      - name: restore database
+      - name: Restore database
         run: |
           sudo chmod og+rX /home /home/runner
           sudo service postgresql restart
           sudo psql -h localhost -U postgres -c "CREATE ROLE admin"
           sudo psql -h localhost -U postgres -c "CREATE DATABASE database"
           sudo pg_restore -h localhost -U postgres -d database db/dashboard.sql
-      - run: echo ${{ vars.POSTGRE_URL }}
-      - run: |
+      - name: Run unit tests
+        run: |
           cd back
           go test ./service
         env:
