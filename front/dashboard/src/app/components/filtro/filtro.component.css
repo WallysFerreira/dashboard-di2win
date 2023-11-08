@@ -1,0 +1,35 @@
+#filtroDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 80vh;
+    width: 26vw;
+    box-shadow: rgb(190, 190, 190) 3px 2px 1px;
+    border-radius: 3%;
+}
+
+#dateDiv {
+    display: flex;
+    justify-content: space-around;
+    width: 70%;
+}
+
+.childDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button {
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    padding: 2vh;
+    border-radius: 10%;
+    max-width: 100px;
+}
+
+button:hover {
+    background-color: grey;
+}
