@@ -21,7 +21,8 @@ import { GraficoComponent } from './pages/grafico/grafico.component';
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      {path: '', component: HomeComponent}
+      {path: '', component: HomeComponent},
+      {path: 'grafico', component: GraficoComponent}
     ])
   ],
   providers: [],
