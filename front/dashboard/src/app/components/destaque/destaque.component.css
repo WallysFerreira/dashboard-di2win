@@ -1,0 +1,16 @@
+#destaqueDiv {
+    background-color: rgba(165, 164, 164, 0.404);
+    border-radius: 3%;
+    max-width: 220px;
+    min-width: 200px;
+    padding: 1%;
+    margin-bottom: 5%;
+}
+
+h1 {
+    font-size: 1.3rem;
+}
+
+p {
+    font-size: 1.1rem;
+}
