@@ -1,7 +1,6 @@
 #menuDiv {
     height: 98vh;
     width: 12vw;
-    float: left;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
