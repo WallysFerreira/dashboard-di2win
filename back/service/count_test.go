@@ -34,20 +34,20 @@ func TestCount(t *testing.T) {
 				Value: 1058,
 			},
 			{
-				Name:  "3",
-				Value: 974,
+				Name:  "4",
+				Value: 1003,
 			},
 			{
 				Name:  "5",
 				Value: 987,
 			},
 			{
-				Name:  "4",
-				Value: 1003,
-			},
-			{
 				Name:  "2",
 				Value: 978,
+			},
+			{
+				Name:  "3",
+				Value: 974,
 			},
 		}
 
@@ -65,16 +65,16 @@ func TestCount(t *testing.T) {
 		}
 
 		expected := []*model.Count{
-			{Name: "FATURAMENTO", Value: 52},
-			{Name: "CNH", Value: 62},
-			{Name: "POSICAO_CONSOLIDADA", Value: 138},
-			{Name: "FATURA_ENERGIA", Value: 43},
-			{Name: "CONTRATO_SOCIAL", Value: 47},
-			{Name: "CAPA_SERASA", Value: 90},
+			{Name: "BALANCO_PATRIMONIAL", Value: 174},
 			{Name: "DECLARACAO_IR", Value: 158},
 			{Name: "ENDIVIDAMENTO", Value: 139},
-			{Name: "BALANCO_PATRIMONIAL", Value: 174},
+			{Name: "POSICAO_CONSOLIDADA", Value: 138},
+			{Name: "CAPA_SERASA", Value: 90},
+			{Name: "CNH", Value: 62},
+			{Name: "FATURAMENTO", Value: 52},
 			{Name: "COMPROVANTE_RESIDENCIA", Value: 49},
+			{Name: "CONTRATO_SOCIAL", Value: 47},
+			{Name: "FATURA_ENERGIA", Value: 43},
 			{Name: "RECIBOS", Value: 35},
 		}
 

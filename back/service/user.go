@@ -54,7 +54,7 @@ func (rp RepositorioPostgre) FindUsers(segment string) []User {
 		filter = fmt.Sprintf("WHERE segment LIKE '%s'", segment)
 	}
 
-	rows, err := db.Query(fmt.Sprintf("SELECT * FROM users %s", filter))
+	rows, err := db.Query(fmt.Sprintf("SELECT * FROM users %s ORDER BY id", filter))
 	if err != nil {
 		log.Fatal(err)
 	}
