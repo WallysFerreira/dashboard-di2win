@@ -57,7 +57,7 @@ func (rp RepositorioPostgre) FindExtracts(filter Filtro) []Extract {
 	}
 	defer db.Close()
 
-	rows, err := db.Query(fmt.Sprintf("SELECT * FROM extracts %s", filter_string))
+	rows, err := db.Query(fmt.Sprintf("SELECT * FROM extracts %s ORDER BY id", filter_string))
 	if err != nil {
 		log.Fatal(err)
 	}
