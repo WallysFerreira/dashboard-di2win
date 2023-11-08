@@ -1,0 +1,6 @@
+#mainDiv {
+    width: 99vw;
+    height: 98vh;
+    display: flex;
+    flex-direction: row;
+}

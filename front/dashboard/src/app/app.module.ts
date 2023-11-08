@@ -7,6 +7,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { ChartComponent } from './components/chart/chart.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { FiltroComponent } from './components/filtro/filtro.component';
+import { GraficoComponent } from './pages/grafico/grafico.component';
 
 @NgModule({
   declarations: [
@@ -14,12 +15,14 @@ import { FiltroComponent } from './components/filtro/filtro.component';
     HomeComponent,
     ChartComponent,
     MenuComponent,
-    FiltroComponent
+    FiltroComponent,
+    GraficoComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      {path: '', component: HomeComponent}
+      {path: '', component: HomeComponent},
+      {path: 'grafico', component: GraficoComponent}
     ])
   ],
   providers: [],
