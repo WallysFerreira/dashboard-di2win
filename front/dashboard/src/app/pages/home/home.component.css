@@ -5,3 +5,7 @@
     justify-content: space-around;
     align-items: center;
 }
+
+h1 {
+    font-size: 2.5rem;
+}
