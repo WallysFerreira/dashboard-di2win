@@ -11,7 +11,7 @@ export class ChartComponent {
   public chart: any
 
   createChart(): void {
-    this.chart = new Chart('chartDiv', {
+    this.chart = new Chart('chartCanvas', {
       type: 'bar',
       data: {
         labels: ['Red', 'Blue'],

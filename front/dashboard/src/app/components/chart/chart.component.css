@@ -10,3 +10,7 @@ button {
 button:hover {
     background-color: grey;
 }
+
+#chartDiv {
+    width: 50vw;
+}
