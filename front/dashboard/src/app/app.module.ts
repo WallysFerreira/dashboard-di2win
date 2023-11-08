@@ -8,6 +8,7 @@ import { ChartComponent } from './components/chart/chart.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { FiltroComponent } from './components/filtro/filtro.component';
 import { GraficoComponent } from './pages/grafico/grafico.component';
+import { DestaqueComponent } from './components/destaque/destaque.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { GraficoComponent } from './pages/grafico/grafico.component';
     ChartComponent,
     MenuComponent,
     FiltroComponent,
-    GraficoComponent
+    GraficoComponent,
+    DestaqueComponent
   ],
   imports: [
     BrowserModule,
