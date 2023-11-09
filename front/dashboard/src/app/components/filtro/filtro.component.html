@@ -14,7 +14,7 @@
     <div class="childDiv" id="docDiv"> 
         <h1>Documento</h1>
         <div class="optionsDiv">
-            <button *ngFor="let documento of tipos_documento">{{documento}}</button>
+            <button *ngFor="let documento of tipos_documento" value={{documento.value}}>{{documento.name}}</button>
         </div>
     </div>
 
