@@ -47,7 +47,9 @@ export async function getUsers() {
     body: JSON.stringify({
       query: `{
         user {
+          id
           name
+          segment
         }
       }`
     })
