@@ -21,7 +21,7 @@
     <div class="childDiv" id="userDiv">
         <h1>Empresa</h1>
         <div class="optionsDiv">
-            <button *ngFor="let empresa of empresas">{{empresa.name}}</button>
+            <button *ngFor="let empresa of empresas" value={{empresa.id}}>{{empresa.name}}</button>
         </div>
     </div>
 </div>
