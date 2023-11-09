@@ -8,12 +8,16 @@ import { Component } from '@angular/core';
 
 export class GraficoComponent {
   filtroButtons: any
+  dateInputs: any
   selectedDocType?: string
   selectedUserId?: string
+  selectedStartDate?: string
+  selectedEndDate?: string
 
   ngAfterContentChecked() {
     this.filtroButtons = document.getElementById('filtroDiv')?.getElementsByTagName('button')
-    
+    this.dateInputs = document.getElementById('filtroDiv')?.getElementsByTagName('input')
+
     for (let button of this.filtroButtons) {
       let parentId = button.parentElement.parentElement.id
       if (button.classList == 'selected') {
@@ -23,6 +27,18 @@ export class GraficoComponent {
         } else if (parentId == 'userDiv') {
           this.selectedUserId = button.value
           console.log('Empresa selecionada:', this.selectedUserId)
+        }
+      }
+    }
+
+    for (let date of this.dateInputs) {
+      if (date.value != '') {
+        if (date.id == 'dateStart') {
+          this.selectedStartDate = date.value
+          console.log('Data inicio', this.selectedStartDate)
+        } else if (date.id == 'dateEnd') {
+          this.selectedEndDate = date.value
+          console.log('Data fim', this.selectedEndDate)
         }
       }
     }
