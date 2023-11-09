@@ -12,11 +12,22 @@ import (
 	"log"
 	"os"
 	"time"
+
+	"github.com/joho/godotenv"
 )
 
 // Count is the resolver for the count field.
 func (r *queryResolver) Count(ctx context.Context, groupBy string, userID *int, tipoDocumento *string, dataComeco *string, dataFinal *string) ([]*model.Count, error) {
 	conn_str := os.Getenv("POSTGRE_URL")
+
+	if conn_str == "" {
+		err := godotenv.Load(".env")
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		conn_str = os.Getenv("POSTGRE_URL")
+	}
 
 	rep := service.RepositorioPostgre{
 		ConnStr: conn_str,
@@ -58,6 +69,15 @@ func (r *queryResolver) Count(ctx context.Context, groupBy string, userID *int, 
 // Extract is the resolver for the extract field.
 func (r *queryResolver) Extract(ctx context.Context, id *int, userID *int, tipoDocumento *string, dataComeco *string, dataFinal *string) ([]*model.Extract, error) {
 	conn_str := os.Getenv("POSTGRE_URL")
+
+	if conn_str == "" {
+		err := godotenv.Load(".env")
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		conn_str = os.Getenv("POSTGRE_URL")
+	}
 
 	rep := service.RepositorioPostgre{
 		ConnStr: conn_str,
@@ -129,6 +149,15 @@ func (r *queryResolver) Extract(ctx context.Context, id *int, userID *int, tipoD
 // User is the resolver for the user field.
 func (r *queryResolver) User(ctx context.Context, id *int, segment *string) ([]*model.User, error) {
 	conn_str := os.Getenv("POSTGRE_URL")
+
+	if conn_str == "" {
+		err := godotenv.Load(".env")
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		conn_str = os.Getenv("POSTGRE_URL")
+	}
 
 	rep := service.RepositorioPostgre{
 		ConnStr: conn_str,
