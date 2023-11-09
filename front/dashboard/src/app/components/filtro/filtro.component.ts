@@ -16,8 +16,18 @@ export class FiltroComponent {
     this.empresas = res.data.user
     console.log("Empresas", this.empresas)
 
-    res = await getCount("doc_type", 0, null, null, null)
-    this.tipos_documento = res.data.count
-    console.log("Documentos", this.tipos_documento)
+    this.tipos_documento = [
+      "Faturamento",
+      "CNH",
+      "Posição Consolidada",
+      "Fatura de Energia",
+      "Contrato Social",
+      "Declaração IR",
+      "Capa Serasa",
+      "Endividamento",
+      "Comprovante de Residência",
+      "Balanço Patrimonial",
+      "Recibo",
+    ]
   }
 }
