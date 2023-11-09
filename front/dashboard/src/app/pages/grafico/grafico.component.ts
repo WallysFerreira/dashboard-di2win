@@ -13,11 +13,11 @@ export class GraficoComponent {
     this.filtroButtons = document.getElementById('filtroDiv')?.getElementsByTagName('button')
     
     for (let button of this.filtroButtons) {
-      let idPai = button.parentElement.parentElement.id
+      let parentId = button.parentElement.parentElement.id
       if (button.classList == 'selected') {
-        if (idPai == 'docDiv') {
+        if (parentId == 'docDiv') {
           console.log('Documento selecionado:', button.value)
-        } else if (idPai == 'userDiv') {
+        } else if (parentId == 'userDiv') {
           console.log('Empresa selecionada:', button.value)
         }
       }
