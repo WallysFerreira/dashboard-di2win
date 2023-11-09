@@ -14,9 +14,7 @@
     <div class="childDiv" id="docDiv"> 
         <h1>Documento</h1>
         <div class="optionsDiv">
-            <button>CNH</button>
-            <button>Comprovante de Residencia</button>
-            <button>Histórico Escolar</button>
+            <button *ngFor="let documento of tipos_documento">{{documento}}</button>
         </div>
     </div>
 
