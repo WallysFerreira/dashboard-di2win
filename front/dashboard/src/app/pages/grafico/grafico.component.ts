@@ -8,6 +8,8 @@ import { Component } from '@angular/core';
 
 export class GraficoComponent {
   filtroButtons: any
+  selectedDocType?: string
+  selectedUserId?: string
 
   ngAfterContentChecked() {
     this.filtroButtons = document.getElementById('filtroDiv')?.getElementsByTagName('button')
@@ -16,9 +18,11 @@ export class GraficoComponent {
       let parentId = button.parentElement.parentElement.id
       if (button.classList == 'selected') {
         if (parentId == 'docDiv') {
-          console.log('Documento selecionado:', button.value)
+          this.selectedDocType = button.value
+          console.log('Documento selecionado:', this.selectedDocType)
         } else if (parentId == 'userDiv') {
-          console.log('Empresa selecionada:', button.value)
+          this.selectedUserId = button.value
+          console.log('Empresa selecionada:', this.selectedUserId)
         }
       }
     }
