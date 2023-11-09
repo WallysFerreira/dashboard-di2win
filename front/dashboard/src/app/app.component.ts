@@ -10,17 +10,6 @@ export class AppComponent {
   title = 'dashboard';
 }
 
-window.onload = async () => {
-  const dataCount = await getCount("doc_type", 0, null, null, "2023-10-07")
-  console.log("Count", dataCount)
-
-  const dataUsers = await getUsers()
-  console.log("Users", dataUsers)
-
-  const dataExtracts = await getExtracts()
-  console.log("Extracts", dataExtracts)
-}
-
 export async function getCount(group_by: string, user_id: number, tipo_documento: string | null, data_comeco: string | null, data_final: string | null) {
   const filtro = `${tipo_documento ? ", tipo_documento: \"" + tipo_documento + "\"" : ""} ${data_comeco ? ", data_comeco: \"" + data_comeco + "\"" : ""} ${data_final ? ", data_final: \"" + data_final + "\"" : ""}`
 
