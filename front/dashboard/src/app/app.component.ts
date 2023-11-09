@@ -16,6 +16,9 @@ window.onload = async () => {
 
   const dataUsers = await getUsers()
   console.log("Users", dataUsers)
+
+  const dataExtracts = await getExtracts()
+  console.log("Extracts", dataExtracts)
 }
 
 export async function getCount(group_by: string, user_id: number, tipo_documento: string | null, data_comeco: string | null, data_final: string | null) {
@@ -45,6 +48,26 @@ export async function getUsers() {
       query: `{
         user {
           name
+        }
+      }`
+    })
+  }).then(res => res.json())
+
+  return result
+}
+
+export async function getExtracts() {
+  const result = await fetch("http://localhost:8080/query", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      query: `{
+        extract {
+          id
+          created_at
+          pages_processed
+          doc_type
+          user_id
         }
       }`
     })
