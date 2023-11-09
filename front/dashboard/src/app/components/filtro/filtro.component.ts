@@ -10,11 +10,12 @@ import { getCount, getUsers } from 'src/app/app.component';
 export class FiltroComponent {
   empresas: any
   tipos_documento: any
+  buttonsDoc: any
+  buttonsEmp: any
 
   async ngOnInit() {
     let res = await getUsers()
     this.empresas = res.data.user
-    console.log("Empresas", this.empresas)
 
     this.tipos_documento = [
       {
@@ -62,5 +63,30 @@ export class FiltroComponent {
         value: "RECIBOS"
       }
     ]
+  }
+
+  ngAfterContentChecked() {
+    this.buttonsDoc = document.getElementById('docDiv')?.getElementsByTagName('button')
+    this.buttonsEmp = document.getElementById('userDiv')?.getElementsByTagName('button')
+  }
+
+  setSelected(id: any, div: any) {
+    this.clearSelectedButton(div)
+    
+    document.getElementById(id)?.classList.add('selected')
+  }
+
+  clearSelectedButton(div: any) {
+    let buttons
+
+    if (div == 'docDiv') {
+      buttons = this.buttonsDoc
+    } else if (div == 'userDiv') {
+      buttons = this.buttonsEmp
+    }
+
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].classList.remove('selected')
+    }
   }
 }
