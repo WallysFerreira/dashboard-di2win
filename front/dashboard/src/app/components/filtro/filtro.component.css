@@ -33,3 +33,7 @@ button {
 button:hover {
     background-color: grey;
 }
+
+.selected {
+    background-color: grey;
+}
