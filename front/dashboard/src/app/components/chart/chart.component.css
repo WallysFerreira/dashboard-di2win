@@ -14,3 +14,7 @@ button:hover {
 #chartDiv {
     width: 50vw;
 }
+
+.selected {
+    background-color: grey;
+}
