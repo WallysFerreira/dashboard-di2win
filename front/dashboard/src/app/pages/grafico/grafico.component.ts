@@ -16,6 +16,8 @@ export class GraficoComponent {
   selectedUserId?: string = "0"
   selectedStartDate?: string
   selectedEndDate?: string
+  labelData: any = []
+  valueData: any = []
 
   async ngAfterContentChecked() {
     let changed = false
@@ -67,7 +69,13 @@ export class GraficoComponent {
 
     if (changed) {
       let apiRes = await getCount(this.selectedGroupBy || "user_id", this.selectedUserId || "0",  this.selectedDocType || null, this.selectedStartDate || null, this.selectedEndDate || null)
-      console.log(apiRes)
+      this.labelData = []
+      this.valueData = []
+
+      for (let count of apiRes.data.count) {
+        this.labelData.push(count.name)
+        this.valueData.push(count.value)
+      }
     }
   }
 }
