@@ -3,6 +3,6 @@
     <div id="groupDiv">
         <button (click)="setSelected('userGroupButton')" value="user_id" id="userGroupButton">Empresa</button>
         <button (click)="setSelected('docGroupButton')" value="doc_type" id="docGroupButton">Documento</button>
-        <button (click)="setSelected('monthGroupButton')" value="month" id="monthGroupButton">Mês</button>
+        <button (click)="setSelected('monthGroupButton')" value="EXTRACT(month FROM created_at::date)" id="monthGroupButton">Mês</button>
     </div>
 </div>

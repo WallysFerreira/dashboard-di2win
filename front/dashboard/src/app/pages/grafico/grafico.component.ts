@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { getCount } from 'src/app/app.component';
 
 @Component({
   selector: 'app-grafico',
@@ -12,11 +13,11 @@ export class GraficoComponent {
   groupByButtons: any
   selectedGroupBy?: string
   selectedDocType?: string
-  selectedUserId?: string
+  selectedUserId?: string = "0"
   selectedStartDate?: string
   selectedEndDate?: string
 
-  ngAfterContentChecked() {
+  async ngAfterContentChecked() {
     let changed = false
     this.filtroButtons = document.getElementById('filtroDiv')?.getElementsByTagName('button')
     this.dateInputs = document.getElementById('filtroDiv')?.getElementsByTagName('input')
@@ -65,24 +66,8 @@ export class GraficoComponent {
     }
 
     if (changed) {
-      this.makeQuery()
+      let apiRes = await getCount(this.selectedGroupBy || "user_id", this.selectedUserId || "0",  this.selectedDocType || null, this.selectedStartDate || null, this.selectedEndDate || null)
+      console.log(apiRes)
     }
-  }
-
-  async makeQuery() {
-    const res = await fetch('http://localhost:8080/query', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        query: `{
-          count(group_by: "user_id") {
-            name
-            value
-          }
-        }`
-      })
-    }).then(res => res.json())
-
-    console.log(res)
   }
 }
