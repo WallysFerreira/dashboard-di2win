@@ -17,6 +17,7 @@ export class GraficoComponent {
   selectedEndDate?: string
 
   ngAfterContentChecked() {
+    let changed = false
     this.filtroButtons = document.getElementById('filtroDiv')?.getElementsByTagName('button')
     this.dateInputs = document.getElementById('filtroDiv')?.getElementsByTagName('input')
     this.groupByButtons = document.getElementById('groupDiv')?.getElementsByTagName('button')
@@ -25,11 +26,15 @@ export class GraficoComponent {
       let parentId = button.parentElement.parentElement.id
       if (button.classList == 'selected') {
         if (parentId == 'docDiv') {
-          this.selectedDocType = button.value
-          console.log('Documento selecionado:', this.selectedDocType)
+          if (button.value != this.selectedDocType) {
+            this.selectedDocType = button.value
+            changed = true;
+          }
         } else if (parentId == 'userDiv') {
-          this.selectedUserId = button.value
-          console.log('Empresa selecionada:', this.selectedUserId)
+          if (button.value != this.selectedUserId) {
+            this.selectedUserId = button.value
+            changed = true;
+          }
         }
       }
     }
@@ -37,19 +42,47 @@ export class GraficoComponent {
     for (let date of this.dateInputs) {
       if (date.value != '') {
         if (date.id == 'dateStart') {
-          this.selectedStartDate = date.value
-          console.log('Data inicio', this.selectedStartDate)
+          if (date.value != this.selectedStartDate) {
+            this.selectedStartDate = date.value
+            changed = true
+          }
         } else if (date.id == 'dateEnd') {
-          this.selectedEndDate = date.value
-          console.log('Data fim', this.selectedEndDate)
+          if (date.value != this.selectedEndDate) {
+            this.selectedEndDate = date.value
+            changed = true
+          }
         }
       }
     }
 
     for (let button of this.groupByButtons) {
       if (button.classList == 'selected') {
-        console.log(button.value)
+        if (button.value != this.selectedGroupBy) {
+          this.selectedGroupBy = button.value
+          changed = true
+        }
       }
     }
+
+    if (changed) {
+      this.makeQuery()
+    }
+  }
+
+  async makeQuery() {
+    const res = await fetch('http://localhost:8080/query', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        query: `{
+          count(group_by: "user_id") {
+            name
+            value
+          }
+        }`
+      })
+    }).then(res => res.json())
+
+    console.log(res)
   }
 }
