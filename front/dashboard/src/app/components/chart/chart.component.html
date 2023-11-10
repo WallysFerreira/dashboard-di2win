@@ -1,8 +1,8 @@
 <div id="chartDiv">
     <canvas id="chartCanvas">{{ chart }}</canvas>
     <div id="groupDiv">
-        <button value="user_id">Empresa</button>
-        <button value="doc_type">Documento</button>
-        <button value="month">Mês</button>
+        <button (click)="setSelected('userGroupButton')" value="user_id" id="userGroupButton">Empresa</button>
+        <button (click)="setSelected('docGroupButton')" value="doc_type" id="docGroupButton">Documento</button>
+        <button (click)="setSelected('monthGroupButton')" value="month" id="monthGroupButton">Mês</button>
     </div>
 </div>

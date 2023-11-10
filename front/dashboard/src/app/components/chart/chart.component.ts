@@ -9,6 +9,7 @@ import { Chart, registerables } from 'chart.js';
 
 export class ChartComponent {
   public chart: any
+  buttonsGroup: any
 
   createChart(): void {
     this.chart = new Chart('chartCanvas', {
@@ -33,6 +34,22 @@ export class ChartComponent {
 
   ngOnInit(): void {
     this.createChart()
+  }
+
+  ngAfterContentChecked() {
+    this.buttonsGroup = document.getElementById('groupDiv')?.getElementsByTagName('button')
+  }
+
+  setSelected(id: any) {
+    this.clearSelectedButton()
+    
+    document.getElementById(id)?.classList.add('selected')
+  }
+
+  clearSelectedButton() {
+    for (let button of this.buttonsGroup) {
+      button.classList.remove('selected')
+    }
   }
 }
 
