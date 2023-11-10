@@ -9,6 +9,8 @@ import { Component } from '@angular/core';
 export class GraficoComponent {
   filtroButtons: any
   dateInputs: any
+  groupByButtons: any
+  selectedGroupBy?: string
   selectedDocType?: string
   selectedUserId?: string
   selectedStartDate?: string
@@ -17,6 +19,7 @@ export class GraficoComponent {
   ngAfterContentChecked() {
     this.filtroButtons = document.getElementById('filtroDiv')?.getElementsByTagName('button')
     this.dateInputs = document.getElementById('filtroDiv')?.getElementsByTagName('input')
+    this.groupByButtons = document.getElementById('groupDiv')?.getElementsByTagName('button')
 
     for (let button of this.filtroButtons) {
       let parentId = button.parentElement.parentElement.id
@@ -40,6 +43,12 @@ export class GraficoComponent {
           this.selectedEndDate = date.value
           console.log('Data fim', this.selectedEndDate)
         }
+      }
+    }
+
+    for (let button of this.groupByButtons) {
+      if (button.classList == 'selected') {
+        console.log(button.value)
       }
     }
   }
