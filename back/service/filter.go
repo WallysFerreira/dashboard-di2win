@@ -16,6 +16,7 @@ type FiltroExtract struct {
 	PagesProcessed int
 	DocType        string
 	UserId         int
+	Segment        string
 }
 
 func (fe FiltroExtract) gerarFiltro() string {
@@ -66,6 +67,8 @@ func (fe FiltroExtract) gerarFiltro() string {
 			switch field_name {
 			case "DocType":
 				filter = fmt.Sprintf("%s doc_type = '%s'", filter, field.String())
+			case "Segment":
+				filter = fmt.Sprintf("%s users.segment = '%s'", filter, field.String())
 			}
 
 			filter_count++
