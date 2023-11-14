@@ -84,4 +84,31 @@ func TestCount(t *testing.T) {
 			t.Errorf("Expected %v, got %v", expected, got)
 		}
 	})
+
+	t.Run("count grouping by user segment", func(t *testing.T) {
+		expected := []*model.Count{
+			{
+				Name:  "banco",
+				Value: 6038,
+			},
+			{
+				Name:  "construtora",
+				Value: 3649,
+			},
+			{
+				Name:  "financeira",
+				Value: 3381,
+			},
+			{
+				Name:  "imobiliaria",
+				Value: 3041,
+			},
+		}
+
+		got := rep.CountExtracts("users.segment", FiltroExtract{})
+
+		if !reflect.DeepEqual(expected, got) {
+			t.Errorf("Expected %v, got %v", expected, got)
+		}
+	})
 }

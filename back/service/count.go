@@ -18,7 +18,7 @@ func (rp RepositorioPostgre) CountExtracts(group_by string, filter Filtro) []*mo
 
 	filter_string := filter.gerarFiltro()
 
-	rows, err := db.Query(fmt.Sprintf("SELECT %s, sum(pages_process) FROM extracts %s GROUP BY %s ORDER BY sum(pages_process) DESC", group_by, filter_string, group_by))
+	rows, err := db.Query(fmt.Sprintf("SELECT %s, sum(extracts.pages_process) FROM extracts JOIN users on users.id = extracts.user_id %s GROUP BY %s ORDER BY sum(pages_process) DESC", group_by, filter_string, group_by))
 	if err != nil {
 		log.Fatal(err)
 	}
