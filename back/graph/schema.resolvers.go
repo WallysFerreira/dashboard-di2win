@@ -61,6 +61,10 @@ func (r *queryResolver) Count(ctx context.Context, groupBy string, userID *int, 
 		filter.UserId = *userID
 	}
 
+	if segmento != nil {
+		filter.Segment = *segmento
+	}
+
 	count := rep.CountExtracts(groupBy, filter)
 
 	return count, nil
