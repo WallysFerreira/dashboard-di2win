@@ -31,23 +31,23 @@ func TestCount(t *testing.T) {
 		expected := []*model.Count{
 			{
 				Name:  "1",
-				Value: 1058,
-			},
-			{
-				Name:  "4",
-				Value: 1003,
+				Value: 3649,
 			},
 			{
 				Name:  "5",
-				Value: 987,
+				Value: 3381,
 			},
 			{
-				Name:  "2",
-				Value: 978,
+				Name:  "4",
+				Value: 3144,
 			},
 			{
 				Name:  "3",
-				Value: 974,
+				Value: 3041,
+			},
+			{
+				Name:  "2",
+				Value: 2894,
 			},
 		}
 
@@ -65,17 +65,17 @@ func TestCount(t *testing.T) {
 		}
 
 		expected := []*model.Count{
-			{Name: "BALANCO_PATRIMONIAL", Value: 174},
-			{Name: "DECLARACAO_IR", Value: 158},
-			{Name: "ENDIVIDAMENTO", Value: 139},
-			{Name: "POSICAO_CONSOLIDADA", Value: 138},
-			{Name: "CAPA_SERASA", Value: 90},
-			{Name: "CNH", Value: 62},
-			{Name: "FATURAMENTO", Value: 52},
-			{Name: "COMPROVANTE_RESIDENCIA", Value: 49},
-			{Name: "CONTRATO_SOCIAL", Value: 47},
-			{Name: "FATURA_ENERGIA", Value: 43},
-			{Name: "RECIBOS", Value: 35},
+			{Name: "POSICAO_CONSOLIDADA", Value: 651},
+			{Name: "BALANCO_PATRIMONIAL", Value: 603},
+			{Name: "DECLARACAO_IR", Value: 432},
+			{Name: "ENDIVIDAMENTO", Value: 415},
+			{Name: "CAPA_SERASA", Value: 288},
+			{Name: "COMPROVANTE_RESIDENCIA", Value: 243},
+			{Name: "CONTRATO_SOCIAL", Value: 179},
+			{Name: "FATURAMENTO", Value: 165},
+			{Name: "CNH", Value: 155},
+			{Name: "FATURA_ENERGIA", Value: 147},
+			{Name: "RECIBOS", Value: 103},
 		}
 
 		got := rep.CountExtracts(group_by, filter)
