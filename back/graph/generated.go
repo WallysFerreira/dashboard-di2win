@@ -60,7 +60,7 @@ type ComplexityRoot struct {
 	}
 
 	Query struct {
-		Count   func(childComplexity int, groupBy string, userID *int, tipoDocumento *string, dataComeco *string, dataFinal *string) int
+		Count   func(childComplexity int, groupBy string, userID *int, tipoDocumento *string, segmento *string, dataComeco *string, dataFinal *string) int
 		Extract func(childComplexity int, id *int, userID *int, tipoDocumento *string, dataComeco *string, dataFinal *string) int
 		User    func(childComplexity int, id *int, segment *string) int
 	}
@@ -73,7 +73,7 @@ type ComplexityRoot struct {
 }
 
 type QueryResolver interface {
-	Count(ctx context.Context, groupBy string, userID *int, tipoDocumento *string, dataComeco *string, dataFinal *string) ([]*model.Count, error)
+	Count(ctx context.Context, groupBy string, userID *int, tipoDocumento *string, segmento *string, dataComeco *string, dataFinal *string) ([]*model.Count, error)
 	Extract(ctx context.Context, id *int, userID *int, tipoDocumento *string, dataComeco *string, dataFinal *string) ([]*model.Extract, error)
 	User(ctx context.Context, id *int, segment *string) ([]*model.User, error)
 }
@@ -156,7 +156,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Query.Count(childComplexity, args["group_by"].(string), args["user_id"].(*int), args["tipo_documento"].(*string), args["data_comeco"].(*string), args["data_final"].(*string)), true
+		return e.complexity.Query.Count(childComplexity, args["group_by"].(string), args["user_id"].(*int), args["tipo_documento"].(*string), args["segmento"].(*string), args["data_comeco"].(*string), args["data_final"].(*string)), true
 
 	case "Query.extract":
 		if e.complexity.Query.Extract == nil {
@@ -357,23 +357,32 @@ func (ec *executionContext) field_Query_count_args(ctx context.Context, rawArgs 
 	}
 	args["tipo_documento"] = arg2
 	var arg3 *string
-	if tmp, ok := rawArgs["data_comeco"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("data_comeco"))
+	if tmp, ok := rawArgs["segmento"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("segmento"))
 		arg3, err = ec.unmarshalOString2ᚖstring(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
 	}
-	args["data_comeco"] = arg3
+	args["segmento"] = arg3
 	var arg4 *string
-	if tmp, ok := rawArgs["data_final"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("data_final"))
+	if tmp, ok := rawArgs["data_comeco"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("data_comeco"))
 		arg4, err = ec.unmarshalOString2ᚖstring(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
 	}
-	args["data_final"] = arg4
+	args["data_comeco"] = arg4
+	var arg5 *string
+	if tmp, ok := rawArgs["data_final"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("data_final"))
+		arg5, err = ec.unmarshalOString2ᚖstring(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["data_final"] = arg5
 	return args, nil
 }
 
@@ -812,7 +821,7 @@ func (ec *executionContext) _Query_count(ctx context.Context, field graphql.Coll
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Count(rctx, fc.Args["group_by"].(string), fc.Args["user_id"].(*int), fc.Args["tipo_documento"].(*string), fc.Args["data_comeco"].(*string), fc.Args["data_final"].(*string))
+		return ec.resolvers.Query().Count(rctx, fc.Args["group_by"].(string), fc.Args["user_id"].(*int), fc.Args["tipo_documento"].(*string), fc.Args["segmento"].(*string), fc.Args["data_comeco"].(*string), fc.Args["data_final"].(*string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
