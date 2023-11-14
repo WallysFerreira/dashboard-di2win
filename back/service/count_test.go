@@ -111,4 +111,23 @@ func TestCount(t *testing.T) {
 			t.Errorf("Expected %v, got %v", expected, got)
 		}
 	})
+
+	t.Run("filter by segment grouping by month", func(t *testing.T) {
+		filter := FiltroExtract{
+			Segment: "financeira",
+		}
+
+		expected := []*model.Count{
+			{Name: "8", Value: 1023},
+			{Name: "9", Value: 1020},
+			{Name: "10", Value: 962},
+			{Name: "7", Value: 376},
+		}
+
+		got := rep.CountExtracts("EXTRACT(month FROM created_at::date)", filter)
+
+		if !reflect.DeepEqual(expected, got) {
+			t.Errorf("Expected %v, got %v", expected, got)
+		}
+	})
 }
