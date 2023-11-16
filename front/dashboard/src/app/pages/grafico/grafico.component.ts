@@ -93,11 +93,13 @@ export class GraficoComponent {
           if (date.value != this.selectedStartDate) {
             this.selectedStartDate = date.value
             this.changed = true
+            this.updateData()
           }
         } else if (date.id == 'dateEnd') {
           if (date.value != this.selectedEndDate) {
             this.selectedEndDate = date.value
             this.changed = true
+            this.updateData()
           }
         }
       }
