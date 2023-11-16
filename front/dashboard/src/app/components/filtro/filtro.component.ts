@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { getCount, getUsers } from 'src/app/app.component';
 
 @Component({
@@ -70,10 +70,25 @@ export class FiltroComponent {
     this.buttonsEmp = document.getElementById('userDiv')?.getElementsByTagName('button')
   }
 
-  setSelected(id: any, div: any) {
+  select(event: any, div: any) {
+    const hasClass = event.target.classList.contains('selected')
+    console.log(hasClass)
+
+    if (hasClass) {
+      this.unselect(event)
+    } else {
+      this.setSelected(event, div)
+    }
+  }
+
+  unselect (event: any) {
+    event.target.classList.remove('selected')
+  }
+
+  setSelected(event: any, div: any) {
     this.clearSelectedButton(div)
-    
-    document.getElementById(id)?.classList.add('selected')
+
+    event.target.classList.add('selected')
   }
 
   clearSelectedButton(div: any) {

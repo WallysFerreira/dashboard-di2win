@@ -14,14 +14,14 @@
     <div class="childDiv" id="docDiv"> 
         <h1>Documento</h1>
         <div class="optionsDiv">
-            <button (click)="setSelected(documento.value + 'Button', 'docDiv')" id="{{documento.value + 'Button'}}" *ngFor="let documento of tipos_documento" value={{documento.value}}>{{documento.name}}</button>
+            <button (click)="select($event, 'docDiv')" id="{{documento.value + 'Button'}}" *ngFor="let documento of tipos_documento" value={{documento.value}}>{{documento.name}}</button>
         </div>
     </div>
 
     <div class="childDiv" id="userDiv">
         <h1>Empresa</h1>
         <div class="optionsDiv">
-            <button (click)="setSelected(empresa.id + 'Button', 'userDiv')" *ngFor="let empresa of empresas" id="{{empresa.id + 'Button'}}" value={{empresa.id}}>{{empresa.name}}</button>
+            <button (click)="select($event, 'userDiv')" *ngFor="let empresa of empresas" id="{{empresa.id + 'Button'}}" value={{empresa.id}}>{{empresa.name}}</button>
         </div>
     </div>
 </div>
