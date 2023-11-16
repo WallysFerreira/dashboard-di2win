@@ -72,7 +72,6 @@ export class FiltroComponent {
 
   select(event: any, div: any) {
     const hasClass = event.target.classList.contains('selected')
-    console.log(hasClass)
 
     if (hasClass) {
       this.unselect(event)
