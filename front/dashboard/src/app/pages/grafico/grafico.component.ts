@@ -29,7 +29,9 @@ export class GraficoComponent {
 
     for (let date of this.dateInputs) {
       date.addEventListener('change', () => {
-        this.changeDate()
+        if (date.value[0] != '0') {
+          this.changeDate()
+        }
       })
     }
   }
