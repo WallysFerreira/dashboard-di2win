@@ -118,10 +118,10 @@ func TestCount(t *testing.T) {
 		}
 
 		expected := []*model.Count{
+			{Name: "7", Value: 376},
 			{Name: "8", Value: 1023},
 			{Name: "9", Value: 1020},
 			{Name: "10", Value: 962},
-			{Name: "7", Value: 376},
 		}
 
 		got := rep.CountExtracts("EXTRACT(month FROM created_at::date)", filter)
