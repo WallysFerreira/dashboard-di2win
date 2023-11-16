@@ -21,13 +21,16 @@ export class GraficoComponent {
   labelData: any = []
   valueData: any = []
 
+  ngOnInit() {
+    this.filtroButtons = document.getElementById('filtroDiv')?.getElementsByTagName('button')
+    this.dateInputs = document.getElementById('filtroDiv')?.getElementsByTagName('input')
+    this.groupByButtons = document.getElementById('groupDiv')?.getElementsByTagName('button')
+  }
+
   async ngAfterContentChecked() {
     let changed = false
     this.docWasSelected = false
     this.userIdWasSelected = false
-    this.filtroButtons = document.getElementById('filtroDiv')?.getElementsByTagName('button')
-    this.dateInputs = document.getElementById('filtroDiv')?.getElementsByTagName('input')
-    this.groupByButtons = document.getElementById('groupDiv')?.getElementsByTagName('button')
 
     for (let button of this.filtroButtons) {
       let parentId = button.parentElement.parentElement.id
