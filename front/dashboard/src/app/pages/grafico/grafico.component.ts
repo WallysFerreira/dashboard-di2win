@@ -11,6 +11,7 @@ export class GraficoComponent {
   filtroButtons: any
   dateInputs: any
   groupByButtons: any
+  docWasSelected = false
   selectedGroupBy?: string
   selectedDocType?: string
   selectedUserId?: string = "0"
@@ -21,6 +22,7 @@ export class GraficoComponent {
 
   async ngAfterContentChecked() {
     let changed = false
+    this.docWasSelected = false
     this.filtroButtons = document.getElementById('filtroDiv')?.getElementsByTagName('button')
     this.dateInputs = document.getElementById('filtroDiv')?.getElementsByTagName('input')
     this.groupByButtons = document.getElementById('groupDiv')?.getElementsByTagName('button')
@@ -29,6 +31,8 @@ export class GraficoComponent {
       let parentId = button.parentElement.parentElement.id
       if (button.classList == 'selected') {
         if (parentId == 'docDiv') {
+          this.docWasSelected = true
+
           if (button.value != this.selectedDocType) {
             this.selectedDocType = button.value
             changed = true;
@@ -39,6 +43,14 @@ export class GraficoComponent {
             changed = true;
           }
         }
+      }
+    }
+
+    if (this.selectedDocType != undefined) {
+      if (!this.docWasSelected) {
+        this.selectedDocType = undefined
+        changed = true
+        console.log("Doc not selected")
       }
     }
 
