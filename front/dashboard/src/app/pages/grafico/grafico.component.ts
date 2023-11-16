@@ -26,6 +26,12 @@ export class GraficoComponent {
     this.filtroButtons = document.getElementById('filtroDiv')?.getElementsByTagName('button')
     this.dateInputs = document.getElementById('filtroDiv')?.getElementsByTagName('input')
     this.groupByButtons = document.getElementById('groupDiv')?.getElementsByTagName('button')
+
+    for (let date of this.dateInputs) {
+      date.addEventListener('change', () => {
+        this.changeDate()
+      })
+    }
   }
 
   async ngAfterContentChecked() {
