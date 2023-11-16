@@ -115,6 +115,11 @@ export class GraficoComponent {
       this.valueData = []
 
       for (let count of apiRes.data.count) {
+        if (this.selectedGroupBy == "EXTRACT(month FROM created_at::date)") {
+          let month = new Date(2000, count.name - 1, 1).toLocaleString('default', { month: 'long' })
+          count.name = month
+        }
+
         this.labelData.push(count.name)
         this.valueData.push(count.value)
       }
