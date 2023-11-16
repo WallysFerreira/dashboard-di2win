@@ -11,6 +11,7 @@ export class GraficoComponent {
   filtroButtons: any
   dateInputs: any
   groupByButtons: any
+  changed = false
   docWasSelected = false
   userIdWasSelected = false
   selectedGroupBy?: string
@@ -28,7 +29,7 @@ export class GraficoComponent {
   }
 
   async ngAfterContentChecked() {
-    let changed = false
+    this.changed = false
     this.docWasSelected = false
     this.userIdWasSelected = false
 
@@ -40,14 +41,14 @@ export class GraficoComponent {
 
           if (button.value != this.selectedDocType) {
             this.selectedDocType = button.value
-            changed = true;
+            this.changed = true;
           }
         } else if (parentId == 'userDiv') {
           this.userIdWasSelected = true
 
           if (button.value != this.selectedUserId) {
             this.selectedUserId = button.value
-            changed = true;
+            this.changed = true;
           }
         }
       }
@@ -56,30 +57,14 @@ export class GraficoComponent {
     if (this.selectedDocType != undefined) {
       if (!this.docWasSelected) {
         this.selectedDocType = undefined
-        changed = true
+        this.changed = true
       }
     }
 
     if (this.selectedUserId != undefined) {
       if (!this.userIdWasSelected) {
         this.selectedUserId = undefined
-        changed = true
-      }
-    }
-
-    for (let date of this.dateInputs) {
-      if (date.value != '') {
-        if (date.id == 'dateStart') {
-          if (date.value != this.selectedStartDate) {
-            this.selectedStartDate = date.value
-            changed = true
-          }
-        } else if (date.id == 'dateEnd') {
-          if (date.value != this.selectedEndDate) {
-            this.selectedEndDate = date.value
-            changed = true
-          }
-        }
+        this.changed = true
       }
     }
 
@@ -87,12 +72,12 @@ export class GraficoComponent {
       if (button.classList == 'selected') {
         if (button.value != this.selectedGroupBy) {
           this.selectedGroupBy = button.value
-          changed = true
+          this.changed = true
         }
       }
     }
 
-    if (changed) {
+    if (this.changed) {
       let apiRes = await getCount(this.selectedGroupBy || "user_id", this.selectedUserId || "0",  this.selectedDocType || null, this.selectedStartDate || null, this.selectedEndDate || null)
       this.labelData = []
       this.valueData = []
@@ -100,6 +85,24 @@ export class GraficoComponent {
       for (let count of apiRes.data.count) {
         this.labelData.push(count.name)
         this.valueData.push(count.value)
+      }
+    }
+  }
+
+  changeDate() {
+    for (let date of this.dateInputs) {
+      if (date.value != '') {
+        if (date.id == 'dateStart') {
+          if (date.value != this.selectedStartDate) {
+            this.selectedStartDate = date.value
+            this.changed = true
+          }
+        } else if (date.id == 'dateEnd') {
+          if (date.value != this.selectedEndDate) {
+            this.selectedEndDate = date.value
+            this.changed = true
+          }
+        }
       }
     }
   }
