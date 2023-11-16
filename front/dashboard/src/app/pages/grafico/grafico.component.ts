@@ -83,16 +83,7 @@ export class GraficoComponent {
       }
     }
 
-    if (this.changed) {
-      let apiRes = await getCount(this.selectedGroupBy || "user_id", this.selectedUserId || "0",  this.selectedDocType || null, this.selectedStartDate || null, this.selectedEndDate || null)
-      this.labelData = []
-      this.valueData = []
-
-      for (let count of apiRes.data.count) {
-        this.labelData.push(count.name)
-        this.valueData.push(count.value)
-      }
-    }
+    this.updateData()
   }
 
   changeDate() {
@@ -109,6 +100,19 @@ export class GraficoComponent {
             this.changed = true
           }
         }
+      }
+    }
+  }
+
+  async updateData() {
+    if (this.changed) {
+      let apiRes = await getCount(this.selectedGroupBy || "user_id", this.selectedUserId || "0",  this.selectedDocType || null, this.selectedStartDate || null, this.selectedEndDate || null)
+      this.labelData = []
+      this.valueData = []
+
+      for (let count of apiRes.data.count) {
+        this.labelData.push(count.name)
+        this.valueData.push(count.value)
       }
     }
   }
