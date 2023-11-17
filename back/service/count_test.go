@@ -28,7 +28,7 @@ func TestCount(t *testing.T) {
 
 	t.Run("count grouping by user_id", func(t *testing.T) {
 		group_by := "user_id"
-		expected := []*model.Count{
+		expected_pages_processed := []*model.Count{
 			{
 				Name:  "1",
 				Value: 3649,
@@ -51,10 +51,10 @@ func TestCount(t *testing.T) {
 			},
 		}
 
-		got := rep.CountExtracts(group_by, FiltroExtract{})
+		got_pages_processed := rep.CountExtracts(0, group_by, FiltroExtract{})
 
-		if !reflect.DeepEqual(expected, got) {
-			t.Errorf("Expected %v, got %v", expected, got)
+		if !reflect.DeepEqual(expected_pages_processed, got_pages_processed) {
+			t.Errorf("Pages processed: Expected %v, got %v", expected_pages_processed, got_pages_processed)
 		}
 	})
 
