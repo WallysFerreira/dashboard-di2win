@@ -29,32 +29,29 @@ func TestCount(t *testing.T) {
 	t.Run("count grouping by user_id", func(t *testing.T) {
 		group_by := "user_id"
 		expected_pages_processed := []*model.Count{
-			{
-				Name:  "1",
-				Value: 3649,
-			},
-			{
-				Name:  "5",
-				Value: 3381,
-			},
-			{
-				Name:  "4",
-				Value: 3144,
-			},
-			{
-				Name:  "3",
-				Value: 3041,
-			},
-			{
-				Name:  "2",
-				Value: 2894,
-			},
+			{Name: "1", Value: 3649},
+			{Name: "5", Value: 3381},
+			{Name: "4", Value: 3144},
+			{Name: "3", Value: 3041},
+			{Name: "2", Value: 2894},
+		}
+		expected_rows_count := []*model.Count{
+			{Name: "1", Value: 1058},
+			{Name: "4", Value: 1003},
+			{Name: "5", Value: 987},
+			{Name: "2", Value: 978},
+			{Name: "3", Value: 974},
 		}
 
 		got_pages_processed := rep.CountExtracts(0, group_by, FiltroExtract{})
+		got_rows_count := rep.CountExtracts(1, group_by, FiltroExtract{})
 
 		if !reflect.DeepEqual(expected_pages_processed, got_pages_processed) {
 			t.Errorf("Pages processed: Expected %v, got %v", expected_pages_processed, got_pages_processed)
+		}
+
+		if !reflect.DeepEqual(expected_rows_count, got_rows_count) {
+			t.Errorf("Rows count: Expected %v, got %v", expected_rows_count, got_rows_count)
 		}
 	})
 
@@ -78,7 +75,7 @@ func TestCount(t *testing.T) {
 			{Name: "RECIBOS", Value: 103},
 		}
 
-		got := rep.CountExtracts(group_by, filter)
+		got := rep.CountExtracts(0, group_by, filter)
 
 		if !reflect.DeepEqual(expected, got) {
 			t.Errorf("Expected %v, got %v", expected, got)
@@ -105,7 +102,7 @@ func TestCount(t *testing.T) {
 			},
 		}
 
-		got := rep.CountExtracts("users.segment", FiltroExtract{})
+		got := rep.CountExtracts(0, "users.segment", FiltroExtract{})
 
 		if !reflect.DeepEqual(expected, got) {
 			t.Errorf("Expected %v, got %v", expected, got)
@@ -124,7 +121,7 @@ func TestCount(t *testing.T) {
 			{Name: "10", Value: 962},
 		}
 
-		got := rep.CountExtracts("EXTRACT(month FROM created_at::date)", filter)
+		got := rep.CountExtracts(0, "EXTRACT(month FROM created_at::date)", filter)
 
 		if !reflect.DeepEqual(expected, got) {
 			t.Errorf("Expected %v, got %v", expected, got)
