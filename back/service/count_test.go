@@ -51,7 +51,7 @@ func TestCount(t *testing.T) {
 		}
 
 		if !reflect.DeepEqual(expected_rows_count, got_rows_count) {
-			t.Errorf("Rows count: Expected %v, got %v", expected_rows_count, got_rows_count)
+			t.Errorf("Rows counted: Expected %v, got %v", expected_rows_count, got_rows_count)
 		}
 	})
 
@@ -61,7 +61,7 @@ func TestCount(t *testing.T) {
 			UserId: 5,
 		}
 
-		expected := []*model.Count{
+		expected_pages_processed := []*model.Count{
 			{Name: "POSICAO_CONSOLIDADA", Value: 651},
 			{Name: "BALANCO_PATRIMONIAL", Value: 603},
 			{Name: "DECLARACAO_IR", Value: 432},
@@ -74,38 +74,55 @@ func TestCount(t *testing.T) {
 			{Name: "FATURA_ENERGIA", Value: 147},
 			{Name: "RECIBOS", Value: 103},
 		}
+		expected_rows_count := []*model.Count{
+			{Name: "BALANCO_PATRIMONIAL", Value: 174},
+			{Name: "DECLARACAO_IR", Value: 158},
+			{Name: "ENDIVIDAMENTO", Value: 139},
+			{Name: "POSICAO_CONSOLIDADA", Value: 138},
+			{Name: "CAPA_SERASA", Value: 90},
+			{Name: "CNH", Value: 62},
+			{Name: "FATURAMENTO", Value: 52},
+			{Name: "COMPROVANTE_RESIDENCIA", Value: 49},
+			{Name: "CONTRATO_SOCIAL", Value: 47},
+			{Name: "FATURA_ENERGIA", Value: 43},
+			{Name: "RECIBOS", Value: 35},
+		}
 
-		got := rep.CountExtracts(0, group_by, filter)
+		got_pages_processed := rep.CountExtracts(0, group_by, filter)
+		got_rows_count := rep.CountExtracts(1, group_by, filter)
 
-		if !reflect.DeepEqual(expected, got) {
-			t.Errorf("Expected %v, got %v", expected, got)
+		if !reflect.DeepEqual(expected_pages_processed, got_pages_processed) {
+			t.Errorf("Pages processed: Expected %v, got %v", expected_pages_processed, got_pages_processed)
+		}
+
+		if !reflect.DeepEqual(expected_rows_count, got_rows_count) {
+			t.Errorf("Rows counted: Expected %v, got %v", expected_rows_count, got_rows_count)
 		}
 	})
 
 	t.Run("count grouping by user segment", func(t *testing.T) {
-		expected := []*model.Count{
-			{
-				Name:  "banco",
-				Value: 6038,
-			},
-			{
-				Name:  "construtora",
-				Value: 3649,
-			},
-			{
-				Name:  "financeira",
-				Value: 3381,
-			},
-			{
-				Name:  "imobiliaria",
-				Value: 3041,
-			},
+		expected_pages_processed := []*model.Count{
+			{Name: "banco", Value: 6038},
+			{Name: "construtora", Value: 3649},
+			{Name: "financeira", Value: 3381},
+			{Name: "imobiliaria", Value: 3041},
+		}
+		expected_rows_count := []*model.Count{
+			{Name: "banco", Value: 1981},
+			{Name: "construtora", Value: 1058},
+			{Name: "financeira", Value: 987},
+			{Name: "imobiliaria", Value: 974},
 		}
 
-		got := rep.CountExtracts(0, "users.segment", FiltroExtract{})
+		got_pages_processed := rep.CountExtracts(0, "users.segment", FiltroExtract{})
+		got_rows_count := rep.CountExtracts(1, "users.segment", FiltroExtract{})
 
-		if !reflect.DeepEqual(expected, got) {
-			t.Errorf("Expected %v, got %v", expected, got)
+		if !reflect.DeepEqual(expected_pages_processed, got_pages_processed) {
+			t.Errorf("Pages processed: Expected %v, got %v", expected_pages_processed, got_pages_processed)
+		}
+
+		if !reflect.DeepEqual(expected_rows_count, got_rows_count) {
+			t.Errorf("Rows counted: Expected %v, got %v", expected_rows_count, got_rows_count)
 		}
 	})
 
@@ -114,17 +131,28 @@ func TestCount(t *testing.T) {
 			Segment: "financeira",
 		}
 
-		expected := []*model.Count{
+		expected_pages_processed := []*model.Count{
 			{Name: "7", Value: 376},
 			{Name: "8", Value: 1023},
 			{Name: "9", Value: 1020},
 			{Name: "10", Value: 962},
 		}
+		expected_rows_count := []*model.Count{
+			{Name: "7", Value: 172},
+			{Name: "8", Value: 301},
+			{Name: "9", Value: 280},
+			{Name: "10", Value: 234},
+		}
 
-		got := rep.CountExtracts(0, "EXTRACT(month FROM created_at::date)", filter)
+		got_pages_processed := rep.CountExtracts(0, "EXTRACT(month FROM created_at::date)", filter)
+		got_rows_count := rep.CountExtracts(1, "EXTRACT(month FROM created_at::date)", filter)
 
-		if !reflect.DeepEqual(expected, got) {
-			t.Errorf("Expected %v, got %v", expected, got)
+		if !reflect.DeepEqual(expected_pages_processed, got_pages_processed) {
+			t.Errorf("Pages processed: Expected %v, got %v", expected_pages_processed, got_pages_processed)
+		}
+
+		if !reflect.DeepEqual(expected_rows_count, got_rows_count) {
+			t.Errorf("Rows counted: Expected %v, got %v", expected_rows_count, got_rows_count)
 		}
 	})
 }
