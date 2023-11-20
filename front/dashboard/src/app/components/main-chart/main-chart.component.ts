@@ -13,19 +13,18 @@ export class MainChartComponent {
   @Input() label: any
   @Input() data: any
   setLabel: any = []
-  setData: any = []
+  setData: any = {
+    labels: [],
+    datasets: [{
+      label: 'Paginas processadas',
+      data: [0]
+    }]
+  }
 
   createChart(): void {
     this.chart = new Chart('chartCanvas', {
       type: 'bar',
-      data: {
-        labels: this.setLabel,
-        datasets: [{
-          label: '# of votes',
-          data: this.setData,
-          borderWidth: 1
-        }]
-      },
+      data: this.setData,
       options: {
         scales: {
           y: {
@@ -43,7 +42,9 @@ export class MainChartComponent {
   ngAfterContentChecked() {
     this.buttonsGroup = document.getElementById('groupDiv')?.getElementsByTagName('button')
 
-    if (JSON.stringify(this.data) !== JSON.stringify(this.setData)) {
+    console.log(this.setData.datasets[0].data[0] === this.data.datasets[0].data[0])
+    if (this.data !== this.setData) {
+      console.log("Mudou")
       this.setLabel = this.label
       this.setData = this.data
 
