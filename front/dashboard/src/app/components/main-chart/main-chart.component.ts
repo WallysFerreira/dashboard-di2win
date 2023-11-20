@@ -45,6 +45,7 @@ export class MainChartComponent {
 
   ngOnInit(): void {
     let possibleID = 'chartCanvas' + Math.floor(Math.random() * 50)
+    this.canvasID = possibleID
   }
 
   ngAfterContentChecked() {
