@@ -21,6 +21,13 @@ export class GraficoComponent {
   selectedEndDate?: string
   labelData: any = []
   valueData: any = []
+  entireDataset: any = {
+    labels: [],
+    datasets: [{
+      label: 'Paginas processadas',
+      data: [0]
+    }]
+  }
 
   ngOnInit() {
     this.filtroButtons = document.getElementById('filtroDiv')?.getElementsByTagName('button')
@@ -123,6 +130,14 @@ export class GraficoComponent {
         this.labelData.push(count.name)
         this.valueData.push(count.value)
       }
+      
+      this.entireDataset = {
+        labels: this.labelData,
+        datasets: []
+      }
+      this.entireDataset.datasets.push({label: 'Paginas processadas', data: this.valueData})
+
+      console.log(this.entireDataset)
     }
   }
 }
