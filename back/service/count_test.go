@@ -43,8 +43,8 @@ func TestCount(t *testing.T) {
 			{Name: "3", Value: 974},
 		}
 
-		got_pages_processed := rep.CountExtracts(0, group_by, FiltroExtract{})
-		got_rows_count := rep.CountExtracts(1, group_by, FiltroExtract{})
+		got_pages_processed := rep.CountExtracts(false, group_by, FiltroExtract{})
+		got_rows_count := rep.CountExtracts(true, group_by, FiltroExtract{})
 
 		if !reflect.DeepEqual(expected_pages_processed, got_pages_processed) {
 			t.Errorf("Pages processed: Expected %v, got %v", expected_pages_processed, got_pages_processed)
@@ -88,8 +88,8 @@ func TestCount(t *testing.T) {
 			{Name: "RECIBOS", Value: 35},
 		}
 
-		got_pages_processed := rep.CountExtracts(0, group_by, filter)
-		got_rows_count := rep.CountExtracts(1, group_by, filter)
+		got_pages_processed := rep.CountExtracts(false, group_by, filter)
+		got_rows_count := rep.CountExtracts(true, group_by, filter)
 
 		if !reflect.DeepEqual(expected_pages_processed, got_pages_processed) {
 			t.Errorf("Pages processed: Expected %v, got %v", expected_pages_processed, got_pages_processed)
@@ -114,8 +114,8 @@ func TestCount(t *testing.T) {
 			{Name: "imobiliaria", Value: 974},
 		}
 
-		got_pages_processed := rep.CountExtracts(0, "users.segment", FiltroExtract{})
-		got_rows_count := rep.CountExtracts(1, "users.segment", FiltroExtract{})
+		got_pages_processed := rep.CountExtracts(false, "users.segment", FiltroExtract{})
+		got_rows_count := rep.CountExtracts(true, "users.segment", FiltroExtract{})
 
 		if !reflect.DeepEqual(expected_pages_processed, got_pages_processed) {
 			t.Errorf("Pages processed: Expected %v, got %v", expected_pages_processed, got_pages_processed)
@@ -144,8 +144,8 @@ func TestCount(t *testing.T) {
 			{Name: "10", Value: 234},
 		}
 
-		got_pages_processed := rep.CountExtracts(0, "EXTRACT(month FROM created_at::date)", filter)
-		got_rows_count := rep.CountExtracts(1, "EXTRACT(month FROM created_at::date)", filter)
+		got_pages_processed := rep.CountExtracts(false, "EXTRACT(month FROM created_at::date)", filter)
+		got_rows_count := rep.CountExtracts(true, "EXTRACT(month FROM created_at::date)", filter)
 
 		if !reflect.DeepEqual(expected_pages_processed, got_pages_processed) {
 			t.Errorf("Pages processed: Expected %v, got %v", expected_pages_processed, got_pages_processed)
