@@ -10,9 +10,7 @@ import { Chart, registerables } from 'chart.js';
 export class MainChartComponent {
   public chart: any
   buttonsGroup: any
-  @Input() label: any
   @Input() data: any
-  setLabel: any = []
   setData: any = {
     labels: [],
     datasets: [{
@@ -45,7 +43,6 @@ export class MainChartComponent {
     console.log(this.setData.datasets[0].data[0] === this.data.datasets[0].data[0])
     if (this.data !== this.setData) {
       console.log("Mudou")
-      this.setLabel = this.label
       this.setData = this.data
 
       this.chart.destroy()
