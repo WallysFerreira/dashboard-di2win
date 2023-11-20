@@ -21,6 +21,28 @@ export class GraficoComponent {
   selectedEndDate?: string
   labelData: any = []
   valueData: any = []
+  groupingButtons: any = [
+    {
+      name: "userGroup",
+      text: "Empresa",
+      value: "users.name"
+    },
+    {
+      name: "docGroup",
+      text: "Documento",
+      value: "doc_type"
+    },
+    {
+      name: "monthGroup",
+      text: "Mês",
+      value: "EXTRACT(month FROM created_at::date)"
+    },
+    {
+      name: "segmentGroup",
+      text: "Segmento",
+      value: "users.segment"
+    }
+  ]
   entireDataset: any = {
     labels: [],
     datasets: [{
@@ -136,8 +158,6 @@ export class GraficoComponent {
         datasets: []
       }
       this.entireDataset.datasets.push({label: 'Paginas processadas', data: this.valueData})
-
-      console.log(this.entireDataset)
     }
   }
 }

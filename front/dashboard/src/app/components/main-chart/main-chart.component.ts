@@ -11,6 +11,7 @@ export class MainChartComponent {
   public chart: any
   buttonsGroup: any
   @Input() data: any
+  @Input() groupingButtons: any
   setData: any = {
     labels: [],
     datasets: [{
@@ -40,14 +41,14 @@ export class MainChartComponent {
   ngAfterContentChecked() {
     this.buttonsGroup = document.getElementById('groupDiv')?.getElementsByTagName('button')
 
-    console.log(this.setData.datasets[0].data[0] === this.data.datasets[0].data[0])
     if (this.data !== this.setData) {
-      console.log("Mudou")
       this.setData = this.data
 
       this.chart.destroy()
       this.createChart()
     }
+
+    console.log(this.groupingButtons)
   }
 
 
