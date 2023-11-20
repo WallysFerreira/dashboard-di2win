@@ -65,7 +65,7 @@ func (r *queryResolver) Count(ctx context.Context, groupBy string, countRows boo
 		filter.Segment = *segmento
 	}
 
-	count := rep.CountExtracts(countRows ? 1 : 0, groupBy, filter)
+	count := rep.CountExtracts(countRows, groupBy, filter)
 
 	return count, nil
 }
