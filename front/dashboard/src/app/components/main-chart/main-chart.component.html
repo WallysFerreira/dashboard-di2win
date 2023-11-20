@@ -1,9 +1,6 @@
-<div id="chartDiv">
-    <canvas id="chartCanvas">{{ chart }}</canvas>
+<div [style.width.vw]=this.divWidth class="chartDiv">
+    <canvas id={{this.canvasID}}>{{ chart }}</canvas>
     <div id="groupDiv">
-        <button (click)="setSelected('userGroupButton')" value="users.name" id="userGroupButton">Empresa</button>
-        <button (click)="setSelected('docGroupButton')" value="doc_type" id="docGroupButton">Documento</button>
-        <button (click)="setSelected('monthGroupButton')" value="EXTRACT(month FROM created_at::date)" id="monthGroupButton">Mês</button>
-        <button (click)="setSelected('segmentGroupButton')" value="users.segment" id="segmentGroupButton">Segmento</button>
+        <button *ngFor="let button of groupingButtons" (click)="setSelected(button.name)" value="{{button.value}}" id="{{button.name + 'Button'}}">{{ button.text }}</button>
     </div>
 </div>

@@ -1,13 +1,20 @@
 <div id="homePageDiv">
-    <div id="semanaDiv">
-        <h1>Esta semana...</h1>
-        <app-destaque titulo={{tituloDocumento}} destaque={{documentoSemana}}></app-destaque>
-        <app-destaque titulo={{tituloEmpresa}} destaque={{empresaSemana}}></app-destaque>
+    <div id="chartsDiv">
+        <app-main-chart [divWidth]='40' [chartType]="'line'" [data]=this.userChartData></app-main-chart>
+        <app-main-chart [divWidth]='40' [chartType]="'line'" [data]=this.docChartData></app-main-chart>
     </div>
 
-    <div id="mesDiv">
-        <h1>Este mes...</h1>
-        <app-destaque titulo={{tituloDocumento}} destaque={{documentoMes}}></app-destaque>
-        <app-destaque titulo={{tituloEmpresa}} destaque={{empresaMes}}></app-destaque>
+    <div id="boxesDiv">
+        <div id="semanaDiv">
+            <h1>Esta semana...</h1>
+            <app-destaque titulo={{tituloDocumento}} destaque={{documentoSemana}}></app-destaque>
+            <app-destaque titulo={{tituloEmpresa}} destaque={{empresaSemana}}></app-destaque>
+        </div>
+
+        <div id="mesDiv">
+            <h1>Este mes...</h1>
+            <app-destaque titulo={{tituloDocumento}} destaque={{documentoMes}}></app-destaque>
+            <app-destaque titulo={{tituloEmpresa}} destaque={{empresaMes}}></app-destaque>
+        </div>
     </div>
 </div>
