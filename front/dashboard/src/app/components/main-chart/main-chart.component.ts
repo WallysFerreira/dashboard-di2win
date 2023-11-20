@@ -47,15 +47,13 @@ export class MainChartComponent {
       this.chart.destroy()
       this.createChart()
     }
-
-    console.log(this.groupingButtons)
   }
 
 
   setSelected(id: any) {
     this.clearSelectedButton()
     
-    document.getElementById(id)?.classList.add('selected')
+    document.getElementById(id + 'Button')?.classList.add('selected')
   }
 
   clearSelectedButton() {
