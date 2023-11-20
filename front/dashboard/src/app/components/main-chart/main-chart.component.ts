@@ -2,12 +2,12 @@ import { Component, Input } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 
 @Component({
-  selector: 'app-chart',
-  templateUrl: './chart.component.html',
-  styleUrls: ['./chart.component.css']
+  selector: 'app-main-chart',
+  templateUrl: './main-chart.component.html',
+  styleUrls: ['./main-chart.component.css']
 })
 
-export class ChartComponent {
+export class MainChartComponent {
   public chart: any
   buttonsGroup: any
   @Input() label: any

@@ -22,7 +22,7 @@ type User {
 }
 
 type Query {
-  count(group_by: String!, user_id: Int, tipo_documento: String, segmento: String, data_comeco: String, data_final: String): [Count!]
+  count(group_by: String!, count_rows: Boolean!, user_id: Int, tipo_documento: String, segmento: String, data_comeco: String, data_final: String): [Count!]
   extract(id: Int, user_id: Int, tipo_documento: String, data_comeco: String, data_final: String): [Extract!]
   user(id: Int, segment: String): [User!]! 
 }

@@ -17,7 +17,7 @@ import (
 )
 
 // Count is the resolver for the count field.
-func (r *queryResolver) Count(ctx context.Context, groupBy string, userID *int, tipoDocumento *string, segmento *string, dataComeco *string, dataFinal *string) ([]*model.Count, error) {
+func (r *queryResolver) Count(ctx context.Context, groupBy string, countRows bool, userID *int, tipoDocumento *string, segmento *string, dataComeco *string, dataFinal *string) ([]*model.Count, error) {
 	conn_str := os.Getenv("POSTGRE_URL")
 
 	if conn_str == "" {
@@ -65,7 +65,7 @@ func (r *queryResolver) Count(ctx context.Context, groupBy string, userID *int, 
 		filter.Segment = *segmento
 	}
 
-	count := rep.CountExtracts(groupBy, filter)
+	count := rep.CountExtracts(countRows, groupBy, filter)
 
 	return count, nil
 }

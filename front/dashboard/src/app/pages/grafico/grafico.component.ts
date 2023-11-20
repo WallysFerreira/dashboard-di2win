@@ -110,7 +110,7 @@ export class GraficoComponent {
 
   async updateData() {
     if (this.changed) {
-      let apiRes = await getCount(this.selectedGroupBy || "user_id", this.selectedUserId || "0",  this.selectedDocType || null, this.selectedStartDate || null, this.selectedEndDate || null)
+      let apiRes = await getCount(this.selectedGroupBy || "user_id", false, this.selectedUserId || "0",  this.selectedDocType || null, this.selectedStartDate || null, this.selectedEndDate || null)
       this.labelData = []
       this.valueData = []
 
