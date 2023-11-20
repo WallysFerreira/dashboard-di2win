@@ -1,5 +1,5 @@
-<div id="chartDiv">
-    <canvas id="chartCanvas">{{ chart }}</canvas>
+<div [style.width.vw]=this.divWidth class="chartDiv">
+    <canvas id={{this.canvasID}}>{{ chart }}</canvas>
     <div id="groupDiv">
         <button *ngFor="let button of groupingButtons" (click)="setSelected(button.name)" value="{{button.value}}" id="{{button.name + 'Button'}}">{{ button.text }}</button>
     </div>
