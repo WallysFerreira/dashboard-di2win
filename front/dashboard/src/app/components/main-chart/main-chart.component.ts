@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 
 @Component({
@@ -44,12 +44,11 @@ export class MainChartComponent {
   }
 
   ngOnInit(): void {
-    this.canvasID = 'chartCanvas' + Math.floor(Math.random() * 3)
+    let possibleID = 'chartCanvas' + Math.floor(Math.random() * 50)
   }
 
   ngAfterContentChecked() {
     this.buttonsGroup = document.getElementById('groupDiv')?.getElementsByTagName('button')
-    console.log(this.ctx)
 
     if (this.data !== this.setData) {
       this.setData = this.data
