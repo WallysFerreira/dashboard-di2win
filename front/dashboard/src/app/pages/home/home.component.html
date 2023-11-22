@@ -4,14 +4,16 @@
         <app-main-chart [divWidth]='40' [chartType]="'line'" [data]=this.docChartData></app-main-chart>
     </div>
 
+    <app-destaque titulo={{tituloQntTotalPaginasTestadas}} destaque={{qntTotalPaginasTestadas}}></app-destaque>
+
     <div id="boxesDiv">
-        <app-destaque titulo={{tituloQntTotalPaginasTestadas}} destaque={{qntTotalPaginasTestadas}}></app-destaque>
         <div id="semanaDiv">
             <h1>Esta semana...</h1>
             <app-destaque titulo={{tituloDocumentoMaisTestado}} destaque={{documentoMaisTestadoSemana}}></app-destaque>
             <app-destaque titulo={{tituloDocumentoMenosTestado}} destaque={{documentoMenosTestadoSemana}}></app-destaque>
             <app-destaque titulo={{tituloEmpresaMaisTestou}} destaque={{empresaMaisTestouSemana}}></app-destaque>
             <app-destaque titulo={{tituloEmpresaMenosTestou}} destaque={{empresaMenosTestouSemana}}></app-destaque>
+            <app-destaque titulo={{tituloSegmentoMaisTestou}} destaque={{segmentoMaisTestouSemana}}></app-destaque>
         </div>
 
         <div id="mesDiv">
@@ -20,6 +22,7 @@
             <app-destaque titulo={{tituloDocumentoMenosTestado}} destaque={{documentoMenosTestadoMes}}></app-destaque>
             <app-destaque titulo={{tituloEmpresaMaisTestou}} destaque={{empresaMaisTestouMes}}></app-destaque>
             <app-destaque titulo={{tituloEmpresaMenosTestou}} destaque={{empresaMenosTestouMes}}></app-destaque>
+            <app-destaque titulo={{tituloSegmentoMaisTestou}} destaque={{segmentoMaisTestouMes}}></app-destaque>
         </div>
     </div>
 </div>
