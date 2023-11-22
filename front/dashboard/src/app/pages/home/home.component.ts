@@ -12,19 +12,23 @@ export class HomeComponent {
   hoje: any
   semanaPassada: any
   mesPassado: any
-  tituloDocumento = "O documento mais testado foi"
-  tituloEmpresa = "A empresa que mais testou foi"
+  tituloDocumentoMaisTestado = "O documento mais testado foi"
+  tituloDocumentoMenosTestado = "O documento menos testado foi"
+  tituloEmpresaMaisTestou = "A empresa que mais testou foi"
+  tituloEmpresaMenosTestou = "A empresa que menos testou foi"
   tituloQntTotalPaginasTestadas = "Total de paginas testadas"
-  documentoMes!: string
-  documentoSemana!: string
-  empresaMes!: string
-  empresaSemana!: string
+  documentoMaisTestadoMes!: string
+  documentoMaisTestadoSemana!: string
+  empresaMaisTestouMes!: string
+  empresaMaisTestouSemana!: string
+  empresaMenosTestouMes!: string
+  empresaMenosTestouSemana!: string
   qntTotalPaginasTestadas: number = 0
   userChartData: any
   docChartData: any
 
   ngOnInit() {
-    this.hoje = new Date()
+    this.hoje = new Date(2023, 8, 12)
 
     this.semanaPassada = new Date()
     this.semanaPassada.setMonth(this.hoje.getMonth())
@@ -59,22 +63,24 @@ export class HomeComponent {
     let mesPassadoString = this.mesPassado.toISOString().slice(0, 10)
     let hojeString = this.hoje.toISOString().slice(0, 10)
 
-    let res = await getCount("doc_type", false, "0", null, mesPassadoString, hojeString).then((res) => res.data.count[0])
-    this.documentoMes = res != undefined ? res.name : "Nenhum"
+    let res = await getCount("doc_type", false, "0", null, mesPassadoString, hojeString).then((res) => res.data.count)
+    this.documentoMaisTestadoMes = res.length != 0 ? res[0].name : "Nenhum"
 
-    res = await getCount("users.name", false, "0", null, mesPassadoString, hojeString).then((res) => res.data.count[0])
-    this.empresaMes = res != undefined ? res.name : "Nenhum"
+    res = await getCount("users.name", false, "0", null, mesPassadoString, hojeString).then((res) => res.data.count)
+    this.empresaMaisTestouMes = res.length != 0 ? res[0].name : "Nenhum"
+    this.empresaMenosTestouMes = res.length != 0 ? res[res.length - 1].name : "Nenhum"
   }
 
   async pegarInfoSemana() {
     let semanaPassadaString = this.semanaPassada.toISOString().slice(0, 10)
     let hojeString = this.hoje.toISOString().slice(0, 10)
 
-    let res = await getCount("doc_type", false, "0", null, semanaPassadaString, hojeString).then((res) => res.data.count[0])
-    this.documentoSemana = res != undefined ? res.name : "Nenhum"
+    let res = await getCount("doc_type", false, "0", null, semanaPassadaString, hojeString).then((res) => res.data.count)
+    this.documentoMaisTestadoSemana = res.length != 0 ? res[0].name : "Nenhum"
     
-    res = await getCount("users.name", false, "0", null, semanaPassadaString, hojeString).then((res) => res.data.count[0])
-    this.empresaSemana = res != undefined ? res.name : "Nenhum"
+    res = await getCount("users.name", false, "0", null, semanaPassadaString, hojeString).then((res) => res.data.count)
+    this.empresaMaisTestouSemana = res.length != 0 ? res[0].name : "Nenhum"
+    this.empresaMenosTestouSemana = res.length != 0 ? res[res.length - 1].name : "Nenhum"
   }
 
   async pegarDadosDocumentos() {
