@@ -12,8 +12,10 @@ export class HomeComponent {
   hoje: any
   semanaPassada: any
   mesPassado: any
-  tituloDocumento = "O documento mais testado foi"
-  tituloEmpresa = "A empresa que mais testou foi"
+  tituloDocumentoMaisTestado = "O documento mais testado foi"
+  tituloDocumentoMenosTestado = "O documento menos testado foi"
+  tituloEmpresaMaisTestou = "A empresa que mais testou foi"
+  tituloEmpresaMenosTestou = "A empresa que menos testou foi"
   tituloQntTotalPaginasTestadas = "Total de paginas testadas"
   documentoMes!: string
   documentoSemana!: string
