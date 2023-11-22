@@ -2,7 +2,7 @@
     <div>
         <div>
             <h1>Tipo de gráfico</h1>
-            <select>
+            <select (change)="changeChartType($event)">
                 <option value="bar">Barras</option>
                 <option value="line">Linha</option>
                 <option value="doughnut">Rosquinha</option>
