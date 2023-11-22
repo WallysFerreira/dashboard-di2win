@@ -17,6 +17,7 @@ export class HomeComponent {
   tituloEmpresaMaisTestou = "A empresa que mais testou foi"
   tituloEmpresaMenosTestou = "A empresa que menos testou foi"
   tituloSegmentoMaisTestou = "O segmento que mais testou foi"
+  tituloSegmentoMenosTestou = "O segmento que menos testou foi"
   tituloQntTotalPaginasTestadas = "Total de paginas testadas"
   documentoMaisTestadoMes!: string
   documentoMaisTestadoSemana!: string
