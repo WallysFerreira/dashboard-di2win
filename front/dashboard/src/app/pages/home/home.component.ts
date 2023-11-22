@@ -60,7 +60,9 @@ export class HomeComponent {
   async pegarInfoSemana() {
     let res = await getCount("doc_type", false, "0", null, this.semanaPassada.toISOString().slice(0, 10), this.hoje.toISOString().slice(0, 10)).then((res) => res.data.count[0])
     this.documentoSemana = res != undefined ? res.name : "Nenhum"
-    this.empresaSemana = "Augusto"
+    
+    res = await getCount("users.name", false, "0", null, null, null).then((res) => res.data.count[0])
+    this.empresaSemana = res != undefined ? res.name : "Nenhum"
   }
 
   async pegarDadosDocumentos() {
