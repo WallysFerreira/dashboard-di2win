@@ -19,6 +19,8 @@ export class HomeComponent {
   tituloQntTotalPaginasTestadas = "Total de paginas testadas"
   documentoMaisTestadoMes!: string
   documentoMaisTestadoSemana!: string
+  documentoMenosTestadoMes!: string
+  documentoMenosTestadoSemana!: string
   empresaMaisTestouMes!: string
   empresaMaisTestouSemana!: string
   empresaMenosTestouMes!: string
