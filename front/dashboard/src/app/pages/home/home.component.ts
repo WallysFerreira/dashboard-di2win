@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { getCount, getUsers } from 'src/app/app.component';
 import { DestaqueComponent } from 'src/app/components/destaque/destaque.component';
@@ -10,24 +11,42 @@ import { DestaqueComponent } from 'src/app/components/destaque/destaque.componen
 export class HomeComponent {
   tituloDocumento = "O documento mais testado foi"
   tituloEmpresa = "A empresa que mais testou foi"
+  tituloQntTotalPaginasTestadas = "Total de paginas testadas"
   documentoMes!: string 
   documentoSemana!: string
   empresaMes!: string
   empresaSemana!: string
+  qntTotalPaginasTestadas: number = 0
   userChartData: any
   docChartData: any
 
   ngOnInit() {
-    this.pegarInfo()
-    this.pegarDadosUsuarios()
-    this.pegarDadosDocumentos()
+    this.pegarInfoSemana()
+    this.pegarInfoMes()
+    this.pegarInfoGeral()
   }
 
-  pegarInfo() {
-    this.documentoMes = "FATURAMENTO"
-    this.documentoSemana = "CNH"
+  pegarInfoGeral() {
+    this.pegarDadosUsuarios()
+    this.pegarDadosDocumentos()
+    this.pegarTotalPaginasTestadas()
+  }
 
+  async pegarTotalPaginasTestadas() {
+    let res = await getCount("EXTRACT(month FROM created_at::date)", false, "0", null, null, null).then((res) => res.data.count)
+
+    for (let month of res) {
+      this.qntTotalPaginasTestadas += month.value
+    }
+  }
+
+  pegarInfoMes() {
+    this.documentoMes = "FATURAMENTO"
     this.empresaMes = "Inoa"
+  }
+
+  pegarInfoSemana() {
+    this.documentoSemana = "CNH"
     this.empresaSemana = "Augusto"
   }
 
