@@ -50,18 +50,24 @@ export class HomeComponent {
   }
 
   async pegarInfoMes() {
-    let res = await getCount("doc_type", false, "0", null, this.mesPassado.toISOString().slice(0, 10), this.hoje.toISOString().slice(0, 10)).then((res) => res.data.count[0])
+    let mesPassadoString = this.mesPassado.toISOString().slice(0, 10)
+    let hojeString = this.hoje.toISOString().slice(0, 10)
+
+    let res = await getCount("doc_type", false, "0", null, mesPassadoString, hojeString).then((res) => res.data.count[0])
     this.documentoMes = res != undefined ? res.name : "Nenhum"
 
-    res = await getCount("users.name", false, "0", null, null, null).then((res) => res.data.count[0])
+    res = await getCount("users.name", false, "0", null, mesPassadoString, hojeString).then((res) => res.data.count[0])
     this.empresaMes = res != undefined ? res.name : "Nenhum"
   }
 
   async pegarInfoSemana() {
-    let res = await getCount("doc_type", false, "0", null, this.semanaPassada.toISOString().slice(0, 10), this.hoje.toISOString().slice(0, 10)).then((res) => res.data.count[0])
+    let semanaPassadaString = this.semanaPassada.toISOString().slice(0, 10)
+    let hojeString = this.hoje.toISOString().slice(0, 10)
+
+    let res = await getCount("doc_type", false, "0", null, semanaPassadaString, hojeString).then((res) => res.data.count[0])
     this.documentoSemana = res != undefined ? res.name : "Nenhum"
     
-    res = await getCount("users.name", false, "0", null, null, null).then((res) => res.data.count[0])
+    res = await getCount("users.name", false, "0", null, semanaPassadaString, hojeString).then((res) => res.data.count[0])
     this.empresaSemana = res != undefined ? res.name : "Nenhum"
   }
 
