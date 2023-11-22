@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { getCount, getUsers } from 'src/app/app.component';
 import { DestaqueComponent } from 'src/app/components/destaque/destaque.component';
@@ -18,16 +19,19 @@ export class HomeComponent {
   docChartData: any
 
   ngOnInit() {
-    this.pegarInfo()
+    this.pegarInfoSemana()
+    this.pegarInfoMes()
     this.pegarDadosUsuarios()
     this.pegarDadosDocumentos()
   }
 
-  pegarInfo() {
+  async pegarInfoMes() {
     this.documentoMes = "FATURAMENTO"
-    this.documentoSemana = "CNH"
-
     this.empresaMes = "Inoa"
+  }
+
+  async pegarInfoSemana() {
+    this.documentoSemana = "CNH"
     this.empresaSemana = "Augusto"
   }
 
