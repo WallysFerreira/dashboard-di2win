@@ -80,6 +80,7 @@ export class HomeComponent {
 
     res = await getCount("users.segment", false, "0", null, mesPassadoString, hojeString).then((res) => res.data.count)
     this.segmentoMaisTestouMes = res.length != 0 ? res[0].name : "Nenhum"
+    this.segmentoMenosTestouMes = res.length != 0 ? res[res.length - 1].name : "Nenhum"
   }
 
   async pegarInfoSemana() {
@@ -96,6 +97,7 @@ export class HomeComponent {
 
     res = await getCount("users.segment", false, "0", null, semanaPassadaString, hojeString).then((res) => res.data.count)
     this.segmentoMaisTestouSemana = res.length != 0 ? res[0].name : "Nenhum"
+    this.segmentoMenosTestouSemana = res.length != 0 ? res[res.length - 1].name : "Nenhum"
   }
 
   async pegarDadosDocumentos() {
