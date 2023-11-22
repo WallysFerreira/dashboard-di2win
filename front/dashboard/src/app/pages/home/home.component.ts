@@ -15,7 +15,7 @@ export class HomeComponent {
   tituloDocumento = "O documento mais testado foi"
   tituloEmpresa = "A empresa que mais testou foi"
   tituloQntTotalPaginasTestadas = "Total de paginas testadas"
-  documentoMes!: string 
+  documentoMes!: string
   documentoSemana!: string
   empresaMes!: string
   empresaSemana!: string
@@ -25,10 +25,16 @@ export class HomeComponent {
 
   ngOnInit() {
     this.hoje = new Date()
+
     this.semanaPassada = new Date()
-    this.semanaPassada.setDate(this.semanaPassada.getDate() - 7)
+    this.semanaPassada.setMonth(this.hoje.getMonth())
+    this.semanaPassada.setFullYear(this.hoje.getFullYear())
+    this.semanaPassada.setDate(this.hoje.getDate() - 7)
+
     this.mesPassado = new Date()
-    this.mesPassado.setDate(this.mesPassado.getDate() - 30)
+    this.mesPassado.setMonth(this.hoje.getMonth())
+    this.mesPassado.setFullYear(this.hoje.getFullYear())
+    this.mesPassado.setDate(this.hoje.getDate() - 30)
 
     this.pegarInfoSemana()
     this.pegarInfoMes()
@@ -50,25 +56,25 @@ export class HomeComponent {
   }
 
   async pegarInfoMes() {
-    try {
-      this.documentoMes = await getCount("doc_type", false, "0", null, this.mesPassado.toISOString().slice(0, 10), this.hoje.toISOString().slice(0, 10)).then((res) => res.data.count[0].name)
-      this.empresaMes = "Inoa"
-    } catch(e) {
-      console.log(e)
-      this.documentoMes = "Nenhum"
-      this.empresaMes = "Nenhum"
-    }
+    let mesPassadoString = this.mesPassado.toISOString().slice(0, 10)
+    let hojeString = this.hoje.toISOString().slice(0, 10)
+
+    let res = await getCount("doc_type", false, "0", null, mesPassadoString, hojeString).then((res) => res.data.count[0])
+    this.documentoMes = res != undefined ? res.name : "Nenhum"
+
+    res = await getCount("users.name", false, "0", null, mesPassadoString, hojeString).then((res) => res.data.count[0])
+    this.empresaMes = res != undefined ? res.name : "Nenhum"
   }
 
   async pegarInfoSemana() {
-    try {
-      this.documentoSemana = await getCount("doc_type", false, "0", null, this.semanaPassada.toISOString().slice(0, 10), this.hoje.toISOString().slice(0, 10)).then((res) => res.data.count[0].name)
-      this.empresaSemana = "Augusto"
-    } catch(e) {
-      console.log(e)
-      this.documentoSemana = "Nenhum"
-      this.empresaSemana = "Nenhum"
-    }
+    let semanaPassadaString = this.semanaPassada.toISOString().slice(0, 10)
+    let hojeString = this.hoje.toISOString().slice(0, 10)
+
+    let res = await getCount("doc_type", false, "0", null, semanaPassadaString, hojeString).then((res) => res.data.count[0])
+    this.documentoSemana = res != undefined ? res.name : "Nenhum"
+    
+    res = await getCount("users.name", false, "0", null, semanaPassadaString, hojeString).then((res) => res.data.count[0])
+    this.empresaSemana = res != undefined ? res.name : "Nenhum"
   }
 
   async pegarDadosDocumentos() {
@@ -89,7 +95,7 @@ export class HomeComponent {
       for (let count of res.data.count) {
         docData.push(count.value)
       }
-      
+
       datasets.push({
         label: doc,
         data: docData
@@ -107,7 +113,7 @@ export class HomeComponent {
     let res = await getCount("EXTRACT(month FROM created_at::date)", false, "0", null, null, null)
     let labels = []
     let datasets = []
-    
+
     for (let count of res.data.count) {
       let month = new Date(2000, count.name - 1, 1).toLocaleString('default', { month: 'long' })
       labels.push(month)
@@ -119,7 +125,7 @@ export class HomeComponent {
 
       for (let count of res.data.count) {
         userData.push(count.value)
-      } 
+      }
 
       datasets.push({
         label: user.name,
