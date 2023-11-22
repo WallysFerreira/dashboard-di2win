@@ -16,6 +16,7 @@ export class HomeComponent {
   tituloDocumentoMenosTestado = "O documento menos testado foi"
   tituloEmpresaMaisTestou = "A empresa que mais testou foi"
   tituloEmpresaMenosTestou = "A empresa que menos testou foi"
+  tituloSegmentoMaisTestou = "O segmento que mais testou foi"
   tituloQntTotalPaginasTestadas = "Total de paginas testadas"
   documentoMaisTestadoMes!: string
   documentoMaisTestadoSemana!: string
@@ -25,6 +26,7 @@ export class HomeComponent {
   empresaMaisTestouSemana!: string
   empresaMenosTestouMes!: string
   empresaMenosTestouSemana!: string
+  segmentoMaisTestou!: string
   qntTotalPaginasTestadas: number = 0
   userChartData: any
   docChartData: any
