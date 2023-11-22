@@ -9,6 +9,9 @@ import { DestaqueComponent } from 'src/app/components/destaque/destaque.componen
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  hoje: any
+  semanaPassada: any
+  mesPassado: any
   tituloDocumento = "O documento mais testado foi"
   tituloEmpresa = "A empresa que mais testou foi"
   tituloQntTotalPaginasTestadas = "Total de paginas testadas"
@@ -21,6 +24,12 @@ export class HomeComponent {
   docChartData: any
 
   ngOnInit() {
+    this.hoje = new Date()
+    this.semanaPassada = new Date()
+    this.semanaPassada.setDate(this.semanaPassada.getDate() - 7)
+    this.mesPassado = new Date()
+    this.mesPassado.setDate(this.mesPassado.getDate() - 30)
+
     this.pegarInfoSemana()
     this.pegarInfoMes()
     this.pegarInfoGeral()
@@ -40,14 +49,26 @@ export class HomeComponent {
     }
   }
 
-  pegarInfoMes() {
-    this.documentoMes = "FATURAMENTO"
-    this.empresaMes = "Inoa"
+  async pegarInfoMes() {
+    try {
+      this.documentoMes = await getCount("doc_type", false, "0", null, this.mesPassado.toISOString().slice(0, 10), this.hoje.toISOString().slice(0, 10)).then((res) => res.data.count[0].name)
+      this.empresaMes = "Inoa"
+    } catch(e) {
+      console.log(e)
+      this.documentoMes = "Nenhum"
+      this.empresaMes = "Nenhum"
+    }
   }
 
-  pegarInfoSemana() {
-    this.documentoSemana = "CNH"
-    this.empresaSemana = "Augusto"
+  async pegarInfoSemana() {
+    try {
+      this.documentoSemana = await getCount("doc_type", false, "0", null, this.semanaPassada.toISOString().slice(0, 10), this.hoje.toISOString().slice(0, 10)).then((res) => res.data.count[0].name)
+      this.empresaSemana = "Augusto"
+    } catch(e) {
+      console.log(e)
+      this.documentoSemana = "Nenhum"
+      this.empresaSemana = "Nenhum"
+    }
   }
 
   async pegarDadosDocumentos() {
