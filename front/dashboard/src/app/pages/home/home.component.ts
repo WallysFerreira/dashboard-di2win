@@ -19,6 +19,8 @@ export class HomeComponent {
   tituloQntTotalPaginasTestadas = "Total de paginas testadas"
   documentoMaisTestadoMes!: string
   documentoMaisTestadoSemana!: string
+  documentoMenosTestadoMes!: string
+  documentoMenosTestadoSemana!: string
   empresaMaisTestouMes!: string
   empresaMaisTestouSemana!: string
   empresaMenosTestouMes!: string
@@ -28,7 +30,7 @@ export class HomeComponent {
   docChartData: any
 
   ngOnInit() {
-    this.hoje = new Date(2023, 8, 12)
+    this.hoje = new Date(2023, 8, 3)
 
     this.semanaPassada = new Date()
     this.semanaPassada.setMonth(this.hoje.getMonth())
@@ -65,6 +67,7 @@ export class HomeComponent {
 
     let res = await getCount("doc_type", false, "0", null, mesPassadoString, hojeString).then((res) => res.data.count)
     this.documentoMaisTestadoMes = res.length != 0 ? res[0].name : "Nenhum"
+    this.documentoMenosTestadoMes = res.length != 0 ? res[res.length - 1].name : "Nenhum"
 
     res = await getCount("users.name", false, "0", null, mesPassadoString, hojeString).then((res) => res.data.count)
     this.empresaMaisTestouMes = res.length != 0 ? res[0].name : "Nenhum"
@@ -77,6 +80,7 @@ export class HomeComponent {
 
     let res = await getCount("doc_type", false, "0", null, semanaPassadaString, hojeString).then((res) => res.data.count)
     this.documentoMaisTestadoSemana = res.length != 0 ? res[0].name : "Nenhum"
+    this.documentoMenosTestadoSemana = res.length != 0 ? res[res.length - 1].name : "Nenhum"
     
     res = await getCount("users.name", false, "0", null, semanaPassadaString, hojeString).then((res) => res.data.count)
     this.empresaMaisTestouSemana = res.length != 0 ? res[0].name : "Nenhum"
