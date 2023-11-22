@@ -17,6 +17,7 @@ export class HomeComponent {
   tituloEmpresaMaisTestou = "A empresa que mais testou foi"
   tituloEmpresaMenosTestou = "A empresa que menos testou foi"
   tituloSegmentoMaisTestou = "O segmento que mais testou foi"
+  tituloSegmentoMenosTestou = "O segmento que menos testou foi"
   tituloQntTotalPaginasTestadas = "Total de paginas testadas"
   documentoMaisTestadoMes!: string
   documentoMaisTestadoSemana!: string
@@ -28,6 +29,8 @@ export class HomeComponent {
   empresaMenosTestouSemana!: string
   segmentoMaisTestouMes!: string
   segmentoMaisTestouSemana!: string
+  segmentoMenosTestouMes!: string
+  segmentoMenosTestouSemana!: string
   qntTotalPaginasTestadas: number = 0
   userChartData: any
   docChartData: any
@@ -78,6 +81,7 @@ export class HomeComponent {
 
     res = await getCount("users.segment", false, "0", null, mesPassadoString, hojeString).then((res) => res.data.count)
     this.segmentoMaisTestouMes = res.length != 0 ? res[0].name : "Nenhum"
+    this.segmentoMenosTestouMes = res.length != 0 ? res[res.length - 1].name : "Nenhum"
   }
 
   async pegarInfoSemana() {
@@ -94,6 +98,7 @@ export class HomeComponent {
 
     res = await getCount("users.segment", false, "0", null, semanaPassadaString, hojeString).then((res) => res.data.count)
     this.segmentoMaisTestouSemana = res.length != 0 ? res[0].name : "Nenhum"
+    this.segmentoMenosTestouSemana = res.length != 0 ? res[res.length - 1].name : "Nenhum"
   }
 
   async pegarDadosDocumentos() {
