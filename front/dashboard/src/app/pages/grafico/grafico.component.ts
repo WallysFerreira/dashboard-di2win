@@ -14,6 +14,7 @@ export class GraficoComponent {
   changed = false
   docWasSelected = false
   userIdWasSelected = false
+  selectedChartType?: string = 'bar'
   selectedGroupBy?: string
   selectedDocType?: string
   selectedUserId?: string = "0"
