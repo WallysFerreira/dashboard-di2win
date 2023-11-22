@@ -26,9 +26,9 @@ export class HomeComponent {
   ngOnInit() {
     this.hoje = new Date()
     this.semanaPassada = new Date()
-    this.semanaPassada.setDate(this.semanaPassada.getDate() - 7)
+    this.semanaPassada.setDate(this.hoje.getDate() - 7)
     this.mesPassado = new Date()
-    this.mesPassado.setDate(this.mesPassado.getDate() - 30)
+    this.mesPassado.setDate(this.hoje.getDate() - 30)
 
     this.pegarInfoSemana()
     this.pegarInfoMes()
@@ -39,6 +39,8 @@ export class HomeComponent {
     this.pegarDadosUsuarios()
     this.pegarDadosDocumentos()
     this.pegarTotalPaginasTestadas()
+
+    console.log(this.semanaPassada)
   }
 
   async pegarTotalPaginasTestadas() {
