@@ -1,4 +1,14 @@
 <div id="graficoPageDiv">
-    <app-main-chart [groupingButtons]=this.groupingButtons [data]=this.entireDataset></app-main-chart>
+    <div>
+        <div>
+            <h1>Tipo de gráfico</h1>
+            <select (change)="changeChartType($event)">
+                <option value="bar">Barras</option>
+                <option value="line">Linha</option>
+                <option value="doughnut">Rosquinha</option>
+            </select>
+        </div>
+        <app-main-chart [chartType]=this.selectedChartType [groupingButtons]=this.groupingButtons [data]=this.entireDataset></app-main-chart>
+    </div>
     <app-filtro></app-filtro>
 </div>

@@ -14,6 +14,7 @@ export class GraficoComponent {
   changed = false
   docWasSelected = false
   userIdWasSelected = false
+  selectedChartType?: string = 'bar'
   selectedGroupBy?: string
   selectedDocType?: string
   selectedUserId?: string = "0"
@@ -63,6 +64,15 @@ export class GraficoComponent {
         }
       })
     }
+  }
+
+  changeChartType(event: any) {
+    if (event.target.value != this.selectedChartType) {
+      this.changed = true
+      this.selectedChartType = event.target.value
+    }
+
+    this.updateData()
   }
 
   async ngAfterContentChecked() {
