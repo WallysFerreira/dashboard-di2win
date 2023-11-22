@@ -25,20 +25,25 @@ export class MainChartComponent {
   }
 
   createChart(): void {
-    let canvas = <HTMLCanvasElement> document.getElementById(this.canvasID)
+    let canvas = <HTMLCanvasElement>document.getElementById(this.canvasID)
     this.ctx = canvas?.getContext('2d')
+    let options = {}
+
+    if (this.chartType != 'doughnut') {
+      options = {
+        scales: {
+          y: {
+            beginAtZero: true,
+          }
+        }
+      }
+    }
 
     if (this.ctx) {
       this.chart = new Chart(this.ctx, {
         type: this.chartType,
         data: this.setData,
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-            }
-          }
-        }
+        options: options
       })
     }
   }
@@ -62,7 +67,7 @@ export class MainChartComponent {
 
   setSelected(id: any) {
     this.clearSelectedButton()
-    
+
     document.getElementById(id + 'Button')?.classList.add('selected')
   }
 
