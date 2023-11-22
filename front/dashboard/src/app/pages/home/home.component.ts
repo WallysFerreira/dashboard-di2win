@@ -78,8 +78,9 @@ export class HomeComponent {
     let res = await getCount("doc_type", false, "0", null, semanaPassadaString, hojeString).then((res) => res.data.count[0])
     this.documentoMaisTestadoSemana = res != undefined ? res.name : "Nenhum"
     
-    res = await getCount("users.name", false, "0", null, semanaPassadaString, hojeString).then((res) => res.data.count[0])
+    res = await getCount("users.name", false, "0", null, semanaPassadaString, hojeString).then((res) => res.data.count)
     this.empresaMaisTestouSemana = res != undefined ? res.name : "Nenhum"
+    this.empresaMenosTestouSemana = res.length != 0 ? res[res.length - 1].name : "Nenhum"
   }
 
   async pegarDadosDocumentos() {
