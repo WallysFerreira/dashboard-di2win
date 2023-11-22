@@ -66,6 +66,15 @@ export class GraficoComponent {
     }
   }
 
+  changeChartType(event: any) {
+    if (event.target.value != this.selectedChartType) {
+      this.changed = true
+      this.selectedChartType = event.target.value
+    }
+
+    this.updateData()
+  }
+
   async ngAfterContentChecked() {
     this.changed = false
     this.docWasSelected = false
