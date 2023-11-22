@@ -28,6 +28,8 @@ export class HomeComponent {
   empresaMenosTestouSemana!: string
   segmentoMaisTestouMes!: string
   segmentoMaisTestouSemana!: string
+  segmentoMenosTestouMes!: string
+  segmentoMenosTestouSemana!: string
   qntTotalPaginasTestadas: number = 0
   userChartData: any
   docChartData: any
