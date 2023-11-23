@@ -11,7 +11,7 @@ export class AppComponent {
 }
 
 export async function getCount(group_by: string, countRows: boolean, user_id: string, segment: string | null, tipo_documento: string | null, data_comeco: string | null, data_final: string | null) {
-  const filtro = `${tipo_documento ? ", tipo_documento: \"" + tipo_documento + "\"" : ""} ${data_comeco ? ", data_comeco: \"" + data_comeco + "\"" : ""} ${data_final ? ", data_final: \"" + data_final + "\"" : ""}`
+  const filtro = `${segment ? ", segmento: \"" + segment + "\"" : ""} ${tipo_documento ? ", tipo_documento: \"" + tipo_documento + "\"" : ""} ${data_comeco ? ", data_comeco: \"" + data_comeco + "\"" : ""} ${data_final ? ", data_final: \"" + data_final + "\"" : ""}`
 
   const result = await fetch("http://localhost:8080/query", {
     method: "POST",
