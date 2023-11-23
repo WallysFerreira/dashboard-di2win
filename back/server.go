@@ -9,6 +9,7 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/go-chi/chi"
+	"github.com/joho/godotenv"
 	"github.com/rs/cors"
 )
 
@@ -18,6 +19,16 @@ func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = defaultPort
+	}
+
+	allowed_origin := os.Getenv("ALLOWED_ORIGIN")
+	if allowed_origin == "" {
+		err := godotenv.Load(".env")
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		allowed_origin = os.Getenv("ALLOWED_ORIGIN")
 	}
 
 	router := chi.NewRouter()
