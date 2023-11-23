@@ -1,0 +1,11 @@
+FROM golang:latest
+WORKDIR /back
+COPY /back /back
+ 
+ENV ALLOWED_ORIGIN "http://localhost:4200"
+ENV POSTGRE_URL "user=postgres dbname=database sslmode=disable"
+ENV TEST_POSTGRE_URL "user=postgres dbname=database sslmode=disable"
+
+EXPOSE 8080
+
+CMD ["go", "run", "server.go"]
