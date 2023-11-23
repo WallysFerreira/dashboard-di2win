@@ -1,6 +1,6 @@
 import { group } from '@angular/animations';
 import { Component } from '@angular/core';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +14,7 @@ export class AppComponent {
 export async function getCount(group_by: string, countRows: boolean, user_id: string, segment: string | null, tipo_documento: string | null, data_comeco: string | null, data_final: string | null) {
   const filtro = `${segment ? ", segmento: \"" + segment + "\"" : ""} ${tipo_documento ? ", tipo_documento: \"" + tipo_documento + "\"" : ""} ${data_comeco ? ", data_comeco: \"" + data_comeco + "\"" : ""} ${data_final ? ", data_final: \"" + data_final + "\"" : ""}`
 
-  const result = await fetch(environment.apiUrl, {
+  const result = await fetch(environment.API_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -31,7 +31,7 @@ export async function getCount(group_by: string, countRows: boolean, user_id: st
 }
 
 export async function getUsers() {
-  const result = await fetch(environment.apiUrl, {
+  const result = await fetch(environment.API_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -49,7 +49,7 @@ export async function getUsers() {
 }
 
 export async function getExtracts() {
-  const result = await fetch(environment.apiUrl, {
+  const result = await fetch(environment.API_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

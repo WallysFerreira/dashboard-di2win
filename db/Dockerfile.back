@@ -1,0 +1,7 @@
+FROM golang:latest
+WORKDIR /back
+COPY /back /back
+ 
+EXPOSE 8080
+
+CMD ["go", "run", "server.go"]
