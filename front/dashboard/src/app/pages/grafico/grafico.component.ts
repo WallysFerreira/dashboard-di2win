@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { getCount } from 'src/app/app.component';
+import { MainChartComponent } from 'src/app/components/main-chart/main-chart.component';
 
 @Component({
   selector: 'app-grafico',
@@ -8,6 +9,7 @@ import { getCount } from 'src/app/app.component';
 })
 
 export class GraficoComponent {
+  @ViewChild(MainChartComponent) chartChild?: MainChartComponent;
   filtroButtons: any
   dateInputs: any
   groupByButtons: any
@@ -167,6 +169,7 @@ export class GraficoComponent {
         labels: this.labelData,
         datasets: []
       }
+
       this.entireDataset.datasets.push({label: 'Paginas processadas', data: this.valueData})
     }
   }
