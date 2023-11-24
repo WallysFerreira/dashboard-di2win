@@ -154,6 +154,7 @@ export class GraficoComponent {
       let apiRes = await getCount(this.selectedGroupBy || "users.name", false, this.selectedUserId || "0",  null, this.selectedDocType || null, this.selectedStartDate || null, this.selectedEndDate || null)
       this.labelData = []
       this.valueData = []
+      let counts = []
 
       for (let count of apiRes.data.count) {
         if (this.selectedGroupBy == "EXTRACT(month FROM created_at::date)") {
@@ -161,10 +162,20 @@ export class GraficoComponent {
           count.name = month
         }
 
-        this.labelData.push(count.name)
-        this.valueData.push(count.value)
+        counts.push(count)
       }
-      
+
+      counts.sort((a: any, b: any) => {
+        let nameA = a.name.toUpperCase()
+        let nameB = b.name.toUpperCase()
+
+        if (nameA < nameB) return -1
+
+        if (nameA > nameB) return 1
+
+        return 0
+      })
+
       this.entireDataset = {
         labels: this.labelData,
         datasets: []
