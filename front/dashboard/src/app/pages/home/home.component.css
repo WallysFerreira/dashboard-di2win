@@ -21,8 +21,8 @@
 #semanaDiv, #mesDiv {
     display: grid;
     grid-template-columns: 100px 100px 100px;
-    grid-column-gap: 110px;
-    grid-row-gap: 10px;
+    grid-column-gap: 16%;
+    grid-row-gap: 10%;
     width: 100%;
 }
 
