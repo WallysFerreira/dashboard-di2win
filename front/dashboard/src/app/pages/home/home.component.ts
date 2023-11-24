@@ -35,6 +35,23 @@ export class HomeComponent {
   userChartData: any
   docChartData: any
   segmentChartData: any
+  groupingButtons: any = [
+    {
+      name: "documento",
+      text: "Documento",
+      value: "doc"
+    },
+    {
+      name: "empresa",
+      text: "Empresa",
+      value: "user"
+    },
+    {
+      name: "segmento",
+      text: "Segmento",
+      value: "segment"
+    }
+  ]
 
   ngOnInit() {
     this.hoje = new Date(2023, 8, 3)
