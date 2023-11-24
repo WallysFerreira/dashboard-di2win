@@ -12,6 +12,7 @@ export class HomeComponent {
   hoje: any
   semanaPassada: any
   mesPassado: any
+  groupByButtons: any
   tituloDocumentoMaisTestado = "O documento mais testado foi"
   tituloDocumentoMenosTestado = "O documento menos testado foi"
   tituloEmpresaMaisTestou = "A empresa que mais testou foi"
@@ -32,6 +33,7 @@ export class HomeComponent {
   segmentoMenosTestouMes!: string
   segmentoMenosTestouSemana!: string
   qntTotalPaginasTestadas: number = 0
+  selectedChartData: any
   userChartData: any
   docChartData: any
   segmentChartData: any
@@ -54,6 +56,7 @@ export class HomeComponent {
   ]
 
   ngOnInit() {
+    this.groupByButtons = document.getElementById('groupDiv')?.getElementsByTagName('button')
     this.hoje = new Date(2023, 8, 3)
 
     this.semanaPassada = new Date()
@@ -210,6 +213,28 @@ export class HomeComponent {
     this.segmentChartData = {
       labels: labels,
       datasets: datasets
+    }
+  }
+
+  ngAfterContentChecked() {
+    this.getSelectedChartData()
+  }
+
+  getSelectedChartData() {
+    for (let button of this.groupByButtons) {
+      if (button.classList == 'selected') {
+        switch (button.value) {
+          case 'doc':
+            this.selectedChartData = this.docChartData
+            break;
+          case 'user':
+            this.selectedChartData = this.userChartData
+            break;
+          case 'segment':
+            this.selectedChartData = this.segmentChartData
+            break;
+        }
+      }
     }
   }
 }
