@@ -12,6 +12,7 @@ export class MainChartComponent {
   buttonsGroup: any
   canvasID: any
   ctx: any
+  @Input() title: any
   @Input() divWidth: any
   @Input() chartType: any = 'bar'
   @Input() data: any
@@ -34,6 +35,17 @@ export class MainChartComponent {
           this.saveImageUrl()
         }
       }
+    }
+
+    if (this.title != undefined) {
+      options = Object.assign(options, {
+        plugins: {
+          title: {
+            display: true,
+            text: this.title
+          }
+        }
+      })
     }
 
     if (this.chartType != 'doughnut') {
