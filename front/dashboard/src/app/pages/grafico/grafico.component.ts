@@ -151,9 +151,10 @@ export class GraficoComponent {
 
   async updateData() {
     if (this.changed) {
-      let apiRes = await getCount(this.selectedGroupBy || "users.name", false, this.selectedUserId || "0",  null, this.selectedDocType || null, this.selectedStartDate || null, this.selectedEndDate || null)
+      let apiRes = await getCount(this.selectedGroupBy || "users.name", false, this.selectedUserId || "0", null, this.selectedDocType || null, this.selectedStartDate || null, this.selectedEndDate || null)
       this.labelData = []
       this.valueData = []
+      let counts = []
 
       for (let count of apiRes.data.count) {
         if (this.selectedGroupBy == "EXTRACT(month FROM created_at::date)") {
@@ -161,16 +162,33 @@ export class GraficoComponent {
           count.name = month
         }
 
+        counts.push(count)
+      }
+
+      if (this.selectedChartType == 'doughnut') {
+        counts.sort((a: any, b: any) => {
+          let nameA = a.name.toUpperCase()
+          let nameB = b.name.toUpperCase()
+
+          if (nameA < nameB) return -1
+
+          if (nameA > nameB) return 1
+
+          return 0
+        })
+      }
+
+      for (let count of counts) {
         this.labelData.push(count.name)
         this.valueData.push(count.value)
       }
-      
+
       this.entireDataset = {
         labels: this.labelData,
         datasets: []
       }
 
-      this.entireDataset.datasets.push({label: 'Paginas processadas', data: this.valueData})
+      this.entireDataset.datasets.push({ label: 'Paginas processadas', data: this.valueData })
     }
   }
 }
