@@ -1,11 +1,10 @@
 <div id="homePageDiv">
     <div id="chartsDiv">
-        <app-main-chart [divWidth]='35' [chartType]="'line'" [groupingButtons]=this.groupingButtons></app-main-chart>
+        <app-main-chart [divWidth]='35' [chartType]="'line'" [data]=this.selectedChartData [groupingButtons]=this.groupingButtons></app-main-chart>
     </div>
 
     <app-destaque titulo={{tituloQntTotalPaginasTestadas}} destaque={{qntTotalPaginasTestadas}}></app-destaque>
 
-    <!--
     <div id="boxesDiv">
         <div id="semanaDiv">
             <h1>Esta semana...</h1>
@@ -27,5 +26,4 @@
             <app-destaque titulo={{tituloSegmentoMenosTestou}} destaque={{segmentoMenosTestouMes}}></app-destaque>
         </div>
     </div>
--->
 </div>
