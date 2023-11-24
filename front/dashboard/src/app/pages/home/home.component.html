@@ -1,29 +1,40 @@
 <div id="homePageDiv">
     <div id="chartsDiv">
-        <app-main-chart [divWidth]='35' [chartType]="'line'" [data]=this.selectedChartData [groupingButtons]=this.groupingButtons></app-main-chart>
+        <app-main-chart [divWidth]='35' [chartType]="'line'" [data]=this.selectedChartData
+            [groupingButtons]=this.groupingButtons></app-main-chart>
     </div>
 
+    <!--
     <app-destaque titulo={{tituloQntTotalPaginasTestadas}} destaque={{qntTotalPaginasTestadas}}></app-destaque>
+    -->
 
     <div id="boxesDiv">
-        <div id="semanaDiv">
+        <div class="highlightWrapper">
             <h1>Esta semana...</h1>
-            <app-destaque titulo={{tituloDocumentoMaisTestado}} destaque={{documentoMaisTestadoSemana}}></app-destaque>
-            <app-destaque titulo={{tituloDocumentoMenosTestado}} destaque={{documentoMenosTestadoSemana}}></app-destaque>
-            <app-destaque titulo={{tituloEmpresaMaisTestou}} destaque={{empresaMaisTestouSemana}}></app-destaque>
-            <app-destaque titulo={{tituloEmpresaMenosTestou}} destaque={{empresaMenosTestouSemana}}></app-destaque>
-            <app-destaque titulo={{tituloSegmentoMaisTestou}} destaque={{segmentoMaisTestouSemana}}></app-destaque>
-            <app-destaque titulo={{tituloSegmentoMenosTestou}} destaque={{segmentoMenosTestouSemana}}></app-destaque>
+            <div id="semanaDiv">
+                <app-destaque titulo={{tituloDocumentoMaisTestado}}
+                    destaque={{documentoMaisTestadoSemana}}></app-destaque>
+                <app-destaque titulo={{tituloDocumentoMenosTestado}}
+                    destaque={{documentoMenosTestadoSemana}}></app-destaque>
+                <app-destaque titulo={{tituloEmpresaMaisTestou}} destaque={{empresaMaisTestouSemana}}></app-destaque>
+                <app-destaque titulo={{tituloEmpresaMenosTestou}} destaque={{empresaMenosTestouSemana}}></app-destaque>
+                <app-destaque titulo={{tituloSegmentoMaisTestou}} destaque={{segmentoMaisTestouSemana}}></app-destaque>
+                <app-destaque titulo={{tituloSegmentoMenosTestou}}
+                    destaque={{segmentoMenosTestouSemana}}></app-destaque>
+            </div>
         </div>
 
-        <div id="mesDiv">
+        <div class="highlightWrapper">
             <h1>Este mes...</h1>
-            <app-destaque titulo={{tituloDocumentoMaisTestado}} destaque={{documentoMaisTestadoMes}}></app-destaque>
-            <app-destaque titulo={{tituloDocumentoMenosTestado}} destaque={{documentoMenosTestadoMes}}></app-destaque>
-            <app-destaque titulo={{tituloEmpresaMaisTestou}} destaque={{empresaMaisTestouMes}}></app-destaque>
-            <app-destaque titulo={{tituloEmpresaMenosTestou}} destaque={{empresaMenosTestouMes}}></app-destaque>
-            <app-destaque titulo={{tituloSegmentoMaisTestou}} destaque={{segmentoMaisTestouMes}}></app-destaque>
-            <app-destaque titulo={{tituloSegmentoMenosTestou}} destaque={{segmentoMenosTestouMes}}></app-destaque>
+            <div id="mesDiv">
+                <app-destaque titulo={{tituloDocumentoMaisTestado}} destaque={{documentoMaisTestadoMes}}></app-destaque>
+                <app-destaque titulo={{tituloDocumentoMenosTestado}}
+                    destaque={{documentoMenosTestadoMes}}></app-destaque>
+                <app-destaque titulo={{tituloEmpresaMaisTestou}} destaque={{empresaMaisTestouMes}}></app-destaque>
+                <app-destaque titulo={{tituloEmpresaMenosTestou}} destaque={{empresaMenosTestouMes}}></app-destaque>
+                <app-destaque titulo={{tituloSegmentoMaisTestou}} destaque={{segmentoMaisTestouMes}}></app-destaque>
+                <app-destaque titulo={{tituloSegmentoMenosTestou}} destaque={{segmentoMenosTestouMes}}></app-destaque>
+            </div>
         </div>
     </div>
 </div>
