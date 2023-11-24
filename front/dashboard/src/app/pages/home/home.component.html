@@ -1,8 +1,6 @@
 <div id="homePageDiv">
     <div id="chartsDiv">
-        <app-main-chart [divWidth]='35' [chartType]="'line'" [data]=this.userChartData></app-main-chart>
-        <app-main-chart [divWidth]='35' [chartType]="'line'" [data]=this.docChartData></app-main-chart>
-        <app-main-chart [divWidth]='35' [chartType]="'line'" [data]=this.segmentChartData></app-main-chart>
+        <app-main-chart [divWidth]='35' [chartType]="'line'" [data]=this.selectedChartData [groupingButtons]=this.groupingButtons></app-main-chart>
     </div>
 
     <app-destaque titulo={{tituloQntTotalPaginasTestadas}} destaque={{qntTotalPaginasTestadas}}></app-destaque>
