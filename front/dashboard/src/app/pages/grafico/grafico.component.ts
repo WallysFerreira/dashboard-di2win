@@ -176,6 +176,11 @@ export class GraficoComponent {
         return 0
       })
 
+      for (let count of counts) {
+        this.labelData.push(count.name)
+        this.valueData.push(count.value)
+      }
+
       this.entireDataset = {
         labels: this.labelData,
         datasets: []
