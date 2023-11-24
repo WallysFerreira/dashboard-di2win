@@ -9,9 +9,21 @@
 
 #boxesDiv, #chartsDiv {
     display: flex;
-    width: 60vw;
+    width: 80vw;
     justify-content: space-around;
     flex-direction: row;
+}
+
+.highlightWrapper {
+    width: 100%;
+}
+
+#semanaDiv, #mesDiv {
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    grid-column-gap: 16%;
+    grid-row-gap: 10%;
+    width: 100%;
 }
 
 h1 {
