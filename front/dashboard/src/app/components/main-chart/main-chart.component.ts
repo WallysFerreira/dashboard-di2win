@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 
 @Component({
@@ -23,27 +23,45 @@ export class MainChartComponent {
       data: [0]
     }]
   }
+  imageUrl?: string
 
-  createChart(): void {
+  async createChart(): Promise<void> {
     let canvas = <HTMLCanvasElement>document.getElementById(this.canvasID)
     this.ctx = canvas?.getContext('2d')
-    let options = {}
+    let options = {
+      animation: {
+        onComplete: () => {
+          this.saveImageUrl()
+        }
+      }
+    }
 
     if (this.chartType != 'doughnut') {
-      options = {
+      options = Object.assign(options, {
         scales: {
           y: {
             beginAtZero: true,
           }
         }
-      }
+      })
     }
 
     if (this.ctx) {
       this.chart = new Chart(this.ctx, {
         type: this.chartType,
         data: this.setData,
-        options: options
+        options: options,
+        plugins: [{
+          id: 'custom_canvas_background_color',
+          beforeDraw: (chart) => {
+            const ctxA = chart.canvas.getContext('2d');
+            ctxA!.save();
+            ctxA!.globalCompositeOperation = 'destination-over';
+            ctxA!.fillStyle = 'white';
+            ctxA?.fillRect(0, 0, chart.canvas.width, chart.canvas.height);
+            ctxA?.restore();
+          }
+        }]
       })
     }
   }
@@ -75,6 +93,12 @@ export class MainChartComponent {
     for (let button of this.buttonsGroup) {
       button.classList.remove('selected')
     }
+  }
+
+  saveImageUrl() {
+    let canvas = <HTMLCanvasElement>document.getElementById(this.canvasID)
+
+    this.imageUrl = canvas.toDataURL()
   }
 }
 
