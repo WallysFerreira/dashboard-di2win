@@ -12,8 +12,29 @@ export class FiltroComponent {
   tipos_documento: any
   buttonsDoc: any
   buttonsEmp: any
+  segmentos: any
 
+  async Filterseg(){
+    let res = await getUsers();
+    this.empresas = res.data.user;
+  
+    if (this.empresas && Array.isArray(this.empresas) && this.empresas.length > 0) {
+      this.segmentos = [];
+  
+      for (let i = 0; i < this.empresas.length; i++) {
+        if (this.empresas[i].segment) {
+          this.segmentos = this.segmentos.concat(this.empresas[i].segment);
+        }
+      }
+
+      this.segmentos = Array.from(new Set(this.segmentos));
+  
+      console.log(this.segmentos);
+    }
+  }
+  
   async ngOnInit() {
+    await this.Filterseg();
     let res = await getUsers()
     this.empresas = res.data.user
 
