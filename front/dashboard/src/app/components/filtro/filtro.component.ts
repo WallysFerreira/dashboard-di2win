@@ -106,12 +106,16 @@ export class FiltroComponent {
   clearSelectedButton(div: any) {
     let buttons
 
-    if (div == 'docDiv') {
-      buttons = this.buttonsDoc
-    } else if (div == 'userDiv') {
-      buttons = this.buttonsEmp
-    } else if (div == 'segmentoDiv') {
-      buttons = this.buttonsSeg
+   switch (div) {
+      case 'docDiv': 
+        buttons = this.buttonsDoc
+        break
+      case 'userDiv':
+        buttons = this.buttonsEmp
+        break
+      case 'segmentoDiv':
+        buttons = this.buttonsSeg
+        break
     }
 
     for (let i = 0; i < buttons.length; i++) {
