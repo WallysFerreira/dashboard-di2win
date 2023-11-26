@@ -10,9 +10,11 @@ import { getCount, getUsers } from 'src/app/app.component';
 export class FiltroComponent {
   empresas: any
   tipos_documento: any
+  segmentos: any
   buttonsDoc: any
   buttonsEmp: any
-  segmentos: any
+  buttonsSeg: any
+
 
   async getSegmentos() {
     this.segmentos = []
@@ -78,6 +80,7 @@ export class FiltroComponent {
   ngAfterContentChecked() {
     this.buttonsDoc = document.getElementById('docDiv')?.getElementsByTagName('button')
     this.buttonsEmp = document.getElementById('userDiv')?.getElementsByTagName('button')
+    this.buttonsSeg = document.getElementById('segmentoDiv')?.getElementsByTagName('button')
   }
 
   select(event: any, div: any) {
@@ -107,6 +110,8 @@ export class FiltroComponent {
       buttons = this.buttonsDoc
     } else if (div == 'userDiv') {
       buttons = this.buttonsEmp
+    } else if (div == 'segmentoDiv') {
+      buttons = this.buttonsSeg
     }
 
     for (let i = 0; i < buttons.length; i++) {
