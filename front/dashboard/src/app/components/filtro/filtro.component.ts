@@ -14,10 +14,7 @@ export class FiltroComponent {
   buttonsEmp: any
   segmentos: any
 
-  async getSegmentos(){
-    let res = await getUsers();
-    this.empresas = res.data.user;
-  
+  async getSegmentos() {
     this.segmentos = []
     
     for (let empresa of this.empresas) {
@@ -26,10 +23,10 @@ export class FiltroComponent {
   }
   
   async ngOnInit() {
-    await this.getSegmentos();
     let res = await getUsers()
     this.empresas = res.data.user
-
+    this.getSegmentos();
+    
     this.tipos_documento = [
       {
         name: "Faturamento",
