@@ -16,10 +16,12 @@ export class GraficoComponent {
   changed = false
   docWasSelected = false
   userIdWasSelected = false
+  segmentWasSelected = false
   selectedChartType?: string = 'bar'
   selectedGroupBy?: string
   selectedDocType?: string
   selectedUserId?: string = "0"
+  selectedSegment?: string
   selectedStartDate?: string
   selectedEndDate?: string
   labelData: any = []
@@ -81,9 +83,12 @@ export class GraficoComponent {
     this.changed = false
     this.docWasSelected = false
     this.userIdWasSelected = false
+    this.segmentWasSelected = false
 
     for (let button of this.filtroButtons) {
       let parentId = button.parentElement.parentElement.id
+
+      // This part checks if a button is selected and if it's value is different from the one previously selected
       if (button.classList == 'selected') {
         if (parentId == 'docDiv') {
           this.docWasSelected = true
@@ -99,10 +104,18 @@ export class GraficoComponent {
             this.selectedUserId = button.value
             this.changed = true;
           }
+        } else if (parentId == 'segmentoDiv') {
+          this.segmentWasSelected = true
+
+          if (button.value != this.selectedSegment) {
+            this.selectedSegment = button.value
+            this.changed = true
+          }
         }
       }
     }
 
+    // This part checks if a filter that was previously selected has been unselected
     if (this.selectedDocType != undefined) {
       if (!this.docWasSelected) {
         this.selectedDocType = undefined
@@ -113,6 +126,13 @@ export class GraficoComponent {
     if (this.selectedUserId != undefined) {
       if (!this.userIdWasSelected) {
         this.selectedUserId = undefined
+        this.changed = true
+      }
+    }
+
+    if (this.selectedSegment != undefined) {
+      if (!this.segmentWasSelected) {
+        this.selectedSegment = undefined
         this.changed = true
       }
     }
@@ -151,7 +171,7 @@ export class GraficoComponent {
 
   async updateData() {
     if (this.changed) {
-      let apiRes = await getCount(this.selectedGroupBy || "users.name", false, this.selectedUserId || "0", null, this.selectedDocType || null, this.selectedStartDate || null, this.selectedEndDate || null)
+      let apiRes = await getCount(this.selectedGroupBy || "users.name", false, this.selectedUserId || "0", this.selectedSegment || null, this.selectedDocType || null, this.selectedStartDate || null, this.selectedEndDate || null)
       this.labelData = []
       this.valueData = []
       let counts = []

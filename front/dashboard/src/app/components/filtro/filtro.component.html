@@ -24,4 +24,10 @@
             <button (click)="select($event, 'userDiv')" *ngFor="let empresa of empresas" id="{{empresa.id + 'Button'}}" value={{empresa.id}}>{{empresa.name}}</button>
         </div>
     </div>
+    <div class="childDiv" id="segmentoDiv">
+        <h1>Segmento</h1>
+        <div class="optionsDiv">
+            <button (click)="select($event, 'segmentoDiv')" *ngFor="let segmento of segmentos" id="{{segmento + 'Button'}}" value={{segmento}}>{{segmento}}</button>
+        </div>
+    </div>
 </div>

@@ -10,13 +10,25 @@ import { getCount, getUsers } from 'src/app/app.component';
 export class FiltroComponent {
   empresas: any
   tipos_documento: any
+  segmentos: any
   buttonsDoc: any
   buttonsEmp: any
+  buttonsSeg: any
 
+
+  async getSegmentos() {
+    this.segmentos = []
+    
+    for (let empresa of this.empresas) {
+        this.segmentos.push(empresa.segment)
+    }
+  }
+  
   async ngOnInit() {
     let res = await getUsers()
     this.empresas = res.data.user
-
+    this.getSegmentos();
+    
     this.tipos_documento = [
       {
         name: "Faturamento",
@@ -68,6 +80,7 @@ export class FiltroComponent {
   ngAfterContentChecked() {
     this.buttonsDoc = document.getElementById('docDiv')?.getElementsByTagName('button')
     this.buttonsEmp = document.getElementById('userDiv')?.getElementsByTagName('button')
+    this.buttonsSeg = document.getElementById('segmentoDiv')?.getElementsByTagName('button')
   }
 
   select(event: any, div: any) {
@@ -93,10 +106,16 @@ export class FiltroComponent {
   clearSelectedButton(div: any) {
     let buttons
 
-    if (div == 'docDiv') {
-      buttons = this.buttonsDoc
-    } else if (div == 'userDiv') {
-      buttons = this.buttonsEmp
+   switch (div) {
+      case 'docDiv': 
+        buttons = this.buttonsDoc
+        break
+      case 'userDiv':
+        buttons = this.buttonsEmp
+        break
+      case 'segmentoDiv':
+        buttons = this.buttonsSeg
+        break
     }
 
     for (let i = 0; i < buttons.length; i++) {
