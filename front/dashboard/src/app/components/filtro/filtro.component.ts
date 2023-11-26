@@ -14,7 +14,7 @@ export class FiltroComponent {
   buttonsEmp: any
   segmentos: any
 
-  async Filterseg(){
+  async getSegmentos(){
     let res = await getUsers();
     this.empresas = res.data.user;
   
@@ -26,7 +26,7 @@ export class FiltroComponent {
   }
   
   async ngOnInit() {
-    await this.Filterseg();
+    await this.getSegmentos();
     let res = await getUsers()
     this.empresas = res.data.user
 
