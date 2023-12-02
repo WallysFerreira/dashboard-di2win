@@ -3,7 +3,7 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    height: 24vh;
+    height: 22vh;
     box-shadow: rgb(190, 190, 190) 3px 2px 1px;
     border-radius: 3%;
 }
@@ -44,4 +44,9 @@ button:hover {
 
 .selected {
     background-color: grey;
+}
+
+.titleButton {
+    font-weight: bold;
+    font-size: larger;
 }
