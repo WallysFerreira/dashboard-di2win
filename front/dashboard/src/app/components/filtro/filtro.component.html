@@ -1,33 +1,33 @@
 <div id="filtroDiv">
     <div class="childDiv" id="dateDiv">
-        <h1>Data</h1>
+        <button (click)="showButtons($event)">Data</button>
         <div class="optionsDiv" hidden>
             <div>
-                <h1>De: </h1>
+                <button (click)="showButtons($event)">De: </button>
                 <input type="date" name="dateStart" id="dateStart">
             </div>
             <div>
-                <h1>Até: </h1>
+                <button (click)="showButtons($event)">Até: </button>
                 <input type="date" name="dateEnd" id="dateEnd">
             </div>
         </div>
     </div>
 
     <div class="childDiv" id="docDiv"> 
-        <h1>Documento</h1>
+        <button (click)="showButtons($event)">Documento</button>
         <div class="optionsDiv" hidden>
             <button (click)="select($event, 'docDiv')" id="{{documento.value + 'Button'}}" *ngFor="let documento of tipos_documento" value={{documento.value}}>{{documento.name}}</button>
         </div>
     </div>
 
     <div class="childDiv" id="userDiv">
-        <h1>Empresa</h1>
+        <button (click)="showButtons($event)">Empresa</button>
         <div class="optionsDiv" hidden>
             <button (click)="select($event, 'userDiv')" *ngFor="let empresa of empresas" id="{{empresa.id + 'Button'}}" value={{empresa.id}}>{{empresa.name}}</button>
         </div>
     </div>
     <div class="childDiv" id="segmentoDiv">
-        <h1>Segmento</h1>
+        <button (click)="showButtons($event)">Segmento</button>
         <div class="optionsDiv" hidden>
             <button (click)="select($event, 'segmentoDiv')" *ngFor="let segmento of segmentos" id="{{segmento + 'Button'}}" value={{segmento}}>{{segmento}}</button>
         </div>

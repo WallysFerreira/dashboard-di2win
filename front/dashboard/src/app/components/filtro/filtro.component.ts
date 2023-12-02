@@ -122,4 +122,8 @@ export class FiltroComponent {
       buttons[i].classList.remove('selected')
     }
   }
+
+  showButtons(e: any) {
+    console.log(e.target.parentElement.id)
+  } 
 }
