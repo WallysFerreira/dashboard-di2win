@@ -1,4 +1,5 @@
 <div id="graficoPageDiv">
+    <app-filtro></app-filtro>
     <div>
         <div style="display: flex; justify-content: space-between; align-items: end;">
             <div>
@@ -14,5 +15,4 @@
         <app-main-chart [chartType]=this.selectedChartType [groupingButtons]=this.groupingButtons
             [data]=this.entireDataset></app-main-chart>
     </div>
-    <app-filtro></app-filtro>
 </div>
