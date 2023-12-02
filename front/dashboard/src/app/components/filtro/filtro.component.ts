@@ -126,6 +126,24 @@ export class FiltroComponent {
     }
   }
 
+  toggleOptionButtons(e: any) {
+    let parentId = e.target.parentElement.id
+    let optionsDiv = document.getElementById(parentId)?.getElementsByClassName('optionsDiv')[0]
+    let attributeHidden = optionsDiv?.attributes.getNamedItem('hidden')
+
+    console.log(attributeHidden)
+
+    if (attributeHidden != null) {
+      console.log("mostrando")
+      this.showOptionButtons(e)
+    }
+    
+    if (attributeHidden == null) {
+      console.log("escondendo")
+      this.hideOptionsButtons(e)
+    }
+  }
+
   showOptionButtons(e: any) {
     let parentId = e.target.parentElement.id
     let optionsDiv = document.getElementById(parentId)?.getElementsByClassName('optionsDiv')[0]
@@ -134,7 +152,13 @@ export class FiltroComponent {
   } 
 
   hideOptionsButtons(e: any) {
-    let optionsDiv = e.target.parentElement
+    let optionsDiv
+
+    if (e.target.className == 'titleButton') {
+      optionsDiv = e.target.parentElement.children[1]
+    } else {
+      optionsDiv = e.target.parentElement
+    }
 
     optionsDiv.attributes.setNamedItem(this.hiddenAttributeElement)
   }
