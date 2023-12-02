@@ -15,6 +15,14 @@
     width: 70%;
 }
 
+#dateDiv .optionsDiv {
+    display: flex;
+    width: 60%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .childDiv {
     display: flex;
     flex-direction: column;
