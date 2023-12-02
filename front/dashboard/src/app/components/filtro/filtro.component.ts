@@ -14,6 +14,7 @@ export class FiltroComponent {
   buttonsDoc: any
   buttonsEmp: any
   buttonsSeg: any
+  hiddenAttributeElement: any
 
 
   async getSegmentos() {
@@ -91,6 +92,8 @@ export class FiltroComponent {
     } else {
       this.setSelected(event, div)
     }
+
+    this.hideOptionsButtons(event)
   }
 
   unselect (event: any) {
@@ -121,5 +124,42 @@ export class FiltroComponent {
     for (let i = 0; i < buttons.length; i++) {
       buttons[i].classList.remove('selected')
     }
+  }
+
+  toggleOptionButtons(e: any) {
+    let parentId = e.target.parentElement.id
+    let optionsDiv = document.getElementById(parentId)?.getElementsByClassName('optionsDiv')[0]
+    let attributeHidden = optionsDiv?.attributes.getNamedItem('hidden')
+
+    console.log(attributeHidden)
+
+    if (attributeHidden != null) {
+      console.log("mostrando")
+      this.showOptionButtons(e)
+    }
+    
+    if (attributeHidden == null) {
+      console.log("escondendo")
+      this.hideOptionsButtons(e)
+    }
+  }
+
+  showOptionButtons(e: any) {
+    let parentId = e.target.parentElement.id
+    let optionsDiv = document.getElementById(parentId)?.getElementsByClassName('optionsDiv')[0]
+    
+    this.hiddenAttributeElement = optionsDiv?.attributes.removeNamedItem('hidden')
+  } 
+
+  hideOptionsButtons(e: any) {
+    let optionsDiv
+
+    if (e.target.className == 'titleButton') {
+      optionsDiv = e.target.parentElement.children[1]
+    } else {
+      optionsDiv = e.target.parentElement
+    }
+
+    optionsDiv.attributes.setNamedItem(this.hiddenAttributeElement)
   }
 }

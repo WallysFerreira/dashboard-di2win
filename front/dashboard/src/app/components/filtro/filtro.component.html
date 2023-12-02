@@ -1,32 +1,34 @@
 <div id="filtroDiv">
-    <div id="dateDiv">
-        <div class="optionsDiv">
-            <h1>De: </h1>
-            <input type="date" name="dateStart" id="dateStart">
-        </div>
-
-        <div class="optionsDiv">
-            <h1>Até: </h1>
-            <input type="date" name="dateEnd" id="dateEnd">
+    <div class="childDiv" id="dateDiv">
+        <button class="titleButton" (click)="toggleOptionButtons($event)">Data</button>
+        <div class="optionsDiv" hidden>
+            <div>
+                <button (click)="toggleOptionButtons($event)">De: </button>
+                <input type="date" name="dateStart" id="dateStart">
+            </div>
+            <div>
+                <button (click)="toggleOptionButtons($event)">Até: </button>
+                <input type="date" name="dateEnd" id="dateEnd">
+            </div>
         </div>
     </div>
 
     <div class="childDiv" id="docDiv"> 
-        <h1>Documento</h1>
-        <div class="optionsDiv">
+        <button class="titleButton" (click)="toggleOptionButtons($event)">Documento</button>
+        <div class="optionsDiv" hidden>
             <button (click)="select($event, 'docDiv')" id="{{documento.value + 'Button'}}" *ngFor="let documento of tipos_documento" value={{documento.value}}>{{documento.name}}</button>
         </div>
     </div>
 
     <div class="childDiv" id="userDiv">
-        <h1>Empresa</h1>
-        <div class="optionsDiv">
+        <button class="titleButton" (click)="toggleOptionButtons($event)">Empresa</button>
+        <div class="optionsDiv" hidden>
             <button (click)="select($event, 'userDiv')" *ngFor="let empresa of empresas" id="{{empresa.id + 'Button'}}" value={{empresa.id}}>{{empresa.name}}</button>
         </div>
     </div>
     <div class="childDiv" id="segmentoDiv">
-        <h1>Segmento</h1>
-        <div class="optionsDiv">
+        <button class="titleButton" (click)="toggleOptionButtons($event)">Segmento</button>
+        <div class="optionsDiv" hidden>
             <button (click)="select($event, 'segmentoDiv')" *ngFor="let segmento of segmentos" id="{{segmento + 'Button'}}" value={{segmento}}>{{segmento}}</button>
         </div>
     </div>

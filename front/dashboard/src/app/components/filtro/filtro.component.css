@@ -1,10 +1,9 @@
 #filtroDiv {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    height: 80vh;
-    width: 26vw;
+    height: 22vh;
     box-shadow: rgb(190, 190, 190) 3px 2px 1px;
     border-radius: 3%;
 }
@@ -15,10 +14,19 @@
     width: 70%;
 }
 
+#dateDiv .optionsDiv {
+    display: flex;
+    width: 60%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .childDiv {
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-width: 20vw;
 }
 
 button {
@@ -36,4 +44,9 @@ button:hover {
 
 .selected {
     background-color: grey;
+}
+
+.titleButton {
+    font-weight: bold;
+    font-size: larger;
 }
