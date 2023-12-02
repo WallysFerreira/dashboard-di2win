@@ -124,6 +124,9 @@ export class FiltroComponent {
   }
 
   showButtons(e: any) {
-    console.log(e.target.parentElement.id)
+    let parentId = e.target.parentElement.id
+    let optionsDiv = document.getElementById(parentId)?.getElementsByClassName('optionsDiv')[0]
+    
+    optionsDiv?.attributes.removeNamedItem('hidden')
   } 
 }
