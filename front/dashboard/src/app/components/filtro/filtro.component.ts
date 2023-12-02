@@ -14,6 +14,7 @@ export class FiltroComponent {
   buttonsDoc: any
   buttonsEmp: any
   buttonsSeg: any
+  hiddenAttributeElement: any
 
 
   async getSegmentos() {
@@ -91,6 +92,8 @@ export class FiltroComponent {
     } else {
       this.setSelected(event, div)
     }
+
+    this.hideOptionsButtons(event)
   }
 
   unselect (event: any) {
@@ -123,10 +126,16 @@ export class FiltroComponent {
     }
   }
 
-  showButtons(e: any) {
+  showOptionButtons(e: any) {
     let parentId = e.target.parentElement.id
     let optionsDiv = document.getElementById(parentId)?.getElementsByClassName('optionsDiv')[0]
     
-    optionsDiv?.attributes.removeNamedItem('hidden')
+    this.hiddenAttributeElement = optionsDiv?.attributes.removeNamedItem('hidden')
   } 
+
+  hideOptionsButtons(e: any) {
+    let optionsDiv = e.target.parentElement
+
+    optionsDiv.attributes.setNamedItem(this.hiddenAttributeElement)
+  }
 }
