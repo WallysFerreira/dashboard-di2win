@@ -1,8 +1,9 @@
 #menuDiv {
     height: 98vh;
-    width: 12vw;
+    width: 4vw;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+    min-width: 50px;
 }
