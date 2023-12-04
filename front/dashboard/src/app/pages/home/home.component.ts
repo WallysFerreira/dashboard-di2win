@@ -94,16 +94,34 @@ export class HomeComponent {
     let hojeString = this.hoje.toISOString().slice(0, 10)
 
     let res = await getCount("doc_type", false, "0", null, null, mesPassadoString, hojeString).then((res) => res.data.count)
-    this.documentoMaisTestadoMes = res.length != 0 ? res[0].name : "Nenhum"
-    this.documentoMenosTestadoMes = res.length != 0 ? res[res.length - 1].name : "Nenhum"
+    this.documentoMaisTestadoMes = res.length != 0 ? this.ajeitarNome(res[0].name) : "Nenhum"
+    this.documentoMenosTestadoMes = res.length != 0 ? this.ajeitarNome(res[res.length - 1].name) : "Nenhum"
 
     res = await getCount("users.name", false, "0", null, null, mesPassadoString, hojeString).then((res) => res.data.count)
     this.empresaMaisTestouMes = res.length != 0 ? res[0].name : "Nenhum"
     this.empresaMenosTestouMes = res.length != 0 ? res[res.length - 1].name : "Nenhum"
 
     res = await getCount("users.segment", false, "0", null, null, mesPassadoString, hojeString).then((res) => res.data.count)
-    this.segmentoMaisTestouMes = res.length != 0 ? res[0].name : "Nenhum"
-    this.segmentoMenosTestouMes = res.length != 0 ? res[res.length - 1].name : "Nenhum"
+    this.segmentoMaisTestouMes = res.length != 0 ? this.ajeitarNome(res[0].name) : "Nenhum"
+    this.segmentoMenosTestouMes = res.length != 0 ? this.ajeitarNome(res[res.length - 1].name) : "Nenhum"
+  }
+
+  ajeitarNome(nome: any) {
+    let nomeAjeitado = nome.split("_").map((palavra: any, index: number) => {
+      palavra = palavra.toLowerCase()
+      
+      if (palavra.length <= 2) palavra = palavra.toUpperCase()
+
+      if (index == 0) {
+        let array = palavra.split("")
+        array[0] = array[0].toUpperCase()
+        palavra = array.join("")
+      }
+
+      return palavra
+    }).join(" ")
+
+    return nomeAjeitado
   }
 
   async pegarInfoSemana() {
@@ -111,16 +129,16 @@ export class HomeComponent {
     let hojeString = this.hoje.toISOString().slice(0, 10)
 
     let res = await getCount("doc_type", false, "0", null, null, semanaPassadaString, hojeString).then((res) => res.data.count)
-    this.documentoMaisTestadoSemana = res.length != 0 ? res[0].name : "Nenhum"
-    this.documentoMenosTestadoSemana = res.length != 0 ? res[res.length - 1].name : "Nenhum"
+    this.documentoMaisTestadoSemana = res.length != 0 ? this.ajeitarNome(res[0].name) : "Nenhum"
+    this.documentoMenosTestadoSemana = res.length != 0 ? this.ajeitarNome(res[res.length - 1].name) : "Nenhum"
 
     res = await getCount("users.name", false, "0", null, null, semanaPassadaString, hojeString).then((res) => res.data.count)
     this.empresaMaisTestouSemana = res.length != 0 ? res[0].name : "Nenhum"
     this.empresaMenosTestouSemana = res.length != 0 ? res[res.length - 1].name : "Nenhum"
 
     res = await getCount("users.segment", false, "0", null, null, semanaPassadaString, hojeString).then((res) => res.data.count)
-    this.segmentoMaisTestouSemana = res.length != 0 ? res[0].name : "Nenhum"
-    this.segmentoMenosTestouSemana = res.length != 0 ? res[res.length - 1].name : "Nenhum"
+    this.segmentoMaisTestouSemana = res.length != 0 ? this.ajeitarNome(res[0].name) : "Nenhum"
+    this.segmentoMenosTestouSemana = res.length != 0 ? this.ajeitarNome(res[res.length - 1].name) : "Nenhum"
   }
 
   async pegarDadosDocumentos() {
