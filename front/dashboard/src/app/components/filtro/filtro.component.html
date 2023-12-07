@@ -1,35 +1,19 @@
-<div id="filtroDiv">
-    <div class="childDiv" id="dateDiv">
-        <button class="titleButton" (click)="toggleOptionButtons($event)">Data</button>
-        <div class="optionsDiv" hidden>
+<div id="{{filterTitle + 'Div'}}" class="filter-card">
+    <h1>{{ filterTitle }}</h1>
+    <div id="{{filterTitle + 'OptionsDiv'}}">
+        <div class="dateOptionsDiv" *ngIf="this.filterType == 'date'">
             <div>
-                <button (click)="toggleOptionButtons($event)">De: </button>
+                <button>De:</button>
                 <input type="date" name="dateStart" id="dateStart">
             </div>
             <div>
-                <button (click)="toggleOptionButtons($event)">Até: </button>
+                <button>Até:</button>
                 <input type="date" name="dateEnd" id="dateEnd">
             </div>
         </div>
-    </div>
 
-    <div class="childDiv" id="docDiv"> 
-        <button class="titleButton" (click)="toggleOptionButtons($event)">Documento</button>
-        <div class="optionsDiv" hidden>
-            <button (click)="select($event, 'docDiv')" id="{{documento.value + 'Button'}}" *ngFor="let documento of tipos_documento" value={{documento.value}}>{{documento.name}}</button>
-        </div>
-    </div>
-
-    <div class="childDiv" id="userDiv">
-        <button class="titleButton" (click)="toggleOptionButtons($event)">Empresa</button>
-        <div class="optionsDiv" hidden>
-            <button (click)="select($event, 'userDiv')" *ngFor="let empresa of empresas" id="{{empresa.id + 'Button'}}" value={{empresa.id}}>{{empresa.name}}</button>
-        </div>
-    </div>
-    <div class="childDiv" id="segmentoDiv">
-        <button class="titleButton" (click)="toggleOptionButtons($event)">Segmento</button>
-        <div class="optionsDiv" hidden>
-            <button (click)="select($event, 'segmentoDiv')" *ngFor="let segmento of segmentos" id="{{segmento + 'Button'}}" value={{segmento}}>{{segmento}}</button>
+        <div class="nonDateOptions" *ngIf="this.filterType != 'date' && this.filterData != undefined">
+            <button (click)="select($event)" *ngFor="let data of filterData" id="{{data.value + 'Button'}}" value={{data.value}}>{{data.name}}</button>
         </div>
     </div>
 </div>

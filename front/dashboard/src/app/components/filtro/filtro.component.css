@@ -22,7 +22,7 @@
     align-items: center;
 }
 
-.childDiv {
+.filter-card {
     display: flex;
     flex-direction: column;
     align-items: center;
