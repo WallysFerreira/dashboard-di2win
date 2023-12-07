@@ -1,5 +1,4 @@
-import { Component, ViewChild, ElementRef, Input } from '@angular/core';
-import { getCount, getUsers } from 'src/app/app.component';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-filtro',
