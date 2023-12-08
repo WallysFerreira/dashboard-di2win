@@ -1,5 +1,11 @@
 <div id="graficoPageDiv">
-    <app-filtro></app-filtro>
+    <div id="filtrosDiv">
+        <app-filtro [filterTitle]="'Data'" [filterType]="'date'"></app-filtro>
+        <app-filtro [filterTitle]="'Cliente'" [filterData]=this.userFilterData></app-filtro>
+        <app-filtro [filterTitle]="'Documento'" [filterData]=this.docFilterData></app-filtro>
+        <app-filtro [filterTitle]="'Segmento'" [filterData]=this.segmentFilterData></app-filtro>
+    </div>
+
     <div>
         <div id="escolhagraf" style="display: flex; justify-content: space-between; align-items: end;">
             <div>

@@ -55,12 +55,44 @@ export class GraficoComponent {
       data: [0]
     }]
   }
+  userFilterData: any = [
+    {
+      name: "Rômulo",
+      value: 1
+    },
+    {
+      name: "Madeira",
+      value: 2,
+    }
+  ]
+  docFilterData: any = [
+    {
+      name: "Balanço",
+      value: "BALANCO"
+    },
+    {
+      name: "CNH",
+      value: "CNH"
+    }
+  ]
+  segmentFilterData: any = [
+    {
+      name: "Banco",
+      value: "banco",
+    },
+    {
+      name: "Financeira",
+      value: "financeira"
+    }
+  ]
 
   ngOnInit() {
-    this.filtroButtons = document.getElementById('filtroDiv')?.getElementsByTagName('button')
-    this.dateInputs = document.getElementById('filtroDiv')?.getElementsByTagName('input')
+    this.filtroButtons = document.getElementById('filtrosDiv')?.getElementsByTagName('button')
+    this.dateInputs = document.getElementById('filtrosDiv')?.getElementsByTagName('input')
     this.groupByButtons = document.getElementById('groupDiv')?.getElementsByTagName('button')
+  }
 
+  ngAfterViewInit() {
     for (let date of this.dateInputs) {
       date.addEventListener('change', () => {
         if (date.value[0] != '0') {
@@ -85,26 +117,27 @@ export class GraficoComponent {
     this.userIdWasSelected = false
     this.segmentWasSelected = false
 
+
     for (let button of this.filtroButtons) {
       let parentId = button.parentElement.parentElement.id
 
       // This part checks if a button is selected and if it's value is different from the one previously selected
       if (button.classList == 'selected') {
-        if (parentId == 'docDiv') {
+        if (parentId.includes('Documento')) {
           this.docWasSelected = true
 
           if (button.value != this.selectedDocType) {
             this.selectedDocType = button.value
             this.changed = true;
           }
-        } else if (parentId == 'userDiv') {
+        } else if (parentId.includes('Cliente')) {
           this.userIdWasSelected = true
 
           if (button.value != this.selectedUserId) {
             this.selectedUserId = button.value
             this.changed = true;
           }
-        } else if (parentId == 'segmentoDiv') {
+        } else if (parentId.includes('Segmento')) {
           this.segmentWasSelected = true
 
           if (button.value != this.selectedSegment) {

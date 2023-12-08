@@ -17,3 +17,9 @@
     padding-top: 5%;
     padding-left: 4%;
 }
+
+#filtrosDiv {
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+}
