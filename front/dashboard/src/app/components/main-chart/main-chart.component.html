@@ -1,6 +1,8 @@
 <div [style.width.vw]=this.divWidth class="chartDiv">
     <canvas id={{this.canvasID}}>{{ chart }}</canvas>
     <div id="groupDiv">
-        <button *ngFor="let button of groupingButtons; let isFirst = first" (click)="setSelected(button.name)" [class.selected]='isFirst' value="{{button.value}}" id="{{button.name + 'Button'}}">{{ button.text }}</button>
+        <select>
+            <option *ngFor="let button of groupingButtons; let isFirst = first" [class.selected]='isFirst' value="{{button.value}}" id="{{button.name + 'Button'}}">{{'Agrupar por ' + button.text }}</option>
+        </select>
     </div>
 </div>
