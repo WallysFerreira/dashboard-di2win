@@ -14,6 +14,7 @@ export class FiltroComponent {
   buttons: any
   hiddenAttributeElement: any
 
+  /*
   select(event: any) {
     this.buttons = document.getElementById(this.filterTitle + 'OptionsDiv')?.getElementsByClassName('nonDateOptions')[0].getElementsByTagName('button')
 

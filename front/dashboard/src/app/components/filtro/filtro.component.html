@@ -13,7 +13,10 @@
         </div>
 
         <div class="nonDateOptions" *ngIf="this.filterType != 'date' && this.filterData != undefined">
-            <button (click)="select($event)" *ngFor="let data of filterData" id="{{data.value + 'Button'}}" value={{data.value}}>{{data.name}}</button>
+            <select>
+                <option value=""></option>
+                <option *ngFor="let data of filterData" id="{{data.value + 'Button'}}" value={{data.value}}>{{data.name}}</option>
+            </select>
         </div>
     </div>
 </div>
