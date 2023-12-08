@@ -10,7 +10,6 @@ import { MainChartComponent } from 'src/app/components/main-chart/main-chart.com
 
 export class GraficoComponent {
   @ViewChild(MainChartComponent) chartChild?: MainChartComponent;
-  filtroButtons: any
   filtroSelects: any
   dateInputs: any
   groupByButtons: any
@@ -61,7 +60,6 @@ export class GraficoComponent {
   segmentFilterData: any = []
 
   async ngOnInit() {
-    this.filtroButtons = document.getElementById('filtrosDiv')?.getElementsByTagName('button')
     this.filtroSelects = document.getElementById('filtrosDiv')?.getElementsByTagName('select')
     this.dateInputs = document.getElementById('filtrosDiv')?.getElementsByTagName('input')
     this.groupByButtons = document.getElementById('groupDiv')?.getElementsByTagName('button')
