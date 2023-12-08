@@ -9,11 +9,10 @@
     <div>
         <div id="escolhagraf" style="display: flex; justify-content: space-between; align-items: end;">
             <div>
-                <h1>Tipo de gráfico</h1>
                 <select (change)="changeChartType($event)">
-                    <option value="bar">Barras</option>
-                    <option value="line">Linha</option>
-                    <option value="doughnut">Rosquinha</option>
+                    <option value="bar">Gráfico de barras</option>
+                    <option value="line">Gráfico de linha</option>
+                    <option value="doughnut">Gráfico de rosquinha</option>
                 </select>
             </div>
             <a download="grafico.jpg" href={{this.chartChild?.imageUrl}}> <button>Baixar<img id="baixar" src="../../../assets/icons8-baixar-24.png" alt="baixar"></button></a>
