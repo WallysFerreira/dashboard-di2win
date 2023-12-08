@@ -14,9 +14,6 @@ export class GraficoComponent {
   dateInputs: any
   groupByButtons: any
   changed = false
-  docWasSelected = false
-  userIdWasSelected = false
-  segmentWasSelected = false
   selectedChartType?: string = 'bar'
   selectedGroupBy?: string
   selectedDocType?: string
