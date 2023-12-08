@@ -1,9 +1,9 @@
 <div id="graficoPageDiv">
     <div id="filtrosDiv">
-        <app-filtro [filterTitle]="'Data'" [filterType]="'date'"></app-filtro>
-        <app-filtro [filterTitle]="'Cliente'" [filterData]=this.userFilterData></app-filtro>
-        <app-filtro [filterTitle]="'Documento'" [filterData]=this.docFilterData></app-filtro>
-        <app-filtro [filterTitle]="'Segmento'" [filterData]=this.segmentFilterData></app-filtro>
+        <app-filtro (change)="changeFilter($event)" [filterTitle]="'Data'" [filterType]="'date'"></app-filtro>
+        <app-filtro (change)="changeFilter($event)" [filterTitle]="'Cliente'" [filterData]=this.userFilterData></app-filtro>
+        <app-filtro (change)="changeFilter($event)" [filterTitle]="'Documento'" [filterData]=this.docFilterData></app-filtro>
+        <app-filtro (change)="changeFilter($event)" [filterTitle]="'Segmento'" [filterData]=this.segmentFilterData></app-filtro>
     </div>
 
     <div>
