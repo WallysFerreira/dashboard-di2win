@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { getCount } from 'src/app/app.component';
+import { ajeitarNome, getCount, getUsers } from 'src/app/app.component';
 import { MainChartComponent } from 'src/app/components/main-chart/main-chart.component';
 
 @Component({
@@ -55,41 +55,38 @@ export class GraficoComponent {
       data: [0]
     }]
   }
-  userFilterData: any = [
-    {
-      name: "Rômulo",
-      value: 1
-    },
-    {
-      name: "Madeira",
-      value: 2,
-    }
-  ]
-  docFilterData: any = [
-    {
-      name: "Balanço",
-      value: "BALANCO"
-    },
-    {
-      name: "CNH",
-      value: "CNH"
-    }
-  ]
-  segmentFilterData: any = [
-    {
-      name: "Banco",
-      value: "banco",
-    },
-    {
-      name: "Financeira",
-      value: "financeira"
-    }
-  ]
+  userFilterData: any = []
+  docFilterData: any = []
+  segmentFilterData: any = []
 
-  ngOnInit() {
+  async ngOnInit() {
     this.filtroButtons = document.getElementById('filtrosDiv')?.getElementsByTagName('button')
     this.dateInputs = document.getElementById('filtrosDiv')?.getElementsByTagName('input')
     this.groupByButtons = document.getElementById('groupDiv')?.getElementsByTagName('button')
+
+    let users = await getUsers().then((res) => res.data.user)
+    users.map((user: any) => {
+      this.userFilterData.push({
+        name: user.name,
+        value: user.id
+      })
+    })
+
+    let docs = await getCount("doc_type", true, "0", null, null, null, null).then((res) => res.data.count)
+    docs.map((doc: any) => {
+      this.docFilterData.push({
+        name: ajeitarNome(doc.name),
+        value: doc.name
+      })
+    })
+    
+    let segments = await getCount("users.segment", true, "0", null, null, null, null).then((res) => res.data.count)
+    segments.map((segment: any) => {
+      this.segmentFilterData.push({
+        name: ajeitarNome(segment.name),
+        value: segment.name
+      })
+    })
   }
 
   ngAfterViewInit() {
