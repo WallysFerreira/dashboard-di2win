@@ -62,7 +62,7 @@ export class GraficoComponent {
   async ngOnInit() {
     this.filtroSelects = document.getElementById('filtrosDiv')?.getElementsByTagName('select')
     this.dateInputs = document.getElementById('filtrosDiv')?.getElementsByTagName('input')
-    this.groupByButtons = document.getElementById('groupDiv')?.getElementsByTagName('button')
+    this.groupByButtons = document.getElementById('groupDiv')?.getElementsByTagName('select')[0]
 
     let users = await getUsers().then((res) => res.data.user)
     users.map((user: any) => {
@@ -87,6 +87,9 @@ export class GraficoComponent {
         value: segment.name
       })
     })
+
+    this.changed = true
+    this.updateData()
   }
 
   ngAfterViewInit() {
@@ -136,19 +139,17 @@ export class GraficoComponent {
     this.updateData()
   }
 
-  async ngAfterContentChecked() {
-    this.changed = false
-
-    for (let button of this.groupByButtons) {
-      if (button.classList == 'selected') {
-        if (button.value != this.selectedGroupBy) {
-          this.selectedGroupBy = button.value
-          this.changed = true
-        }
-      }
+  changeGroupBy(event: any) {
+    if (this.selectedGroupBy != event.target.value) {
+      this.selectedGroupBy = event.target.value
+      this.changed = true
     }
 
     this.updateData()
+  }
+
+  async ngAfterContentChecked() {
+    this.changed = false
   }
 
   changeDate() {

@@ -18,7 +18,7 @@
             </div>
             <a download="grafico.jpg" href={{this.chartChild?.imageUrl}}> <button>Baixar<img id="baixar" src="../../../assets/icons8-baixar-24.png" alt="baixar"></button></a>
         </div>
-        <app-main-chart [chartType]=this.selectedChartType [groupingButtons]=this.groupingButtons
+        <app-main-chart (change)="changeGroupBy($event)" [chartType]=this.selectedChartType [groupingButtons]=this.groupingButtons
             [data]=this.entireDataset></app-main-chart>
     </div>
 </div>
