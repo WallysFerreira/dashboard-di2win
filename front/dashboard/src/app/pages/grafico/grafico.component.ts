@@ -10,13 +10,10 @@ import { MainChartComponent } from 'src/app/components/main-chart/main-chart.com
 
 export class GraficoComponent {
   @ViewChild(MainChartComponent) chartChild?: MainChartComponent;
-  filtroButtons: any
+  filtroSelects: any
   dateInputs: any
   groupByButtons: any
   changed = false
-  docWasSelected = false
-  userIdWasSelected = false
-  segmentWasSelected = false
   selectedChartType?: string = 'bar'
   selectedGroupBy?: string
   selectedDocType?: string
@@ -60,9 +57,9 @@ export class GraficoComponent {
   segmentFilterData: any = []
 
   async ngOnInit() {
-    this.filtroButtons = document.getElementById('filtrosDiv')?.getElementsByTagName('button')
+    this.filtroSelects = document.getElementById('filtrosDiv')?.getElementsByTagName('select')
     this.dateInputs = document.getElementById('filtrosDiv')?.getElementsByTagName('input')
-    this.groupByButtons = document.getElementById('groupDiv')?.getElementsByTagName('button')
+    this.groupByButtons = document.getElementById('groupDiv')?.getElementsByTagName('select')[0]
 
     let users = await getUsers().then((res) => res.data.user)
     users.map((user: any) => {
@@ -87,6 +84,9 @@ export class GraficoComponent {
         value: segment.name
       })
     })
+
+    this.changed = true
+    this.updateData()
   }
 
   ngAfterViewInit() {
@@ -99,6 +99,34 @@ export class GraficoComponent {
     }
   }
 
+  changeFilter(event: any) {
+    let targetParentId = event.target.parentElement.parentElement.id
+    let targetValue = event.target.value
+    
+    if (targetParentId.includes('Documento')) {
+      if (this.selectedDocType != targetValue) {
+        this.selectedDocType = targetValue
+        this.changed = true
+      }
+    }
+
+    if (targetParentId.includes('Cliente')) {
+      if (this.selectedUserId != targetValue) {
+        this.selectedUserId = targetValue
+        this.changed = true
+      }
+    }
+
+    if (targetParentId.includes('Segmento')) {
+      if (this.selectedSegment != targetValue) {
+        this.selectedSegment = targetValue
+        this.changed = true
+      }
+    }
+
+    this.updateData()
+  }
+
   changeChartType(event: any) {
     if (event.target.value != this.selectedChartType) {
       this.changed = true
@@ -108,75 +136,17 @@ export class GraficoComponent {
     this.updateData()
   }
 
-  async ngAfterContentChecked() {
-    this.changed = false
-    this.docWasSelected = false
-    this.userIdWasSelected = false
-    this.segmentWasSelected = false
-
-
-    for (let button of this.filtroButtons) {
-      let parentId = button.parentElement.parentElement.id
-
-      // This part checks if a button is selected and if it's value is different from the one previously selected
-      if (button.classList == 'selected') {
-        if (parentId.includes('Documento')) {
-          this.docWasSelected = true
-
-          if (button.value != this.selectedDocType) {
-            this.selectedDocType = button.value
-            this.changed = true;
-          }
-        } else if (parentId.includes('Cliente')) {
-          this.userIdWasSelected = true
-
-          if (button.value != this.selectedUserId) {
-            this.selectedUserId = button.value
-            this.changed = true;
-          }
-        } else if (parentId.includes('Segmento')) {
-          this.segmentWasSelected = true
-
-          if (button.value != this.selectedSegment) {
-            this.selectedSegment = button.value
-            this.changed = true
-          }
-        }
-      }
-    }
-
-    // This part checks if a filter that was previously selected has been unselected
-    if (this.selectedDocType != undefined) {
-      if (!this.docWasSelected) {
-        this.selectedDocType = undefined
-        this.changed = true
-      }
-    }
-
-    if (this.selectedUserId != undefined) {
-      if (!this.userIdWasSelected) {
-        this.selectedUserId = undefined
-        this.changed = true
-      }
-    }
-
-    if (this.selectedSegment != undefined) {
-      if (!this.segmentWasSelected) {
-        this.selectedSegment = undefined
-        this.changed = true
-      }
-    }
-
-    for (let button of this.groupByButtons) {
-      if (button.classList == 'selected') {
-        if (button.value != this.selectedGroupBy) {
-          this.selectedGroupBy = button.value
-          this.changed = true
-        }
-      }
+  changeGroupBy(event: any) {
+    if (this.selectedGroupBy != event.target.value) {
+      this.selectedGroupBy = event.target.value
+      this.changed = true
     }
 
     this.updateData()
+  }
+
+  async ngAfterContentChecked() {
+    this.changed = false
   }
 
   changeDate() {
