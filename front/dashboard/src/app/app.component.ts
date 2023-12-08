@@ -67,3 +67,21 @@ export async function getExtracts() {
 
   return result
 }
+
+export function ajeitarNome(nome: any) {
+  let nomeAjeitado = nome.split("_").map((palavra: any, index: number) => {
+    palavra = palavra.toLowerCase()
+      
+    if (palavra.length <= 3) palavra = palavra.toUpperCase()
+
+    if (index == 0) {
+      let array = palavra.split("")
+      array[0] = array[0].toUpperCase()
+      palavra = array.join("")
+    }
+
+    return palavra
+  }).join(" ")
+
+  return nomeAjeitado
+}

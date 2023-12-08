@@ -1,5 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { getCount, getUsers } from 'src/app/app.component';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-filtro',
@@ -8,124 +7,42 @@ import { getCount, getUsers } from 'src/app/app.component';
 })
 
 export class FiltroComponent {
-  empresas: any
-  tipos_documento: any
-  segmentos: any
-  buttonsDoc: any
-  buttonsEmp: any
-  buttonsSeg: any
+  @Input() filterTitle?: string
+  @Input() filterType?: string
+  @Input() filterData: any
+
+  buttons: any
   hiddenAttributeElement: any
 
+  select(event: any) {
+    this.buttons = document.getElementById(this.filterTitle + 'OptionsDiv')?.getElementsByClassName('nonDateOptions')[0].getElementsByTagName('button')
 
-  async getSegmentos() {
-    this.segmentos = []
-    
-    for (let empresa of this.empresas) {
-        this.segmentos.push(empresa.segment)
-    }
-  }
-  
-  async ngOnInit() {
-    let res = await getUsers()
-    this.empresas = res.data.user
-    this.getSegmentos();
-    
-    this.tipos_documento = [
-      {
-        name: "Faturamento",
-        value: "FATURAMENTO"
-      },
-      {
-        name: "CNH",
-        value: "CNH"
-      },
-      {
-        name: "Posição Consolidada",
-        value: "POSICAO_CONSOLIDADA"
-      },
-      {
-        name: "Fatura de Energia",
-        value: "FATURA_ENERGIA"
-      },
-      {
-        name: "Contrato Social",
-        value: "CONTRATO_SOCIAL"
-      },
-      {
-        name: "Declaração IR",
-        value: "DECLARACAO_IR"
-      },
-      {
-        name: "Capa Serasa",
-        value: "CAPA_SERASA"
-      },
-      {
-        name: "Endividamento",
-        value: "ENDIVIDAMENTO"
-      },
-      {
-        name: "Comprovante de Residência",
-        value: "COMPROVANTE_RESIDENCIA"
-      },
-      {
-        name: "Balanço Patrimonial",
-        value: "BALANCO_PATRIMONIAL"
-      },
-      {
-        name: "Recibo",
-        value: "RECIBOS"
-      }
-    ]
-  }
-
-  ngAfterContentChecked() {
-    this.buttonsDoc = document.getElementById('docDiv')?.getElementsByTagName('button')
-    this.buttonsEmp = document.getElementById('userDiv')?.getElementsByTagName('button')
-    this.buttonsSeg = document.getElementById('segmentoDiv')?.getElementsByTagName('button')
-  }
-
-  select(event: any, div: any) {
     const hasClass = event.target.classList.contains('selected')
 
     if (hasClass) {
       this.unselect(event)
     } else {
-      this.setSelected(event, div)
+      this.setSelected(event)
     }
-
-    this.hideOptionsButtons(event)
   }
 
   unselect (event: any) {
     event.target.classList.remove('selected')
   }
 
-  setSelected(event: any, div: any) {
-    this.clearSelectedButton(div)
+  setSelected(event: any) {
+    this.clearSelectedButton()
 
     event.target.classList.add('selected')
   }
 
-  clearSelectedButton(div: any) {
-    let buttons
-
-   switch (div) {
-      case 'docDiv': 
-        buttons = this.buttonsDoc
-        break
-      case 'userDiv':
-        buttons = this.buttonsEmp
-        break
-      case 'segmentoDiv':
-        buttons = this.buttonsSeg
-        break
-    }
-
-    for (let i = 0; i < buttons.length; i++) {
-      buttons[i].classList.remove('selected')
+  clearSelectedButton() {
+    for (let i = 0; i < this.buttons.length; i++) {
+      this.buttons[i].classList.remove('selected')
     }
   }
 
+  /*
   toggleOptionButtons(e: any) {
     let parentId = e.target.parentElement.id
     let optionsDiv = document.getElementById(parentId)?.getElementsByClassName('optionsDiv')[0]
@@ -162,4 +79,5 @@ export class FiltroComponent {
 
     optionsDiv.attributes.setNamedItem(this.hiddenAttributeElement)
   }
+  */
 }

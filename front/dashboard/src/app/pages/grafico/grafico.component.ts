@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { getCount } from 'src/app/app.component';
+import { ajeitarNome, getCount, getUsers } from 'src/app/app.component';
 import { MainChartComponent } from 'src/app/components/main-chart/main-chart.component';
 
 @Component({
@@ -55,12 +55,41 @@ export class GraficoComponent {
       data: [0]
     }]
   }
+  userFilterData: any = []
+  docFilterData: any = []
+  segmentFilterData: any = []
 
-  ngOnInit() {
-    this.filtroButtons = document.getElementById('filtroDiv')?.getElementsByTagName('button')
-    this.dateInputs = document.getElementById('filtroDiv')?.getElementsByTagName('input')
+  async ngOnInit() {
+    this.filtroButtons = document.getElementById('filtrosDiv')?.getElementsByTagName('button')
+    this.dateInputs = document.getElementById('filtrosDiv')?.getElementsByTagName('input')
     this.groupByButtons = document.getElementById('groupDiv')?.getElementsByTagName('button')
 
+    let users = await getUsers().then((res) => res.data.user)
+    users.map((user: any) => {
+      this.userFilterData.push({
+        name: user.name,
+        value: user.id
+      })
+    })
+
+    let docs = await getCount("doc_type", true, "0", null, null, null, null).then((res) => res.data.count)
+    docs.map((doc: any) => {
+      this.docFilterData.push({
+        name: ajeitarNome(doc.name),
+        value: doc.name
+      })
+    })
+    
+    let segments = await getCount("users.segment", true, "0", null, null, null, null).then((res) => res.data.count)
+    segments.map((segment: any) => {
+      this.segmentFilterData.push({
+        name: ajeitarNome(segment.name),
+        value: segment.name
+      })
+    })
+  }
+
+  ngAfterViewInit() {
     for (let date of this.dateInputs) {
       date.addEventListener('change', () => {
         if (date.value[0] != '0') {
@@ -85,26 +114,27 @@ export class GraficoComponent {
     this.userIdWasSelected = false
     this.segmentWasSelected = false
 
+
     for (let button of this.filtroButtons) {
       let parentId = button.parentElement.parentElement.id
 
       // This part checks if a button is selected and if it's value is different from the one previously selected
       if (button.classList == 'selected') {
-        if (parentId == 'docDiv') {
+        if (parentId.includes('Documento')) {
           this.docWasSelected = true
 
           if (button.value != this.selectedDocType) {
             this.selectedDocType = button.value
             this.changed = true;
           }
-        } else if (parentId == 'userDiv') {
+        } else if (parentId.includes('Cliente')) {
           this.userIdWasSelected = true
 
           if (button.value != this.selectedUserId) {
             this.selectedUserId = button.value
             this.changed = true;
           }
-        } else if (parentId == 'segmentoDiv') {
+        } else if (parentId.includes('Segmento')) {
           this.segmentWasSelected = true
 
           if (button.value != this.selectedSegment) {
