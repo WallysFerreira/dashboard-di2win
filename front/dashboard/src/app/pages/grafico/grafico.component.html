@@ -7,16 +7,33 @@
     </div>
 
     <div>
-        <div id="escolhagraf" style="display: flex; justify-content: space-between; align-items: end;">
+        <!-- <div id="escolhagraf" style="display: flex; justify-content: space-between; align-items: end;">
             <div>
                 <select (change)="changeChartType($event)">
                     <option value="bar">Gráfico de barras</option>
                     <option value="line">Gráfico de linha</option>
                     <option value="doughnut">Gráfico de rosquinha</option>
                 </select>
-            </div>
-            <a download="grafico.jpg" href={{this.chartChild?.imageUrl}}> <button>Baixar<img id="baixar" src="../../../assets/icons8-baixar-24.png" alt="baixar"></button></a>
-        </div>
+            </div> -->
+            <div class="row">
+                <div class="col">
+                    <div ngbDropdown class="d-inline-block" id="escolhagraf">
+                        <button type="button" class="btn btn-outline-dark" id="dropdownBasic1" ngbDropdownToggle>
+                            Tipo de Gráfico
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button ngbDropdownItem (ngModelChange)="changeChartType('bar')">Gráfico de barras</button>
+                            <button ngbDropdownItem (ngModelChange)="changeChartType('line')">Gráfico em linha</button>
+                            <button ngbDropdownItem (ngModelChange)="changeChartType('doughnut')">Gráfico de rosquinha</button>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+            <a download="grafico.jpg" href={{this.chartChild?.imageUrl}}> 
+                <button id="baixar" type="button" class="btn btn-outline-dark"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-bar-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5M8 6a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L7.5 12.293V6.5A.5.5 0 0 1 8 6"/></svg>
+                </button>
+            </a>         
         <app-main-chart (change)="changeGroupBy($event)" [chartType]=this.selectedChartType [groupingButtons]=this.groupingButtons
             [data]=this.entireDataset></app-main-chart>
     </div>
