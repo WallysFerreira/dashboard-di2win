@@ -1,6 +1,6 @@
 <div id="{{filterTitle + 'Div'}}" class="filter-card">
-    <h1>{{ filterTitle }}</h1>
     <div id="{{filterTitle + 'OptionsDiv'}}">
+        
         <div class="dateOptionsDiv" *ngIf="this.filterType == 'date'">
             <div>
                 <button>De:</button>
@@ -12,11 +12,23 @@
             </div>
         </div>
 
-        <div class="nonDateOptions" *ngIf="this.filterType != 'date' && this.filterData != undefined">
+        <div class="row">
+            <div class="col">
+                <div ngbDropdown class="d-inline-block" class="nonDateOptions" *ngIf="this.filterType != 'date' && this.filterData != undefined">
+                    <button type="button" class="btn btn-outline-dark" id="dropdownBasic1" ngbDropdownToggle>
+                     {{ filterTitle }}
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic">
+                        <button ngbDropdownItem *ngFor="let data of filterData" id="{{data.value + 'Button'}}" value={{data.value}}>{{data.name}}</button>
+                    </div>
+                </div>
+            </div>
+
+        <!-- <div class="nonDateOptions" *ngIf="this.filterType != 'date' && this.filterData != undefined">
             <select>
                 <option value=""></option>
                 <option *ngFor="let data of filterData" id="{{data.value + 'Button'}}" value={{data.value}}>{{data.name}}</option>
             </select>
-        </div>
+        </div> -->
     </div>
 </div>

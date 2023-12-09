@@ -9,6 +9,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { FiltroComponent } from './components/filtro/filtro.component';
 import { GraficoComponent } from './pages/grafico/grafico.component';
 import { DestaqueComponent } from './components/destaque/destaque.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { DestaqueComponent } from './components/destaque/destaque.component';
     RouterModule.forRoot([
       {path: '', component: HomeComponent},
       {path: 'grafico', component: GraficoComponent}
-    ])
+    ]),
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
