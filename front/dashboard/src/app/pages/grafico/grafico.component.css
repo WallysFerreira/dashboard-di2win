@@ -18,3 +18,8 @@
     align-self: flex-start;
     height: 33px;
 }
+
+#additionalOptionsDiv {
+    display: flex;
+    justify-content: space-between;
+}
