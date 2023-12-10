@@ -12,12 +12,12 @@ export class HomeComponent {
   hoje: any
   semanaPassada: any
   mesPassado: any
-  groupByButtons: any
+  groupBySelect: any
   tituloDocumentoMaisTestado = "Documento mais testado"
   tituloDocumentoMenosTestado = "Documento menos testado"
   tituloEmpresaMaisTestou = "Empresa que mais testou"
   tituloEmpresaMenosTestou = "Empresa que menos testou"
-  tituloSegmentoMaisTestou = "Segmento que mais testou" 
+  tituloSegmentoMaisTestou = "Segmento que mais testou"
   tituloSegmentoMenosTestou = "Segmento que menos testou"
   tituloQntTotalPaginasTestadas = "Total de paginas testadas"
   documentoMaisTestadoMes!: string
@@ -39,14 +39,14 @@ export class HomeComponent {
   segmentChartData: any
   groupingButtons: any = [
     {
-      name: "documento",
-      text: "Documento",
-      value: "doc"
-    },
-    {
       name: "empresa",
       text: "Empresa",
       value: "user"
+    },
+    {
+      name: "documento",
+      text: "Documento",
+      value: "doc"
     },
     {
       name: "segmento",
@@ -56,7 +56,7 @@ export class HomeComponent {
   ]
 
   ngOnInit() {
-    this.groupByButtons = document.getElementById('groupDiv')?.getElementsByTagName('button')
+    this.groupBySelect = document.getElementById('groupDiv')?.getElementsByTagName('select')[0]
     this.hoje = new Date(2023, 8, 3)
 
     this.semanaPassada = new Date()
@@ -106,7 +106,7 @@ export class HomeComponent {
     this.segmentoMenosTestouMes = res.length != 0 ? ajeitarNome(res[res.length - 1].name) : "Nenhum"
   }
 
-  
+
 
   async pegarInfoSemana() {
     let semanaPassadaString = this.semanaPassada.toISOString().slice(0, 10)
@@ -185,6 +185,8 @@ export class HomeComponent {
       labels: labels,
       datasets: datasets
     }
+
+    this.selectedChartData = this.userChartData
   }
 
   async pegarDadosSegmentos() {
@@ -218,25 +220,21 @@ export class HomeComponent {
     }
   }
 
-  ngAfterContentChecked() {
-    this.getSelectedChartData()
-  }
-
   getSelectedChartData() {
-    for (let button of this.groupByButtons) {
-      if (button.classList == 'selected') {
-        switch (button.value) {
-          case 'doc':
-            this.selectedChartData = this.docChartData
-            break;
-          case 'user':
-            this.selectedChartData = this.userChartData
-            break;
-          case 'segment':
-            this.selectedChartData = this.segmentChartData
-            break;
-        }
-      }
+    console.log(this.groupBySelect.value)
+    switch (this.groupBySelect.value) {
+      case 'doc':
+        console.log(this.docChartData)
+        this.selectedChartData = this.docChartData
+        break;
+      case 'user':
+        console.log(this.userChartData)
+        this.selectedChartData = this.userChartData
+        break;
+      case 'segment':
+        console.log(this.segmentChartData)
+        this.selectedChartData = this.segmentChartData
+        break;
     }
   }
 }
