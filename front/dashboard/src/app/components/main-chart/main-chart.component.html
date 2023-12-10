@@ -8,9 +8,6 @@
 			<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
 				<button ngbDropdownItem *ngFor="let button of groupingButtons; let isFirst = first" [class.selected]='isFirst' value="{{button.value}}" id="{{button.name + 'Button'}}">{{'Agrupar por ' + button.text }}</button>
 			</div>
-        <!-- <select>
-            <option *ngFor="let button of groupingButtons; let isFirst = first" [class.selected]='isFirst' value="{{button.value}}" id="{{button.name + 'Button'}}">{{'Agrupar por ' + button.text }}</option>
-        </select> -->
     </div>
 </div>
 

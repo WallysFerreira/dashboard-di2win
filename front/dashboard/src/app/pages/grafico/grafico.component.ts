@@ -217,7 +217,7 @@ export class GraficoComponent {
         datasets: []
       }
 
-      this.entireDataset.datasets.push({ label: 'Paginas processadas', data: this.valueData, backgroundColor:['#e71c9a','#f52997','#ee47ac','#f682c5','#f5acd8','#f8b5dc']})
+      this.entireDataset.datasets.push({ label: 'Paginas processadas', data: this.valueData, backgroundColor:['#845ec2','#d65db1','#ff6f91','#ff9671','#ffc75f','#f9f871','#f3cd05','#f49f05','#f18904']})
     }
   }
 }
