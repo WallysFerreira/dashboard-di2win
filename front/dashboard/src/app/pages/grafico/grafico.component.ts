@@ -136,10 +136,6 @@ export class GraficoComponent {
     this.updateData()
   }
 
-  testar(event: any) {
-    console.log(event)
-  }
-
   changeGroupBy(event: any) {
     if (this.selectedGroupBy != event.target.value) {
       this.selectedGroupBy = event.target.value
@@ -226,5 +222,19 @@ export class GraficoComponent {
     this.changed = true
 
     this.updateData()
+  }
+
+  clearFilter(filterTitle: any) {
+    switch (filterTitle) {
+      case 'Documento':
+        this.selectedDocType = undefined
+        break;
+      case 'Cliente':
+        this.selectedUserId = "0"
+        break
+      case 'Segmento':
+        this.selectedSegment = undefined
+        break;
+    }
   }
 }
