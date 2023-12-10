@@ -5,7 +5,21 @@
 }
 
 #filtrosDiv {
-    width: 90%;
+    width: 80%;
+    border: 1px black solid;
+    border-radius: 10px 5px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 4px 2px 2px grey;
+}
+
+#clearAllBtn {
+    align-self: flex-start;
+    height: 33px;
+}
+
+#additionalOptionsDiv {
+    display: flex;
+    justify-content: space-between;
 }

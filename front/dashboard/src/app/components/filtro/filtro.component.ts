@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-filtro',
@@ -10,4 +10,5 @@ export class FiltroComponent {
   @Input() filterTitle?: string
   @Input() filterType?: string
   @Input() filterData: any
+  @Output() filterClear = new EventEmitter<string>()
 }

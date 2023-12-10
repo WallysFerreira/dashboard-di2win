@@ -211,4 +211,30 @@ export class GraficoComponent {
       this.entireDataset.datasets.push({ label: 'Paginas processadas', data: this.valueData, backgroundColor:['#e71c9a','#f52997','#ee47ac','#f682c5','#f5acd8','#f8b5dc']})
     }
   }
+
+  clearFilters() {
+    this.selectedDocType = undefined
+    this.selectedEndDate = undefined
+    this.selectedStartDate = undefined
+    this.selectedUserId = "0"
+    this.selectedSegment = undefined
+
+    this.changed = true
+
+    this.updateData()
+  }
+
+  clearFilter(filterTitle: any) {
+    switch (filterTitle) {
+      case 'Documento':
+        this.selectedDocType = undefined
+        break;
+      case 'Cliente':
+        this.selectedUserId = "0"
+        break
+      case 'Segmento':
+        this.selectedSegment = undefined
+        break;
+    }
+  }
 }

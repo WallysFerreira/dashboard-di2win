@@ -1,9 +1,14 @@
 <div id="graficoPageDiv">
     <div id="filtrosDiv">
         <app-filtro (change)="changeFilter($event)" [filterTitle]="'Data'" [filterType]="'date'"></app-filtro>
-        <app-filtro (change)="changeFilter($event)" [filterTitle]="'Cliente'" [filterData]=this.userFilterData></app-filtro>
-        <app-filtro (change)="changeFilter($event)" [filterTitle]="'Documento'" [filterData]=this.docFilterData></app-filtro>
-        <app-filtro (change)="changeFilter($event)" [filterTitle]="'Segmento'" [filterData]=this.segmentFilterData></app-filtro>
+        <app-filtro (change)="changeFilter($event)" [filterTitle]="'Cliente'"
+            [filterData]=this.userFilterData (filterClear)="clearFilter($event)"></app-filtro>
+        <app-filtro (change)="changeFilter($event)" [filterTitle]="'Documento'"
+            [filterData]=this.docFilterData (filterClear)="clearFilter($event)"></app-filtro>
+        <app-filtro (change)="changeFilter($event)" [filterTitle]="'Segmento'"
+            [filterData]=this.segmentFilterData (filterClear)="clearFilter($event)"></app-filtro>
+        <button id="clearAllBtn" (click)="clearFilters()"><img src="assets/clear-icon.png"
+                style="width: 26px;"></button>
     </div>
 
     <div>
@@ -15,26 +20,27 @@
                     <option value="doughnut">Gráfico de rosquinha</option>
                 </select>
             </div> -->
-            <div class="row">
-                <div class="col">
-                    <div ngbDropdown class="d-inline-block" id="escolhagraf">
-                        <button type="button" class="btn btn-outline-dark" id="dropdownBasic1" ngbDropdownToggle>
-                            Tipo de Gráfico
-                        </button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                            <button ngbDropdownItem (ngModelChange)="changeChartType('bar')">Gráfico de barras</button>
-                            <button ngbDropdownItem (ngModelChange)="changeChartType('line')">Gráfico em linha</button>
-                            <button ngbDropdownItem (ngModelChange)="changeChartType('doughnut')">Gráfico de rosquinha</button>
-                        </div>
-                    </div>
-                </div>
-            </div>   
-            <a download="grafico.jpg" href={{this.chartChild?.imageUrl}}> 
-                <button id="baixar" type="button" class="btn btn-outline-dark"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-bar-down" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5M8 6a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L7.5 12.293V6.5A.5.5 0 0 1 8 6"/></svg>
+        <div id="additionalOptionsDiv">
+            <div ngbDropdown class="d-inline-block" id="escolhagraf">
+                <button type="button" class="btn btn-outline-dark" id="dropdownBasic1" ngbDropdownToggle>
+                    Tipo de Gráfico
                 </button>
-            </a>         
-        <app-main-chart (change)="changeGroupBy($event)" [chartType]=this.selectedChartType [groupingButtons]=this.groupingButtons
-            [data]=this.entireDataset></app-main-chart>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem (ngModelChange)="changeChartType('bar')">Gráfico de barras</button>
+                    <button ngbDropdownItem (ngModelChange)="changeChartType('line')">Gráfico em linha</button>
+                    <button ngbDropdownItem (ngModelChange)="changeChartType('doughnut')">Gráfico de rosquinha</button>
+                </div>
+            </div>
+            <a download="grafico.jpg" href={{this.chartChild?.imageUrl}}>
+                <button id="baixar" type="button" class="btn btn-outline-dark"><svg xmlns="http://www.w3.org/2000/svg"
+                        width="25" height="25" fill="currentColor" class="bi bi-arrow-bar-down" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5M8 6a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L7.5 12.293V6.5A.5.5 0 0 1 8 6" />
+                    </svg>
+                </button>
+            </a>
+        </div>
+        <app-main-chart (change)="changeGroupBy($event)" [chartType]=this.selectedChartType
+            [groupingButtons]=this.groupingButtons [data]=this.entireDataset></app-main-chart>
     </div>
 </div>
