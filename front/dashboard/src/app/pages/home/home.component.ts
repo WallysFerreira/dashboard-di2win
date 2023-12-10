@@ -39,14 +39,14 @@ export class HomeComponent {
   segmentChartData: any
   groupingButtons: any = [
     {
-      name: "documento",
-      text: "Documento",
-      value: "doc"
-    },
-    {
       name: "empresa",
       text: "Empresa",
       value: "user"
+    },
+    {
+      name: "documento",
+      text: "Documento",
+      value: "doc"
     },
     {
       name: "segmento",
@@ -185,6 +185,8 @@ export class HomeComponent {
       labels: labels,
       datasets: datasets
     }
+
+    this.selectedChartData = this.userChartData
   }
 
   async pegarDadosSegmentos() {
