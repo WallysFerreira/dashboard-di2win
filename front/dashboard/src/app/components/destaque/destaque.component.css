@@ -17,3 +17,9 @@ p {
     font-weight: lighter;
     font-style: italic;
 }
+
+@media (max-width: 600px) {
+    #destaqueDiv {
+        min-width: 170px;
+    }
+}
