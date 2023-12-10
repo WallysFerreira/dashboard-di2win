@@ -10,7 +10,7 @@ import { MainChartComponent } from 'src/app/components/main-chart/main-chart.com
 
 export class GraficoComponent {
   @ViewChild(MainChartComponent) chartChild?: MainChartComponent;
-  filtroSelects: any
+  filtroOptions: any
   dateInputs: any
   groupByButtons: any
   changed = false
@@ -21,6 +21,7 @@ export class GraficoComponent {
   selectedSegment?: string
   selectedStartDate?: string
   selectedEndDate?: string
+  eventListenersWereAdded: boolean = false
   labelData: any = []
   valueData: any = []
   groupingButtons: any = [
@@ -57,7 +58,7 @@ export class GraficoComponent {
   segmentFilterData: any = []
 
   async ngOnInit() {
-    this.filtroSelects = document.getElementById('filtrosDiv')?.getElementsByTagName('select')
+    this.filtroOptions = document.getElementsByClassName('dropdown-item')
     this.dateInputs = document.getElementById('filtrosDiv')?.getElementsByTagName('input')
     this.groupByButtons = document.getElementById('groupDiv')?.getElementsByTagName('select')[0]
 
@@ -100,7 +101,7 @@ export class GraficoComponent {
   }
 
   changeFilter(event: any) {
-    let targetParentId = event.target.parentElement.parentElement.id
+    let targetParentId = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.id
     let targetValue = event.target.value
     
     if (targetParentId.includes('Documento')) {
@@ -145,7 +146,15 @@ export class GraficoComponent {
     this.updateData()
   }
 
-  async ngAfterContentChecked() {
+  ngAfterContentChecked() {
+    if(this.eventListenersWereAdded == false && this.filtroOptions.length >= 23){
+      for(let option of this.filtroOptions){
+        option.addEventListener('click',(e : any) => {
+          this.changeFilter(e)
+        })
+      }
+      this.eventListenersWereAdded = true
+    }
     this.changed = false
   }
 

@@ -22,9 +22,9 @@
                             Tipo de Gráfico
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                            <button ngbDropdownItem (ngModelChange)="changeChartType('bar')">Gráfico de barras</button>
-                            <button ngbDropdownItem (ngModelChange)="changeChartType('line')">Gráfico em linha</button>
-                            <button ngbDropdownItem (ngModelChange)="changeChartType('doughnut')">Gráfico de rosquinha</button>
+                            <button ngbDropdownItem (click)="changeChartType($event)" value="bar">Gráfico de barras</button>
+                            <button ngbDropdownItem (click)="changeChartType($event)" value="line">Gráfico em linha</button>
+                            <button ngbDropdownItem (click)="changeChartType($event)" value="doughnut">Gráfico de rosquinha</button>
                         </div>
                     </div>
                 </div>
