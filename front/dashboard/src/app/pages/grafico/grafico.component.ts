@@ -136,6 +136,10 @@ export class GraficoComponent {
     this.updateData()
   }
 
+  testar(event: any) {
+    console.log(event)
+  }
+
   changeGroupBy(event: any) {
     if (this.selectedGroupBy != event.target.value) {
       this.selectedGroupBy = event.target.value

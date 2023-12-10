@@ -2,11 +2,11 @@
     <div id="filtrosDiv">
         <app-filtro (change)="changeFilter($event)" [filterTitle]="'Data'" [filterType]="'date'"></app-filtro>
         <app-filtro (change)="changeFilter($event)" [filterTitle]="'Cliente'"
-            [filterData]=this.userFilterData></app-filtro>
+            [filterData]=this.userFilterData (filterClear)="testar($event)"></app-filtro>
         <app-filtro (change)="changeFilter($event)" [filterTitle]="'Documento'"
-            [filterData]=this.docFilterData></app-filtro>
+            [filterData]=this.docFilterData (filterClear)="testar($event)"></app-filtro>
         <app-filtro (change)="changeFilter($event)" [filterTitle]="'Segmento'"
-            [filterData]=this.segmentFilterData></app-filtro>
+            [filterData]=this.segmentFilterData (filterClear)="testar($event)"></app-filtro>
         <button id="clearAllBtn" (click)="clearFilters()"><img src="assets/clear-icon.png"
                 style="width: 26px;"></button>
     </div>
