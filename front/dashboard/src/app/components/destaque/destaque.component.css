@@ -9,8 +9,17 @@
 
 h1 {
     font-size: 1.3rem;
+    font-weight: 600;
 }
 
 p {
     font-size: 1.1rem;
+    font-weight: lighter;
+    font-style: italic;
+}
+
+@media (max-width: 600px) {
+    #destaqueDiv {
+        min-width: 170px;
+    }
 }

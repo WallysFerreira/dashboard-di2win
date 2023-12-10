@@ -1,13 +1,3 @@
-<!-- <div id="menuDiv">
-    <a routerLink="/">
-        <img *ngIf="!router.isActive('', true)" src="assets/unselected-home-icon.svg" alt="Home button">
-        <img *ngIf="router.isActive('', true)" src="assets/selected-home-icon.svg" alt="Home button">
-    </a>
-    <a routerLink="/grafico">
-        <img *ngIf="!router.isActive('/grafico', true)" src="assets/unselected-chart-icon.png" alt="Chart button">
-        <img *ngIf="router.isActive('/grafico', true)" src="assets/selected-chart-icon.png" alt="Chart button">
-    </a>
-</div> -->
 
 <ng-template #content let-offcanvas>
 	<div class="offcanvas-header">
@@ -27,4 +17,4 @@
 	</div>
 </ng-template>
 <button class="btn btn-sn btn-outline-primary" (click)="open(content)"> <img src="../../../assets/icon-hamburguer.svg" alt="icon menu"> </button>
-<hr />
+
