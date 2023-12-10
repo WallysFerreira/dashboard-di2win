@@ -13,12 +13,12 @@ export class HomeComponent {
   semanaPassada: any
   mesPassado: any
   groupByButtons: any
-  tituloDocumentoMaisTestado = "O documento mais testado foi"
-  tituloDocumentoMenosTestado = "O documento menos testado foi"
-  tituloEmpresaMaisTestou = "A empresa que mais testou foi"
-  tituloEmpresaMenosTestou = "A empresa que menos testou foi"
-  tituloSegmentoMaisTestou = "O segmento que mais testou foi"
-  tituloSegmentoMenosTestou = "O segmento que menos testou foi"
+  tituloDocumentoMaisTestado = "Documento mais testado"
+  tituloDocumentoMenosTestado = "Documento menos testado"
+  tituloEmpresaMaisTestou = "Empresa que mais testou"
+  tituloEmpresaMenosTestou = "Empresa que menos testou"
+  tituloSegmentoMaisTestou = "Segmento que mais testou" 
+  tituloSegmentoMenosTestou = "Segmento que menos testou"
   tituloQntTotalPaginasTestadas = "Total de paginas testadas"
   documentoMaisTestadoMes!: string
   documentoMaisTestadoSemana!: string
