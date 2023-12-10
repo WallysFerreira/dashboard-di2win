@@ -1,8 +1,13 @@
 <div [style.width.vw]=this.divWidth class="chartDiv">
     <canvas id={{this.canvasID}}>{{ chart }}</canvas>
     <div id="groupDiv">
-        <select>
-            <option *ngFor="let button of groupingButtons; let isFirst = first" [class.selected]='isFirst' value="{{button.value}}" id="{{button.name + 'Button'}}">{{'Agrupar por ' + button.text }}</option>
-        </select>
+        <div ngbDropdown class="d-inline-block">
+			<button type="button" class="btn btn-outline-dark" id="dropdownBasic1" ngbDropdownToggle>
+                Agrupamento
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+				<button ngbDropdownItem *ngFor="let button of groupingButtons; let isFirst = first" [class.selected]='isFirst' value="{{button.value}}" id="{{button.name + 'Button'}}">{{'Agrupar por ' + button.text }}</button>
+			</div>
     </div>
 </div>
+
