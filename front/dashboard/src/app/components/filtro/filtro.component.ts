@@ -11,4 +11,5 @@ export class FiltroComponent {
   @Input() filterType?: string
   @Input() filterData: any
   @Output() filterClear = new EventEmitter<string>()
+  isCollapsed = true;
 }

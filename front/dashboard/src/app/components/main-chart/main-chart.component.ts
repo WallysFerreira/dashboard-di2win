@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 
 @Component({
@@ -17,6 +17,7 @@ export class MainChartComponent {
   @Input() chartType: any = 'bar'
   @Input() data: any
   @Input() groupingButtons: any
+  @Output() exchangedGroupby = new EventEmitter<string>()
   setData: any = {
     labels: [],
     datasets: [{
@@ -111,6 +112,9 @@ export class MainChartComponent {
     let canvas = <HTMLCanvasElement>document.getElementById(this.canvasID)
 
     this.imageUrl = canvas.toDataURL()
+  }
+  groupbyClicked(value:any){
+    this.exchangedGroupby.emit(value)
   }
 }
 

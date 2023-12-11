@@ -3,7 +3,7 @@
 	<div class="offcanvas-header">
 		<button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
 	</div>
-	<div class="offcanvas-body">
+	<div class="offcanvas-body" id="menuDiv">
     <a routerLink="/">
       <img *ngIf="!router.isActive('', true)" src="assets/unselected-home-icon.svg" alt="Home button">
       <img *ngIf="router.isActive('', true)" src="assets/selected-home-icon.svg" alt="Home button">
@@ -16,5 +16,5 @@
 		</div>
 	</div>
 </ng-template>
-<button class="btn btn-sn btn-outline-primary" (click)="open(content)"> <img src="../../../assets/icon-hamburguer.svg" alt="icon menu"> </button>
+<button class="btn btn-sn btn-outline-dark" (click)="open(content)"> <img src="../../../assets/icon-hamburguer.svg" width="60%" alt="icon menu"> </button>
 
