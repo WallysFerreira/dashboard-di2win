@@ -58,7 +58,7 @@ export class GraficoComponent {
   segmentFilterData: any = []
 
   async ngOnInit() {
-    this.filtroOptions = document.getElementsByClassName('dropdown-item')
+    this.filtroOptions = document.getElementById('filtrosDiv')?.getElementsByClassName('dropdown-item')
     this.dateInputs = document.getElementById('filtrosDiv')?.getElementsByTagName('input')
     this.groupByButtons = document.getElementById('groupDiv')?.getElementsByTagName('select')[0]
 
@@ -101,7 +101,7 @@ export class GraficoComponent {
   }
 
   changeFilter(event: any) {
-    let targetParentId = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.id
+    let targetParentId = event.target.parentElement.parentElement.parentElement.parentElement.id
     let targetValue = event.target.value
     
     if (targetParentId.includes('Documento')) {
@@ -138,8 +138,8 @@ export class GraficoComponent {
   }
 
   changeGroupBy(event: any) {
-    if (this.selectedGroupBy != event.target.value) {
-      this.selectedGroupBy = event.target.value
+    if (this.selectedGroupBy != event) {
+      this.selectedGroupBy = event
       this.changed = true
     }
 
@@ -147,7 +147,7 @@ export class GraficoComponent {
   }
 
   ngAfterContentChecked() {
-    if(this.eventListenersWereAdded == false && this.filtroOptions.length >= 23){
+    if(this.eventListenersWereAdded == false && this.filtroOptions.length >= 19){
       for(let option of this.filtroOptions){
         option.addEventListener('click',(e : any) => {
           this.changeFilter(e)
@@ -245,5 +245,7 @@ export class GraficoComponent {
         this.selectedSegment = undefined
         break;
     }
+    this.changed = true 
+    this.updateData()
   }
 }

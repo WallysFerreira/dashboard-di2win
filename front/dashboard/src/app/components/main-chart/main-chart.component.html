@@ -6,7 +6,7 @@
                 Agrupamento
 			</button>
 			<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-				<button ngbDropdownItem *ngFor="let button of groupingButtons; let isFirst = first" [class.selected]='isFirst' value="{{button.value}}" id="{{button.name + 'Button'}}">{{'Agrupar por ' + button.text }}</button>
+				<button ngbDropdownItem (click)="groupbyClicked(button.value)" *ngFor="let button of groupingButtons; let isFirst = first" [class.selected]='isFirst' value="{{button.value}}" id="{{button.name + 'Button'}}">{{'Agrupar por ' + button.text }}</button>
 			</div>
     </div>
 </div>

@@ -220,19 +220,15 @@ export class HomeComponent {
     }
   }
 
-  getSelectedChartData() {
-    console.log(this.groupBySelect.value)
-    switch (this.groupBySelect.value) {
+  getSelectedChartData(event:any) {
+    switch (event) {
       case 'doc':
-        console.log(this.docChartData)
         this.selectedChartData = this.docChartData
         break;
       case 'user':
-        console.log(this.userChartData)
         this.selectedChartData = this.userChartData
         break;
       case 'segment':
-        console.log(this.segmentChartData)
         this.selectedChartData = this.segmentChartData
         break;
     }

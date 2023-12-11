@@ -17,6 +17,7 @@
 #clearAllBtn {
     align-self: flex-start;
     height: 33px;
+    border-radius: 20%;
 }
 
 #additionalOptionsDiv {

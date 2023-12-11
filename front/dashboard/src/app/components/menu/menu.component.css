@@ -1,8 +1,7 @@
 #menuDiv {
-    width: 99vw;
     display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
-    min-width: 50px;
+    flex-direction: column;
+}
+#menuDiv img{
+    width: 20%;
 }

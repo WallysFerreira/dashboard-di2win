@@ -2,14 +2,36 @@
     <div id="{{filterTitle + 'OptionsDiv'}}">
 
         <div class="dateOptionsDiv" *ngIf="this.filterType == 'date'">
-            <div>
+        <button
+            type="button"
+            class="btn btn-outline-dark ms-2"
+            (click)="isCollapsed = !isCollapsed"
+            [attr.aria-expanded]="!isCollapsed"
+            aria-controls="collapseExample"
+        >
+            Data
+        </button>
+    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+        <div class="card">
+            <div class="card-body">
+                <div>
+                    <button>De:</button>
+                    <input type="date" name="dateStart" id="dateStart">
+                </div>
+                <div>
+                    <button>Até:</button>
+                    <input type="date" name="dateEnd" id="dateEnd">
+                </div></div>
+        </div>
+        </div>
+            <!-- <div>
                 <button>De:</button>
                 <input type="date" name="dateStart" id="dateStart">
             </div>
             <div>
                 <button>Até:</button>
                 <input type="date" name="dateEnd" id="dateEnd">
-            </div>
+            </div> --> 
         </div>
 
         <div ngbDropdown class="d-inline-block" class="nonDateOptions"

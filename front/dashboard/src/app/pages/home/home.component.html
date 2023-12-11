@@ -34,7 +34,7 @@
     </div>
 
     <div id="chartsDiv">
-        <app-main-chart (change)="getSelectedChartData()" [divWidth]='35' [title]="'Sazonalidade'" [chartType]="'line'" [data]=this.selectedChartData
+        <app-main-chart (exchangedGroupby)="getSelectedChartData($event)" [divWidth]='35' [title]="'Sazonalidade'" [chartType]="'line'" [data]=this.selectedChartData
             [groupingButtons]=this.groupingButtons></app-main-chart>
     </div>
 </div>
